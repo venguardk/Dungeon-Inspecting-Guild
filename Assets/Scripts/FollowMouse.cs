@@ -8,6 +8,10 @@ public class FollowMouse : MonoBehaviour
     {
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y); //Updating where the mouse is
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+
+        //Setting the image following the mouse to gird position
+        worldPosition.x = Mathf.Ceil(worldPosition.x - 0.5f);
+        worldPosition.y = Mathf.Ceil(worldPosition.y - 0.5f);
         transform.position = worldPosition;
 
         if (Input.GetKeyDown(KeyCode.Space) && isRotatable)

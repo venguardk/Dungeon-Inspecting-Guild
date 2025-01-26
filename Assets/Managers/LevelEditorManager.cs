@@ -18,7 +18,8 @@ public class LevelEditorManager : MonoBehaviour
         { //If the left mouse button is clicked, spawn the asset
             assetButtons[currentButtonPressed].clicked = false;
             float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
-            Instantiate(assets[currentButtonPressed], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+            //Setting the asset so that it will be located in a grid position
+            Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
             Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
         }
         else if (Input.GetMouseButtonDown(1) && assetButtons[currentButtonPressed].clicked)
