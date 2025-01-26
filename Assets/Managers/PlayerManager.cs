@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private GameObject attackHitBox;
     [SerializeField] private float attackDuration = 0.1f, attackRange = 1f;
+    [SerializeField] private int health = 10;
     private bool isAttacking;
 
     private void Awake()
@@ -20,6 +21,7 @@ public class PlayerManager : MonoBehaviour
     {
         playerDirection = Vector2.down;
         attackHitBox.SetActive(false);
+        health = 10;
     }
 
     private void Update()
@@ -82,5 +84,10 @@ public class PlayerManager : MonoBehaviour
         {
             sr.flipX = false;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - LevelEditorManager
   - AssetImage
   - AddedItem
+  - Projectile
   layers:
   - Default
   - TransparentFX
