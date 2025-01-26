@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - LevelEditorManager
+  - AssetImage
+  - AddedItem
   layers:
   - Default
   - TransparentFX
