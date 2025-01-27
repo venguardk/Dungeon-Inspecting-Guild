@@ -3,13 +3,14 @@ using UnityEngine;
 public class AssetManager : MonoBehaviour
 {
     //Add this script to all assets that the player places down in the level editor
-    [SerializeField] public int ID;
+    [SerializeField] public int ID, goldCost, threatLevel;
     private LevelEditorManager levelEditorManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         levelEditorManager = GameObject.FindGameObjectWithTag("LevelEditorManager").GetComponent<LevelEditorManager>();
+        levelEditorManager.AddGold(goldCost);
+        levelEditorManager.AddThreatLevel(threatLevel);
     }
 
     private void OnMouseOver()
@@ -17,6 +18,8 @@ public class AssetManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1)) //If right clicked, destroy the asset
         {
             Destroy(this.gameObject);
+            levelEditorManager.MinusGold(goldCost);
+            levelEditorManager.MinusThreatLevel(threatLevel);
         }
     }
 }

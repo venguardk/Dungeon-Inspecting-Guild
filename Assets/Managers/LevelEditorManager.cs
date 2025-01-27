@@ -6,6 +6,8 @@ public class LevelEditorManager : MonoBehaviour
     public AssetController[] assetButtons;
     public GameObject[] assets, assetImages;
     public int currentButtonPressed;
+    [SerializeField] private int goldBudget, requiredThreatLevel;
+    private int goldSpent, currentThreatLevel;
 
     private void Update()
     {
@@ -24,5 +26,38 @@ public class LevelEditorManager : MonoBehaviour
             assetButtons[currentButtonPressed].clicked = false;
             Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (goldSpent > goldBudget)
+        {
+            Debug.Log("You have exceeded your gold budget!");
+        }
+        if (currentThreatLevel > requiredThreatLevel)
+        {
+            Debug.Log("You have met the required threat level!");
+        }
+    }
+
+    public void AddGold(int gold)
+    {
+        goldSpent += gold;
+        //Debug.Log("Gold Spent: " + goldSpent);
+    }
+
+    public void MinusGold(int gold)
+    {
+        goldSpent -= gold;
+    }
+
+    public void AddThreatLevel(int threatLevel)
+    {
+        currentThreatLevel += threatLevel;
+    }
+
+    public void MinusThreatLevel(int threatLevel)
+    {
+        currentThreatLevel -= threatLevel;
     }
 }

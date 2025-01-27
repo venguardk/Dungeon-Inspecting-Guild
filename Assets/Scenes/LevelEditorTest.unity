@@ -486,6 +486,8 @@ MonoBehaviour:
   - {fileID: 2750594290437027476, guid: babbd50ba2e814335bdb4af5358c96aa, type: 3}
   - {fileID: 2750594290437027476, guid: babbd50ba2e814335bdb4af5358c96aa, type: 3}
   currentButtonPressed: 0
+  goldBudget: 250
+  requiredThreatLevel: 0
 --- !u!4 &1031263298
 Transform:
   m_ObjectHideFlags: 0

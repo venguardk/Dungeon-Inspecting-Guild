@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 1
+  goldCost: 0
+  threatLevel: 1
 --- !u!114 &2126592612475577134
 MonoBehaviour:
   m_ObjectHideFlags: 0
