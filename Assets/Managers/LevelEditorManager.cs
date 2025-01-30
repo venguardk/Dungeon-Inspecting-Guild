@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelEditorManager : MonoBehaviour
@@ -8,19 +9,27 @@ public class LevelEditorManager : MonoBehaviour
     public int currentButtonPressed;
     [SerializeField] private int goldBudget, requiredThreatLevel;
     private int goldSpent, currentThreatLevel;
+    private Dictionary<Vector2, GameObject> RoomDictionary = new Dictionary<Vector2, GameObject>();
 
     private void Update()
     {
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y); //Updating where the mouse is
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        
 
         if (Input.GetMouseButtonDown(0) && assetButtons[currentButtonPressed].clicked)
         { //If the left mouse button is clicked, spawn the asset
-            assetButtons[currentButtonPressed].clicked = false;
-            float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
-            //Setting the asset so that it will be located in a grid position
-            Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
-            Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
+            
+            if (RoomDictionary.ContainsKey(new Vector2(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f))) == false)
+            {
+                //assetButtons[currentButtonPressed].clicked = false;
+                float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
+                //Setting the asset so that it will be located in a grid position
+                Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+                RoomDictionary.Add(new Vector2(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f)), assets[currentButtonPressed]);
+
+                //Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
+            }
         }
         else if (Input.GetMouseButtonDown(1) && assetButtons[currentButtonPressed].clicked)
         { //If the right mouse button is clicked, cancel addition
@@ -60,5 +69,10 @@ public class LevelEditorManager : MonoBehaviour
     public void MinusThreatLevel(int threatLevel)
     {
         currentThreatLevel -= threatLevel;
+    }
+
+    public void RemoveAsset(Vector2 position)
+    {
+        RoomDictionary.Remove(position);
     }
 }
