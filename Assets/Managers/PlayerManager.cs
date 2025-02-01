@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -41,6 +42,12 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isAttacking == false)
         {
             Attack();
+        }
+
+        //Reset scene by pressing R
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reset();
         }
     }
 
@@ -89,5 +96,10 @@ public class PlayerManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+    }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

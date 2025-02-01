@@ -20,6 +20,7 @@ public class AssetManager : MonoBehaviour
             Destroy(this.gameObject);
             levelEditorManager.MinusGold(goldCost);
             levelEditorManager.MinusThreatLevel(threatLevel);
+            levelEditorManager.RemoveAsset(new Vector2(this.transform.position.x, this.transform.position.y));
         }
     }
 }
