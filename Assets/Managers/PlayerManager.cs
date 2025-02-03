@@ -96,6 +96,10 @@ public class PlayerManager : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        if (health <= 0)
+        {
+            Debug.Log("Player has died!");
+        }
     }
 
     public void Reset()

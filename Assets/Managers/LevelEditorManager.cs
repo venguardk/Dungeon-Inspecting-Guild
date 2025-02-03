@@ -15,11 +15,11 @@ public class LevelEditorManager : MonoBehaviour
     {
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y); //Updating where the mouse is
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-        
+
 
         if (Input.GetMouseButtonDown(0) && assetButtons[currentButtonPressed].clicked)
         { //If the left mouse button is clicked, spawn the asset
-            
+
             if (RoomDictionary.ContainsKey(new Vector2(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f))) == false)
             {
                 //assetButtons[currentButtonPressed].clicked = false;
