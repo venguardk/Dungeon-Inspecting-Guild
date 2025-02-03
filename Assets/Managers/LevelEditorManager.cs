@@ -75,4 +75,10 @@ public class LevelEditorManager : MonoBehaviour
     {
         RoomDictionary.Remove(position);
     }
+
+    public void DeactivateButton()
+    {
+        assetButtons[currentButtonPressed].clicked = false;
+        Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
+    }
 }
