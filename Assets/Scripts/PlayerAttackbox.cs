@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class PlayerHitbox : MonoBehaviour
+public class PlayerAttackbox : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Hit enemy");
+            other.GetComponent<EnemyManager>().TakeDamage(1);
+            Debug.Log("Enemy Hit");
         }
     }
 }

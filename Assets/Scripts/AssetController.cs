@@ -1,8 +1,9 @@
+using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class AssetController : MonoBehaviour
+public class AssetController : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] private int ID;
     public bool clicked;
@@ -13,6 +14,14 @@ public class AssetController : MonoBehaviour
         levelEditorManager = GameObject.FindGameObjectWithTag("LevelEditorManager").GetComponent<LevelEditorManager>();
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (levelEditorManager.currentButtonPressed != ID)
+        {
+            levelEditorManager.DeactivateButton();
+        }
+    }
+
     public void ButtonClicked()
     {
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y); //Updating where the mouse is
@@ -20,6 +29,6 @@ public class AssetController : MonoBehaviour
 
         clicked = true;
         levelEditorManager.currentButtonPressed = ID;
-        Instantiate(levelEditorManager.assetImages[ID], new Vector3(worldPosition.x, worldPosition.y, 0), Quaternion.identity); //Spawn the asset at the mouse position
+        Instantiate(levelEditorManager.assetImages[ID], new Vector3(worldPosition.x - 0.5f, worldPosition.y - 0.5f, 0), Quaternion.identity); //Spawn the asset at the mouse position
     }
 }
