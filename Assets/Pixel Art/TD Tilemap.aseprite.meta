@@ -124,7 +124,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: TD Tilemap
     originalName: 
-    pivot: {x: 0.5277778, y: -0.2580645}
+    pivot: {x: 0.5, y: -0.052276555}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,8 +132,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 576
-      height: 496
+      width: 608
+      height: 593
     spriteID: c3f91ade62c024780882ab3daf85d951
     spriteBone: []
     spriteOutline: []
@@ -157,9 +157,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 16
-        y: 128
-        width: 576
-        height: 496
+        y: 31
+        width: 608
+        height: 593
       spriteId: c3f91ade62c024780882ab3daf85d951
     linkedCells: []
     parentIndex: -1

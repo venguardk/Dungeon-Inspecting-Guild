@@ -9,6 +9,7 @@ TagManager:
   - AssetImage
   - AddedItem
   - Projectile
+  - Collectible
   layers:
   - Default
   - TransparentFX

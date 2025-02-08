@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float attackDuration = 0.1f, attackRange = 1f;
     [SerializeField] private int health = 10;
     private bool isAttacking;
+    private int keyCount = 0;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class PlayerManager : MonoBehaviour
         playerDirection = Vector2.down;
         attackHitBox.SetActive(false);
         health = 10;
+        keyCount = 0;
     }
 
     private void Update()
@@ -100,6 +102,29 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.Log("Player has died!");
         }
+    }
+
+    public void FullHeal()
+    {
+        health = 10;
+        Debug.Log("Player healed!");
+    }
+
+    public void AddKey()
+    {
+        keyCount++;
+        Debug.Log("Player has " + keyCount + " keys!");
+    }
+
+    public void RemoveKey()
+    {
+        keyCount--;
+        Debug.Log("Player has " + keyCount + " keys!");
+    }
+
+    public bool HasKey()
+    {
+        return keyCount > 0;
     }
 
     public void Reset()

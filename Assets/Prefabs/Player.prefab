@@ -199,6 +199,7 @@ MonoBehaviour:
   attackHitBox: {fileID: 3658701014089797593}
   attackDuration: 0.2
   attackRange: 1
+  health: 10
 --- !u!50 &5857550487080113228
 Rigidbody2D:
   serializedVersion: 5
