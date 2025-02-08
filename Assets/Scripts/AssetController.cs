@@ -16,10 +16,7 @@ public class AssetController : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (levelEditorManager.currentButtonPressed != ID)
-        {
-            levelEditorManager.DeactivateButton();
-        }
+        levelEditorManager.DeactivateButton();
     }
 
     public void ButtonClicked()
