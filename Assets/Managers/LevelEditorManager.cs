@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class LevelEditorManager : MonoBehaviour
 {
-    //This script is based on How to make a Level Editor in Unity -https://youtu.be/eWBDuEWUOwc?si=lxP03a4ICCOSW2Z_
+    //Main update function of this script is based on How to make a Level Editor in Unity - https://youtu.be/eWBDuEWUOwc?si=lxP03a4ICCOSW2Z_
     public AssetController[] assetButtons;
     public GameObject[] assets, assetImages;
     public int currentButtonPressed;
     [SerializeField] private int goldBudget, requiredThreatLevel;
+    [SerializeField] private Transform assetParent;
     private int goldSpent, currentThreatLevel;
     private Dictionary<Vector2, GameObject> RoomDictionary = new Dictionary<Vector2, GameObject>();
 
@@ -22,13 +23,10 @@ public class LevelEditorManager : MonoBehaviour
 
             if (RoomDictionary.ContainsKey(new Vector2(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f))) == false)
             {
-                //assetButtons[currentButtonPressed].clicked = false;
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
-                Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+                Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation), assetParent); //Spawn the asset at the mouse position
                 RoomDictionary.Add(new Vector2(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f)), assets[currentButtonPressed]);
-
-                //Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
             }
         }
         else if (Input.GetMouseButtonDown(1) && assetButtons[currentButtonPressed].clicked)
