@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class LevelEditorManager : MonoBehaviour
+public class LevelEditorManager : MonoBehaviour, IDataPersistence
 {
     //Main update function of this script is based on How to make a Level Editor in Unity - https://youtu.be/eWBDuEWUOwc?si=lxP03a4ICCOSW2Z_
     public AssetController[] assetButtons;
@@ -10,7 +11,42 @@ public class LevelEditorManager : MonoBehaviour
     [SerializeField] private int goldBudget, requiredThreatLevel;
     [SerializeField] private Transform assetParent;
     private int goldSpent, currentThreatLevel;
-    private Dictionary<Vector2, GameObject> RoomDictionary = new Dictionary<Vector2, GameObject>();
+
+    private Dictionary<Vector2, GameObject> RoomDictionary0;
+    private Dictionary<Vector2, GameObject> RoomDictionary1;
+    private Dictionary<Vector2, float> AngleDictionary0;
+    private Dictionary<Vector2, float> AngleDictionary1;
+    private List<GameObject> objectCopyList;
+    private string[] tagList = { "AddedItem", "Enemy", "Collectible", "Player" };
+
+
+    private void Start()
+    {
+        RoomDictionary0 = new Dictionary<Vector2, GameObject>();
+        RoomDictionary1 = new Dictionary<Vector2, GameObject>();
+        AngleDictionary0 = new Dictionary<Vector2, float>();
+        AngleDictionary1 = new Dictionary<Vector2, float>();
+        var allInitialObjects = new List<GameObject>();
+        foreach (string tag in tagList)
+        {
+            GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
+            allInitialObjects.AddRange(initialObjects);
+        }
+        
+        if(allInitialObjects.Count > 0)
+        {
+            foreach (GameObject obj in allInitialObjects)
+            {
+                GameObject copyObj = Instantiate(obj);
+                copyObj.SetActive(false);
+
+                //Separate the initial objects into each dictionary depending on their tags
+                Vector2 initialCoordinate = new Vector2(obj.transform.position.x, obj.transform.position.y);
+                RoomDictionary0.Add(initialCoordinate, copyObj);
+                AngleDictionary0.Add(initialCoordinate, copyObj.transform.eulerAngles.z);
+            }
+        }
+    }
 
     private void Update()
     {
@@ -21,18 +57,84 @@ public class LevelEditorManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && assetButtons[currentButtonPressed].clicked)
         { //If the left mouse button is clicked, spawn the asset
 
-            if (RoomDictionary.ContainsKey(new Vector2(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f))) == false)
+            Vector2 MouseCoordinate = new Vector2(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f));
+            if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 0 && RoomDictionary0.ContainsKey(MouseCoordinate) == false)
             {
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
-                Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation), assetParent); //Spawn the asset at the mouse position
-                RoomDictionary.Add(new Vector2(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f)), assets[currentButtonPressed]);
+                GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+                RoomDictionary0.Add(MouseCoordinate, assets[currentButtonPressed]);
+                AngleDictionary0.Add(MouseCoordinate, rotation);
+
+                //Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
+            }
+            else if(assets[currentButtonPressed].GetComponent<AssetManager>().objType == 1 && RoomDictionary1.ContainsKey(MouseCoordinate) == false)
+            {
+                //assetButtons[currentButtonPressed].clicked = false;
+                float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
+                //Setting the asset so that it will be located in a grid position
+                GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+                RoomDictionary1.Add(MouseCoordinate, assets[currentButtonPressed]);
+                AngleDictionary0.Add(MouseCoordinate, rotation);
+
+                //Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
             }
         }
         else if (Input.GetMouseButtonDown(1) && assetButtons[currentButtonPressed].clicked)
         { //If the right mouse button is clicked, cancel addition
             assetButtons[currentButtonPressed].clicked = false;
             Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
+        }
+
+        //Press S to save levels
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            DataPersistenceManager.instance.SaveGame();
+        }
+
+        //Press L to load saved levels
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            DataPersistenceManager.instance.LoadGame();
+            var allObjects = new List<GameObject>();
+            foreach (string tag in tagList)
+            {
+                GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
+                allObjects.AddRange(initialObjects);
+            }
+            foreach (GameObject obj in allObjects)
+            {
+                //if obj has goldCost or threatLevel, remove that
+                AssetManager assetManager = obj.GetComponent<AssetManager>();
+                if (assetManager != null)
+                {
+                    MinusGold(assetManager.goldCost);
+                    MinusThreatLevel(assetManager.threatLevel);
+                }
+                Destroy(obj);
+            }
+            foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary0)
+            {
+                Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key])).SetActive(true);
+            }
+            foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary1)
+            {
+                Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary1[loaded.Key])).SetActive(true);
+            }
+
+        }
+        
+        //For Debug
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary0)
+            {
+                Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary0[items.Key]);
+            }
+            foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary1)
+            {
+                Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary1[items.Key]);
+            }
         }
     }
 
@@ -69,14 +171,61 @@ public class LevelEditorManager : MonoBehaviour
         currentThreatLevel -= threatLevel;
     }
 
-    public void RemoveAsset(Vector2 position)
+    public void RemoveAsset(Vector2 position, int objType)
     {
-        RoomDictionary.Remove(position);
+        if(objType == 0)
+        {
+            RoomDictionary0.Remove(position);
+            AngleDictionary0.Remove(position);
+        }
+        else if(objType == 1)
+        {
+            RoomDictionary1.Remove(position);
+            AngleDictionary1.Remove(position);
+        }
     }
 
     public void DeactivateButton()
     {
         assetButtons[currentButtonPressed].clicked = false;
         Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.RoomDictionary0.Clear();
+        this.AngleDictionary0.Clear();
+        foreach (KeyValuePair<Vector2, GameObject> items in data.RoomDictionary0)
+        {
+            this.RoomDictionary0.Add(items.Key, items.Value);
+            this.AngleDictionary0.Add(items.Key, data.AngleDictionary0[items.Key]);
+        }
+
+        this.RoomDictionary1.Clear();
+        this.AngleDictionary1.Clear();
+        foreach (KeyValuePair<Vector2, GameObject> items in data.RoomDictionary1)
+        {
+            this.RoomDictionary1.Add(items.Key, items.Value);
+            this.AngleDictionary1.Add(items.Key, data.AngleDictionary1[items.Key]);
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.RoomDictionary0.Clear();
+        data.AngleDictionary0.Clear();
+        foreach (KeyValuePair<Vector2, GameObject> items in this.RoomDictionary0)
+        {
+            data.RoomDictionary0.Add(items.Key, items.Value);
+            data.AngleDictionary0.Add(items.Key, this.AngleDictionary0[items.Key]);
+        }
+
+        data.RoomDictionary1.Clear();
+        data.AngleDictionary1.Clear();
+        foreach (KeyValuePair<Vector2, GameObject> items in this.RoomDictionary1)
+        {
+            data.RoomDictionary1.Add(items.Key, items.Value);
+            data.AngleDictionary0.Add(items.Key, this.AngleDictionary0[items.Key]);
+        }
     }
 }

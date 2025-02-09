@@ -30,28 +30,32 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (isAttacking)
+        if (SceneManager.GetActiveScene().name == "PlayMovementTest")
         {
-            movementInput = Vector2.zero;
-            return; //Stops player from moving while attacking
-        }
+            if (isAttacking)
+            {
+                movementInput = Vector2.zero;
+                return; //Stops player from moving while attacking
+            }
 
-        movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        if (movementInput != Vector2.zero)
-        {
-            playerDirection = movementInput;
-        }
+            movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            if (movementInput != Vector2.zero)
+            {
+                playerDirection = movementInput;
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isAttacking == false)
-        {
-            Attack();
-        }
+            if (Input.GetKeyDown(KeyCode.Space) && isAttacking == false)
+            {
+                Attack();
+            }
 
-        //Reset scene by pressing R
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reset();
+            //Reset scene by pressing R
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Reset();
+            }
         }
+        
     }
 
     private void FixedUpdate()
@@ -146,6 +150,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Reset()
     {
+        Debug.Log(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

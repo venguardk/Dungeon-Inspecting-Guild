@@ -388,3 +388,4 @@ MonoBehaviour:
   ID: 3
   goldCost: 0
   threatLevel: 3
+  objType: 0

@@ -166,6 +166,7 @@ MonoBehaviour:
   ID: 2
   goldCost: 0
   threatLevel: 1
+  objType: 0
 --- !u!1 &7308909588420819118
 GameObject:
   m_ObjectHideFlags: 0

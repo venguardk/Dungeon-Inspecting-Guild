@@ -105,6 +105,7 @@ MonoBehaviour:
   ID: 5
   goldCost: 0
   threatLevel: 0
+  objType: 0
 --- !u!58 &3256826929709026861
 CircleCollider2D:
   m_ObjectHideFlags: 0
