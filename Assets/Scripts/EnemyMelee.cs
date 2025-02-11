@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyMelee : MonoBehaviour
 {
@@ -19,20 +20,24 @@ public class EnemyMelee : MonoBehaviour
 
     void Update()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-        if (distanceToPlayer <= chaseRange && isAttacking == false)
+        if (SceneManager.GetActiveScene().name == "PlayMovementTest")
         {
-            ChasePlayer();
-            if (distanceToPlayer <= attackRange && isAttacking == false)
+            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+            if (distanceToPlayer <= chaseRange && isAttacking == false)
             {
-                Invoke("AttackPlayer", attackDelay);
+                ChasePlayer();
+                if (distanceToPlayer <= attackRange && isAttacking == false)
+                {
+                    Invoke("AttackPlayer", attackDelay);
+                }
+            }
+            else
+            {
+                StopChasingPlayer();
             }
         }
-        else
-        {
-            StopChasingPlayer();
-        }
+        
     }
 
     void ChasePlayer()

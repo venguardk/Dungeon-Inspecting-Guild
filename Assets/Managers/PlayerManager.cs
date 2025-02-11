@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject attackHitBox;
     [SerializeField] private float attackDuration = 0.1f, attackRange = 1f;
     [SerializeField] private int health = 10;
-    private bool isAttacking;
+    private bool isAttacking, isInvincible;
     private int keyCount = 0;
 
     private void Awake()
@@ -25,32 +25,37 @@ public class PlayerManager : MonoBehaviour
         attackHitBox.SetActive(false);
         health = 10;
         keyCount = 0;
+        isInvincible = false;
     }
 
     private void Update()
     {
-        if (isAttacking)
+        if (SceneManager.GetActiveScene().name == "PlayMovementTest")
         {
-            movementInput = Vector2.zero;
-            return; //Stops player from moving while attacking
-        }
+            if (isAttacking)
+            {
+                movementInput = Vector2.zero;
+                return; //Stops player from moving while attacking
+            }
 
-        movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        if (movementInput != Vector2.zero)
-        {
-            playerDirection = movementInput;
-        }
+            movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            if (movementInput != Vector2.zero)
+            {
+                playerDirection = movementInput;
+            }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isAttacking == false)
-        {
-            Attack();
-        }
+            if (Input.GetKeyDown(KeyCode.Space) && isAttacking == false)
+            {
+                Attack();
+            }
 
-        //Reset scene by pressing R
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reset();
+            //Reset scene by pressing R
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Reset();
+            }
         }
+        
     }
 
     private void FixedUpdate()
@@ -97,10 +102,13 @@ public class PlayerManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        if (isInvincible == false)
         {
-            Debug.Log("Player has died!");
+            health -= damage;
+            if (health <= 0)
+            {
+                Debug.Log("Player has died!");
+            }
         }
     }
 
@@ -127,8 +135,22 @@ public class PlayerManager : MonoBehaviour
         return keyCount > 0;
     }
 
+    public void BecomeInvincible()
+    {
+        isInvincible = true;
+        Debug.Log("Player is now invincible!");
+        Invoke(nameof(EndInvincibility), 5f); //Calls EndInvincibility after 5 seconds
+    }
+
+    private void EndInvincibility()
+    {
+        isInvincible = false;
+        Debug.Log("Player is no longer invincible!");
+    }
+
     public void Reset()
     {
+        Debug.Log(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

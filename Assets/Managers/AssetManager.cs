@@ -3,7 +3,7 @@ using UnityEngine;
 public class AssetManager : MonoBehaviour
 {
     //Add this script to all assets that the player places down in the level editor
-    [SerializeField] public int ID, goldCost, threatLevel;
+    [SerializeField] public int ID, goldCost, threatLevel, objType;
     private LevelEditorManager levelEditorManager;
 
     void Start()
@@ -20,7 +20,8 @@ public class AssetManager : MonoBehaviour
             Destroy(this.gameObject);
             levelEditorManager.MinusGold(goldCost);
             levelEditorManager.MinusThreatLevel(threatLevel);
-            levelEditorManager.RemoveAsset(new Vector2(this.transform.position.x, this.transform.position.y));
+            levelEditorManager.RemoveAsset(new Vector2(this.transform.position.x, this.transform.position.y), objType);
+
         }
     }
 }
