@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e25ba34f97db4c0995234aef17589b7
+guid: d86c45a6deb18434c86c2850a2a29135
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: TD Tilemap
+  - name: TD Tiles WIP
     originalName: 
-    pivot: {x: 6.4285717, y: -0.44186047}
+    pivot: {x: 0.50877196, y: -0.0925926}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,9 +132,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 35
-      height: 43
-    spriteID: d600c0cc40317ea409dcaf8f737b614b
+      width: 912
+      height: 864
+    spriteID: a7f16690aba612349ac5fc76cf9e661c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -146,21 +146,21 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -961078640
-    name: TD Tilemap
+    guid: 1309288561
+    name: TD Tiles WIP
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: TD Tilemap
+    - name: TD Tiles WIP
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 255
-        y: 19
-        width: 35
-        height: 43
-      spriteId: d600c0cc40317ea409dcaf8f737b614b
+        x: 16
+        y: 80
+        width: 912
+        height: 864
+      spriteId: a7f16690aba612349ac5fc76cf9e661c
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -179,4 +179,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 960, y: 224}
+  canvasSize: {x: 960, y: 960}
