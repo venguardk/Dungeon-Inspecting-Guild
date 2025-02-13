@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public void SwitchToPlayMode()
     {
         //Save Level Data
+        LevelEditorManager.instance.LevelSave();
         PlayerManager.instance.FullHeal();
         isLevelEditorMode = false;
     }
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour
     public void SwitchToLevelEditor()
     {
         //Load Level Data
+        Debug.Log("LoadedEditor?");
+        LevelEditorManager.instance.LevelLoad();
         isLevelEditorMode = true;
     }
 

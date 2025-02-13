@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,11 +14,11 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     [SerializeField] private Transform assetParent;
     private int goldSpent, currentThreatLevel;
 
+    private List<GameObject> initialObject;
     private Dictionary<Vector2, GameObject> RoomDictionary0;
     private Dictionary<Vector2, GameObject> RoomDictionary1;
     private Dictionary<Vector2, float> AngleDictionary0;
     private Dictionary<Vector2, float> AngleDictionary1;
-    private List<GameObject> objectCopyList;
     private string[] tagList = { "AddedItem", "Enemy", "Collectible", "Player" };
 
     private void Awake()
@@ -34,6 +35,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
+        initialObject = new List<GameObject>();
         RoomDictionary0 = new Dictionary<Vector2, GameObject>();
         RoomDictionary1 = new Dictionary<Vector2, GameObject>();
         AngleDictionary0 = new Dictionary<Vector2, float>();
@@ -49,13 +51,11 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             foreach (GameObject obj in allInitialObjects)
             {
-                GameObject copyObj = Instantiate(obj);
-                copyObj.SetActive(false);
-
+                initialObject.Add(obj);
                 //Separate the initial objects into each dictionary depending on their tags
                 Vector2 initialCoordinate = new Vector2(obj.transform.position.x, obj.transform.position.y);
-                RoomDictionary0.Add(initialCoordinate, copyObj);
-                AngleDictionary0.Add(initialCoordinate, copyObj.transform.eulerAngles.z);
+                RoomDictionary0.Add(initialCoordinate, obj);
+                AngleDictionary0.Add(initialCoordinate, obj.transform.eulerAngles.z);
             }
         }
     }
@@ -91,44 +91,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         { //If the right mouse button is clicked, cancel addition
             assetButtons[currentButtonPressed].clicked = false;
             Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
-        }
-
-        //Press P to save levels
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            DataPersistenceManager.instance.SaveGame();
-        }
-
-        //Press L to load saved levels
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            DataPersistenceManager.instance.LoadGame();
-            var allObjects = new List<GameObject>();
-            foreach (string tag in tagList)
-            {
-                GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
-                allObjects.AddRange(initialObjects);
-            }
-            foreach (GameObject obj in allObjects)
-            {
-                //if obj has goldCost or threatLevel, remove that
-                AssetManager assetManager = obj.GetComponent<AssetManager>();
-                if (assetManager != null)
-                {
-                    MinusGold(assetManager.goldCost);
-                    MinusThreatLevel(assetManager.threatLevel);
-                }
-                Destroy(obj);
-            }
-            foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary0)
-            {
-                Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key])).SetActive(true);
-            }
-            foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary1)
-            {
-                Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary1[loaded.Key])).SetActive(true);
-            }
-
         }
 
         //For Debug
@@ -183,6 +145,64 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     {
         assetButtons[currentButtonPressed].clicked = false;
         Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
+    }
+
+
+    //FOR SAVING AND LOADING
+
+    public void LevelSave()
+    {
+        DataPersistenceManager.instance.SaveGame();
+    }
+
+    public void LevelLoad()
+    {
+        DataPersistenceManager.instance.LoadGame();
+        var allObjects = new List<GameObject>();
+        foreach (string tag in tagList)
+        {
+            GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
+            allObjects.AddRange(initialObjects);
+        }
+        foreach (GameObject obj in allObjects)
+        {
+            //if obj has goldCost or threatLevel, remove that
+            if (!initialObject.Contains(obj))
+            {
+                AssetManager assetManager = obj.GetComponent<AssetManager>();
+                if (assetManager != null)
+                {
+                    MinusGold(assetManager.goldCost);
+                    MinusThreatLevel(assetManager.threatLevel);
+                }
+                Destroy(obj);
+            }
+        }
+        foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary0)
+        {
+            if (initialObject.Contains(loaded.Value))
+            {
+                loaded.Value.transform.position = loaded.Key;
+            }
+            else
+            {
+                Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key])).SetActive(true);
+            }
+
+
+        }
+        foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary1)
+        {
+            if (initialObject.Contains(loaded.Value))
+            {
+                loaded.Value.transform.position = loaded.Key;
+            }
+            else
+            {
+                Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary1[loaded.Key])).SetActive(true);
+            }
+
+        }
     }
 
     public void LoadData(GameData data)

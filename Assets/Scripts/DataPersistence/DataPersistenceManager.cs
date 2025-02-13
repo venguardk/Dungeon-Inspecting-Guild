@@ -56,14 +56,6 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         Debug.Log("SaveGame");
-        foreach (KeyValuePair<Vector2, GameObject> items in gameData.RoomDictionary0)
-        {
-            Debug.Log(items.Key + " " + items.Value + " " + gameData.AngleDictionary0[items.Key]);
-        }
-        foreach (KeyValuePair<Vector2, GameObject> items in gameData.RoomDictionary1)
-        {
-            Debug.Log(items.Key + " " + items.Value + " " + gameData.AngleDictionary1[items.Key]);
-        }
     }
 
     private List<IDataPersistence> FindAllPersistenceObjects()

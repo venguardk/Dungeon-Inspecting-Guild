@@ -118,7 +118,8 @@ public class PlayerManager : MonoBehaviour
             health -= damage;
             if (health <= 0)
             {
-                UIManager.instance.SwitchToLevelEditor();
+                //Causes a infinite loop when combined with flamethrower in level editor screen due to how the hitbox is like
+                //UIManager.instance.SwitchToLevelEditor();
             }
         }
     }
