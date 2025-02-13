@@ -86,8 +86,8 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
         }
 
-        //Press S to save levels
-        if (Input.GetKeyDown(KeyCode.S))
+        //Press P to save levels
+        if (Input.GetKeyDown(KeyCode.P))
         {
             DataPersistenceManager.instance.SaveGame();
         }
