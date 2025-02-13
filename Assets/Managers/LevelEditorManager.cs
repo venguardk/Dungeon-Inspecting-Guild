@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelEditorManager : MonoBehaviour, IDataPersistence
 {
     //Main update function of this script is based on How to make a Level Editor in Unity - https://youtu.be/eWBDuEWUOwc?si=lxP03a4ICCOSW2Z_
+    public static LevelEditorManager instance;
     public AssetController[] assetButtons;
     public GameObject[] assets, assetImages;
     public int currentButtonPressed;
@@ -19,6 +20,17 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     private List<GameObject> objectCopyList;
     private string[] tagList = { "AddedItem", "Enemy", "Collectible", "Player" };
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     private void Start()
     {
@@ -32,8 +44,8 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
             allInitialObjects.AddRange(initialObjects);
         }
-        
-        if(allInitialObjects.Count > 0)
+
+        if (allInitialObjects.Count > 0)
         {
             foreach (GameObject obj in allInitialObjects)
             {
@@ -65,19 +77,14 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                 GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
                 RoomDictionary0.Add(MouseCoordinate, assets[currentButtonPressed]);
                 AngleDictionary0.Add(MouseCoordinate, rotation);
-
-                //Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
             }
-            else if(assets[currentButtonPressed].GetComponent<AssetManager>().objType == 1 && RoomDictionary1.ContainsKey(MouseCoordinate) == false)
+            else if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 1 && RoomDictionary1.ContainsKey(MouseCoordinate) == false)
             {
-                //assetButtons[currentButtonPressed].clicked = false;
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
                 GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.5f), Mathf.Ceil(worldPosition.y - 0.5f), 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
                 RoomDictionary1.Add(MouseCoordinate, assets[currentButtonPressed]);
                 AngleDictionary0.Add(MouseCoordinate, rotation);
-
-                //Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
             }
         }
         else if (Input.GetMouseButtonDown(1) && assetButtons[currentButtonPressed].clicked)
@@ -123,7 +130,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             }
 
         }
-        
+
         //For Debug
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -138,22 +145,9 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (goldSpent > goldBudget)
-        {
-            Debug.Log("You have exceeded your gold budget!");
-        }
-        if (currentThreatLevel > requiredThreatLevel)
-        {
-            Debug.Log("You have met the required threat level!");
-        }
-    }
-
     public void AddGold(int gold)
     {
         goldSpent += gold;
-        //Debug.Log("Gold Spent: " + goldSpent);
     }
 
     public void MinusGold(int gold)
@@ -173,12 +167,12 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public void RemoveAsset(Vector2 position, int objType)
     {
-        if(objType == 0)
+        if (objType == 0)
         {
             RoomDictionary0.Remove(position);
             AngleDictionary0.Remove(position);
         }
-        else if(objType == 1)
+        else if (objType == 1)
         {
             RoomDictionary1.Remove(position);
             AngleDictionary1.Remove(position);
@@ -227,5 +221,30 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             data.RoomDictionary1.Add(items.Key, items.Value);
             data.AngleDictionary0.Add(items.Key, this.AngleDictionary0[items.Key]);
         }
+    }
+
+    //FOR UI MANAGER
+    public int GetGoldBudget()
+    {
+        return goldBudget;
+    }
+    public int GetRequiredThreatLevel()
+    {
+        return requiredThreatLevel;
+    }
+
+    public int GetGoldSpent()
+    {
+        return goldSpent;
+    }
+
+    public int GetCurrentThreatLevel()
+    {
+        return currentThreatLevel;
+    }
+
+    public bool LevelValuesMet()
+    {
+        return goldSpent <= goldBudget && currentThreatLevel >= requiredThreatLevel;
     }
 }

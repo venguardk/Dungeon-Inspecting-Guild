@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public bool isLevelEditorMode;
+    [SerializeField] public bool isLevelEditorMode;
 
     private void Awake()
     {
@@ -25,11 +25,14 @@ public class GameManager : MonoBehaviour
 
     public void SwitchToPlayMode()
     {
+        //Save Level Data
+        PlayerManager.instance.FullHeal();
         isLevelEditorMode = false;
     }
 
     public void SwitchToLevelEditor()
     {
+        //Load Level Data
         isLevelEditorMode = true;
     }
 

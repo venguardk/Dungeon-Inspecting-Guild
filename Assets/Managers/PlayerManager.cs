@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager instance;
     private Vector2 movementInput, movementVelocity, playerDirection;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -15,12 +16,20 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponentInChildren<SpriteRenderer>();
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         playerDirection = Vector2.down;
         attackHitBox.SetActive(false);
         health = 10;
@@ -109,7 +118,7 @@ public class PlayerManager : MonoBehaviour
             health -= damage;
             if (health <= 0)
             {
-                Debug.Log("Player has died!");
+                UIManager.instance.SwitchToLevelEditor();
             }
         }
     }
@@ -117,7 +126,6 @@ public class PlayerManager : MonoBehaviour
     public void FullHeal()
     {
         health = 10;
-        Debug.Log("Player healed!");
     }
 
     public void AddKey()
@@ -154,5 +162,11 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    //FOR UI
+    public int GetPlayerHealth()
+    {
+        return health;
     }
 }

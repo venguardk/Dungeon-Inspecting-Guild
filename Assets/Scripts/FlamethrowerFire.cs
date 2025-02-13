@@ -29,7 +29,6 @@ public class FlamethrowerFire : MonoBehaviour
         if (playerInRange)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>().TakeDamage(damage);
-            Debug.Log("Player took damage");
         }
     }
 }
