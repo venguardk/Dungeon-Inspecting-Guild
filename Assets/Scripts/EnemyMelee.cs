@@ -20,22 +20,19 @@ public class EnemyMelee : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "PlayMovementTest")
-        {
-            float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-            if (distanceToPlayer <= chaseRange && isAttacking == false)
+        if (distanceToPlayer <= chaseRange && isAttacking == false)
+        {
+            ChasePlayer();
+            if (distanceToPlayer <= attackRange && isAttacking == false)
             {
-                ChasePlayer();
-                if (distanceToPlayer <= attackRange && isAttacking == false)
-                {
-                    Invoke("AttackPlayer", attackDelay);
-                }
+                Invoke("AttackPlayer", attackDelay);
             }
-            else
-            {
-                StopChasingPlayer();
-            }
+        }
+        else
+        {
+            StopChasingPlayer();
         }
         
     }
