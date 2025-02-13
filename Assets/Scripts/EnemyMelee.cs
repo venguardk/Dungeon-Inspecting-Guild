@@ -20,6 +20,10 @@ public class EnemyMelee : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.instance.IsLevelEditorMode())
+        {
+            return;
+        }
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         if (distanceToPlayer <= chaseRange && isAttacking == false)
@@ -34,7 +38,7 @@ public class EnemyMelee : MonoBehaviour
         {
             StopChasingPlayer();
         }
-        
+
     }
 
     void ChasePlayer()

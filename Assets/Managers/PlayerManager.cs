@@ -30,6 +30,11 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.IsLevelEditorMode())
+        {
+            return;
+        }
+
         if (isAttacking)
         {
             movementInput = Vector2.zero;
@@ -52,7 +57,7 @@ public class PlayerManager : MonoBehaviour
         {
             Reset();
         }
-        
+
     }
 
     private void FixedUpdate()

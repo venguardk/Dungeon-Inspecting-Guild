@@ -9,6 +9,7 @@ public class DartShooter : MonoBehaviour
     [SerializeField] private Transform parent, shootPoint;
     [SerializeField] private float shootSpeed = 1f;
     [SerializeField] private float shootDelay = 1f;
+    private bool isShooting;
 
     private void Start()
     {
@@ -19,8 +20,24 @@ public class DartShooter : MonoBehaviour
             dart.SetActive(false);
             dartList.Add(dart);
         }
+        isShooting = false;
+    }
 
-        StartCoroutine(ShootDart());
+    private void FixedUpdate()
+    {
+        if (GameManager.instance.IsLevelEditorMode() == false)
+        {
+            if (isShooting == false)
+            {
+                isShooting = true;
+                StartCoroutine(ShootDart());
+            }
+        }
+        else
+        {
+            isShooting = false;
+            StopAllCoroutines();
+        }
     }
 
     private IEnumerator ShootDart()
