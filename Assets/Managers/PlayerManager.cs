@@ -113,13 +113,13 @@ public class PlayerManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (isInvincible == false)
+        if (isInvincible == false && !GameManager.instance.IsLevelEditorMode())
         {
             health -= damage;
             if (health <= 0)
             {
                 //Causes a infinite loop when combined with flamethrower in level editor screen due to how the hitbox is like
-                //UIManager.instance.SwitchToLevelEditor();
+                UIManager.instance.SwitchToLevelEditor();
             }
         }
     }
