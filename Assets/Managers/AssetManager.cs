@@ -17,11 +17,16 @@ public class AssetManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1)) //If right clicked, destroy the asset
         {
+            Bridge bridgeScript = this.GetComponent<Bridge>(); //If object is a bridge, enable the gap
+            if (bridgeScript != null)
+            {
+                bridgeScript.EnableGap();
+            }
+
             Destroy(this.gameObject);
             levelEditorManager.MinusGold(goldCost);
             levelEditorManager.MinusThreatLevel(threatLevel);
             levelEditorManager.RemoveAsset(new Vector2(this.transform.position.x, this.transform.position.y), objType);
-
         }
     }
 }
