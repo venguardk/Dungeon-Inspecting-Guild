@@ -14,9 +14,16 @@ public class FollowMouse : MonoBehaviour
         worldPosition.y = Mathf.Ceil(worldPosition.y - 0.5f);
         transform.position = worldPosition;
 
-        if (Input.GetKeyDown(KeyCode.Space) && isRotatable)
-        { //If the asset is rotatable, rotate it by 90 when spacebar is pressed
-            transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90);
+        if (isRotatable)
+        { //If the asset is rotatable, rotate it by 90 right when E is pressed, or 90 left when Q is pressed
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90);
+            }
         }
     }
 }

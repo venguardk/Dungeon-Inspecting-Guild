@@ -71,6 +71,10 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.instance.IsLevelEditorMode())
+        {
+            return;
+        }
         if (isAttacking)
         {
             rb.linearVelocity = Vector2.zero;
@@ -118,7 +122,9 @@ public class PlayerManager : MonoBehaviour
             health -= damage;
             if (health <= 0)
             {
-                //Causes a infinite loop when combined with flamethrower in level editor screen due to how the hitbox is like
+                playerDirection = Vector2.zero;
+                rb.linearVelocity = Vector2.zero;
+                movementInput = Vector2.zero;
                 UIManager.instance.SwitchToLevelEditor();
             }
         }
