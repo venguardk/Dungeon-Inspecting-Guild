@@ -11,15 +11,16 @@ TagManager:
   - Projectile
   - Collectible
   - Terrain
+  - Gap
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Gaps
   - Water
   - UI
-  - 
-  - 
+  - Threats
+  - Enemy
   - 
   - 
   - 
@@ -53,6 +54,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Gaps
+    uniqueID: 219235511
     locked: 0
   m_RenderingLayers:
   - Default
