@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     [SerializeField] private TextMeshProUGUI goldBudgetText, threatLevelText, playerHealthText;
     [SerializeField] private Canvas playModeCanvas, levelEditorCanvas;
+    [SerializeField] private GameObject assetsTab, threatsTab;
 
     private void Awake()
     {
@@ -27,6 +28,8 @@ public class UIManager : MonoBehaviour
         UpdateStatText();
         levelEditorCanvas.enabled = true;
         playModeCanvas.enabled = false;
+        assetsTab.SetActive(true);
+        threatsTab.SetActive(false);
     }
 
     void FixedUpdate()
@@ -57,6 +60,18 @@ public class UIManager : MonoBehaviour
         {
             threatLevelText.color = Color.green;
         }
+    }
+
+    public void AccessAssetsTab()
+    {
+        assetsTab.SetActive(true);
+        threatsTab.SetActive(false);
+    }
+
+    public void AccessThreatsTab()
+    {
+        assetsTab.SetActive(false);
+        threatsTab.SetActive(true);
     }
 
     public void SwitchToPlayMode()
