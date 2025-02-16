@@ -36,9 +36,27 @@ public class UIManager : MonoBehaviour
 
     private void UpdateStatText()
     {
-        goldBudgetText.text = "Gold Budget: " + LevelEditorManager.instance.GetGoldSpent().ToString() + "/" + LevelEditorManager.instance.GetGoldBudget().ToString();
+        goldBudgetText.text = "Gold Budget: " + LevelEditorManager.instance.GetGoldRemaining().ToString();
         threatLevelText.text = "Threat Level: " + LevelEditorManager.instance.GetCurrentThreatLevel().ToString() + "/" + LevelEditorManager.instance.GetRequiredThreatLevel().ToString();
         playerHealthText.text = $"Health: {PlayerManager.instance.GetPlayerHealth()}";
+
+        if (LevelEditorManager.instance.GetGoldRemaining() < 0)
+        {
+            goldBudgetText.color = Color.red;
+        }
+        else
+        {
+            goldBudgetText.color = new Color(255f / 255f, 193f / 255f, 85f / 255f);
+        }
+
+        if (LevelEditorManager.instance.GetCurrentThreatLevel() < LevelEditorManager.instance.GetRequiredThreatLevel())
+        {
+            threatLevelText.color = Color.red;
+        }
+        else
+        {
+            threatLevelText.color = Color.green;
+        }
     }
 
     public void SwitchToPlayMode()

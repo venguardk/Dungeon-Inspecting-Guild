@@ -253,9 +253,9 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         return requiredThreatLevel;
     }
 
-    public int GetGoldSpent()
+    public int GetGoldRemaining()
     {
-        return goldSpent;
+        return goldBudget - goldSpent;
     }
 
     public int GetCurrentThreatLevel()
