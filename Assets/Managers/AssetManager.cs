@@ -15,7 +15,7 @@ public class AssetManager : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1)) //If right clicked, destroy the asset
+        if (Input.GetMouseButtonDown(1) && GameManager.instance.IsLevelEditorMode()) //If right clicked, destroy the asset
         {
             Bridge bridgeScript = this.GetComponent<Bridge>(); //If object is a bridge, enable the gap
             if (bridgeScript != null)

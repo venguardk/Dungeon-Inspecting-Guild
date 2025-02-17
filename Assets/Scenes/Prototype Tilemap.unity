@@ -9184,6 +9184,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7515384581636288902, guid: b097aef57240c4585a2d6e0f017dc145, type: 3}
   m_PrefabInstance: {fileID: 925566774}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2012903754
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1861077991387803242, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.6268606
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.5674398
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8309546101565562316, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
+      propertyPath: m_Name
+      value: Flamethrower_Test
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
 --- !u!1 &2015906456
 GameObject:
   m_ObjectHideFlags: 0
@@ -9709,3 +9770,4 @@ SceneRoots:
   - {fileID: 1109092512}
   - {fileID: 925566774}
   - {fileID: 2101865349}
+  - {fileID: 2012903754}
