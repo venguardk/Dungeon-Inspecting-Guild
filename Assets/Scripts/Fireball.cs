@@ -12,7 +12,7 @@ public class Fireball : MonoBehaviour
             collision.gameObject.GetComponent<PlayerManager>().TakeDamage(1);
             DeactivateFireball();
         }
-        else if (collision.gameObject.CompareTag("AddedItem") || collision.gameObject.CompareTag("Enemy"))
+        else if (collision.gameObject.CompareTag("AddedItem") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Terrain"))
         {
             DeactivateFireball();
         }

@@ -10,6 +10,7 @@ public class DoorCheck : MonoBehaviour
         {
             door.GetComponent<Door>().locked = false;
             door.GetComponent<Door>().doorCollider.isTrigger = true;
+            door.SetActive(false);
             collision.gameObject.GetComponent<PlayerManager>().RemoveKey();
         }
     }
