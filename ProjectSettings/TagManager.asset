@@ -49,14 +49,14 @@ TagManager:
   - name: Floor
     uniqueID: 2846306657
     locked: 0
+  - name: Gaps
+    uniqueID: 219235511
+    locked: 0
   - name: Walls
     uniqueID: 3940808609
     locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Gaps
-    uniqueID: 219235511
     locked: 0
   m_RenderingLayers:
   - Default
