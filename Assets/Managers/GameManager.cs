@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         LevelEditorManager.instance.LevelSave();
         PlayerManager.instance.FullHeal();
         isLevelEditorMode = false;
+        CameraManager.instance.SwitchToPlayModeCamera();
     }
 
     public void SwitchToLevelEditor()
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("LoadedEditor?");
         LevelEditorManager.instance.LevelLoad();
         isLevelEditorMode = true;
+        CameraManager.instance.SwitchToLevelEditorCamera();
     }
 
     public bool IsLevelEditorMode()
