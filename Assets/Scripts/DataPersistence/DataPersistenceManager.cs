@@ -8,6 +8,8 @@ public class DataPersistenceManager : MonoBehaviour
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     public static DataPersistenceManager instance { get; private set; }
+
+    //Main Save/Load systems based on How to make a Save & Load System in Unity - https://youtu.be/aUi9aijvpgs?si=GLtBO4zP_VGItJr-
     private void Awake()
     {
         if (instance != null) 

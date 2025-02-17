@@ -26,6 +26,6 @@ public class AssetController : MonoBehaviour, IPointerEnterHandler
 
         clicked = true;
         levelEditorManager.currentButtonPressed = ID;
-        Instantiate(levelEditorManager.assetImages[ID], new Vector3(worldPosition.x - 0.5f, worldPosition.y - 0.5f, 0), Quaternion.identity); //Spawn the asset at the mouse position
+        Instantiate(levelEditorManager.assetImages[ID], new Vector3(worldPosition.x + 0.06f, worldPosition.y + 0.34f, 0), Quaternion.identity); //Spawn the asset at the mouse position
     }
 }

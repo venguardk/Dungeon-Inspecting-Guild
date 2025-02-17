@@ -6301,11 +6301,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7515384581636288902, guid: b097aef57240c4585a2d6e0f017dc145, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.51
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 7515384581636288902, guid: b097aef57240c4585a2d6e0f017dc145, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.26
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 7515384581636288902, guid: b097aef57240c4585a2d6e0f017dc145, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7264,6 +7264,8 @@ MonoBehaviour:
   goldBudget: 250
   requiredThreatLevel: 10
   assetParent: {fileID: 0}
+  Floor: {fileID: 565897596}
+  Gap: {fileID: 1703137319}
 --- !u!4 &1385677677
 Transform:
   m_ObjectHideFlags: 0
@@ -9198,11 +9200,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.6268606
+      value: -7.62
       objectReference: {fileID: 0}
     - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.5674398
+      value: -1.58
       objectReference: {fileID: 0}
     - target: {fileID: 1952484552932396902, guid: e43f12048ff6e4eb9aca29246712d73a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9707,7 +9709,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7421765019671713702, guid: ba6e928d63f904c88b50b5128b1754c2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.69
+      value: 9.66
       objectReference: {fileID: 0}
     - target: {fileID: 7421765019671713702, guid: ba6e928d63f904c88b50b5128b1754c2, type: 3}
       propertyPath: m_LocalPosition.y

@@ -192,4 +192,4 @@ MonoBehaviour:
   ID: 9
   goldCost: 30
   threatLevel: 0
-  objType: 0
+  objType: 1

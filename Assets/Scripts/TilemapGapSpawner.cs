@@ -1,3 +1,4 @@
+using System.Net;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -25,6 +26,7 @@ public class TilemapGapSpawner : MonoBehaviour
                     Vector3 worldPosition = tilemap.CellToWorld(cellPosition);
                     worldPosition += tilemap.tileAnchor;
                     GameObject newGap = Instantiate(gapPrefab, worldPosition, Quaternion.identity, gapsParent);
+                    LevelEditorManager.instance.AddObject(gapPrefab, worldPosition, 0, 0);
                 }
             }
         }
