@@ -192,3 +192,4 @@ MonoBehaviour:
   goldCost: 100
   threatLevel: 0
   objType: 0
+  prebuiltItem: 0

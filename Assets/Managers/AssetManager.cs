@@ -9,9 +9,12 @@ public class AssetManager : MonoBehaviour
 
     void Start()
     {
-        levelEditorManager = GameObject.FindGameObjectWithTag("LevelEditorManager").GetComponent<LevelEditorManager>();
-        levelEditorManager.AddGold(goldCost);
-        levelEditorManager.AddThreatLevel(threatLevel);
+        if (prebuiltItem == false)
+        {
+            levelEditorManager = GameObject.FindGameObjectWithTag("LevelEditorManager").GetComponent<LevelEditorManager>();
+            levelEditorManager.AddGold(goldCost);
+            levelEditorManager.AddThreatLevel(threatLevel);
+        }
     }
 
     private void OnMouseOver()

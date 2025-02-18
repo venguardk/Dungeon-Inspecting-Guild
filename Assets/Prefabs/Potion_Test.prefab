@@ -106,6 +106,7 @@ MonoBehaviour:
   goldCost: 50
   threatLevel: 0
   objType: 0
+  prebuiltItem: 0
 --- !u!58 &3500669303737396599
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -152,6 +152,7 @@ MonoBehaviour:
   goldCost: 100
   threatLevel: 0
   objType: 0
+  prebuiltItem: 0
 --- !u!1 &8143223220743030687
 GameObject:
   m_ObjectHideFlags: 0
