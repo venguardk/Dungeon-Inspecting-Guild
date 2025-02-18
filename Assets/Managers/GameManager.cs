@@ -25,17 +25,20 @@ public class GameManager : MonoBehaviour
 
     public void SwitchToPlayMode()
     {
-        //Save Level Data
         LevelEditorManager.instance.LevelSave();
         PlayerManager.instance.FullHeal();
         isLevelEditorMode = false;
+        GameObject itemImage = GameObject.FindWithTag("AssetImage");
+        if (itemImage != null) //Guaranteeing removal of asset image
+        {
+            Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
+        }
+        Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
         CameraManager.instance.SwitchToPlayModeCamera();
     }
 
     public void SwitchToLevelEditor()
     {
-        //Load Level Data
-        Debug.Log("LoadedEditor?");
         LevelEditorManager.instance.LevelLoad();
         isLevelEditorMode = true;
         CameraManager.instance.SwitchToLevelEditorCamera();

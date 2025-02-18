@@ -32,7 +32,7 @@ public class Fireball : MonoBehaviour
         float scaleMultiplier = Mathf.Lerp(1f / 3f, 1f, distanceTravelled / maxDistance);
         transform.localScale = new Vector3(scaleMultiplier, scaleMultiplier, scaleMultiplier);
 
-        if (distanceTravelled >= maxDistance)
+        if (distanceTravelled >= maxDistance || GameManager.instance.IsLevelEditorMode())
         {
             DeactivateFireball();
         }

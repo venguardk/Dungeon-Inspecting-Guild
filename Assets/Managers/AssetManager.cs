@@ -5,6 +5,7 @@ public class AssetManager : MonoBehaviour
     //Add this script to all assets that the player places down in the level editor
     [SerializeField] public int ID, goldCost, threatLevel, objType;
     private LevelEditorManager levelEditorManager;
+    [SerializeField] private bool prebuiltItem = false;
 
     void Start()
     {
@@ -15,7 +16,7 @@ public class AssetManager : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1) && GameManager.instance.IsLevelEditorMode()) //If right clicked, destroy the asset
+        if (Input.GetMouseButtonDown(1) && GameManager.instance.IsLevelEditorMode() && prebuiltItem == false) //If right clicked, destroy the asset
         {
             Bridge bridgeScript = this.GetComponent<Bridge>(); //If object is a bridge, enable the gap
             if (bridgeScript != null)
