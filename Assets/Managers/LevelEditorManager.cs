@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -87,7 +88,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                 //Setting the asset so that it will be located in a grid position
                 GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
                 RoomDictionary1.Add(MouseCoordinate, assets[currentButtonPressed]);
-                AngleDictionary0.Add(MouseCoordinate, rotation);
+                AngleDictionary1.Add(MouseCoordinate, rotation);
             }
         }
         else if (Input.GetMouseButtonDown(1) && assetButtons[currentButtonPressed].clicked)
@@ -223,7 +224,9 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         foreach (KeyValuePair<Vector2, GameObject> items in data.RoomDictionary1)
         {
             this.RoomDictionary1.Add(items.Key, items.Value);
+            Debug.Log(items.Key + ", " + items.Value);
             this.AngleDictionary1.Add(items.Key, data.AngleDictionary1[items.Key]);
+            
         }
     }
 
@@ -242,7 +245,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         foreach (KeyValuePair<Vector2, GameObject> items in this.RoomDictionary1)
         {
             data.RoomDictionary1.Add(items.Key, items.Value);
-            data.AngleDictionary0.Add(items.Key, this.AngleDictionary0[items.Key]);
+            data.AngleDictionary1.Add(items.Key, this.AngleDictionary1[items.Key]);
         }
     }
 

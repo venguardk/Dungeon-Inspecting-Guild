@@ -17,6 +17,7 @@ public class Bridge : MonoBehaviour
         {
             gap = other.gameObject;
             gap.SetActive(false);
+            
         }
     }
 
