@@ -11,7 +11,7 @@ public class Dart : MonoBehaviour
             collision.gameObject.GetComponent<PlayerManager>().TakeDamage(2);
         }
         //Dart dissapppear when they hit objects
-        else if (collision.gameObject.CompareTag("AddedItem") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Terrain"))
+        else if (collision.gameObject.CompareTag("AddedItem") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Terrain") || collision.gameObject.CompareTag("Projectile"))
         {
             this.gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
             this.gameObject.SetActive(false);
