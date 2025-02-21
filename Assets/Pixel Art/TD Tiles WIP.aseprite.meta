@@ -124,7 +124,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: TD Tiles WIP
     originalName: 
-    pivot: {x: 0.50877196, y: -0.0925926}
+    pivot: {x: 0.5272727, y: -0.0925926}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,7 +132,7 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 912
+      width: 880
       height: 864
     spriteID: a7f16690aba612349ac5fc76cf9e661c
     spriteBone: []
@@ -158,7 +158,7 @@ ScriptedImporter:
       cellRect:
         x: 16
         y: 80
-        width: 912
+        width: 880
         height: 864
       spriteId: a7f16690aba612349ac5fc76cf9e661c
     linkedCells: []
