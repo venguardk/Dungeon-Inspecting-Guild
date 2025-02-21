@@ -97,7 +97,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
         }
 
-        //For Debug
+        //For Debug and Exporting game
         if (Input.GetKeyDown(KeyCode.R))
         {
             foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary0)
@@ -108,7 +108,22 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             {
                 Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary1[items.Key]);
             }
+            DataPersistenceManager.instance.ExportGame();
         }
+        //Import does not work yet
+        /*if (Input.GetKeyDown(KeyCode.T))
+        {
+            foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary0)
+            {
+                Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary0[items.Key]);
+            }
+            foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary1)
+            {
+                Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary1[items.Key]);
+            }
+            DataPersistenceManager.instance.ImportGame();
+            LevelLoad();
+        }*/
     }
 
     public void AddGold(int gold)
