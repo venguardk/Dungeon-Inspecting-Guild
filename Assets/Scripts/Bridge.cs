@@ -7,7 +7,6 @@ public class Bridge : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("CREATED");
         bridgeCollider = GetComponent<Collider2D>();
     }
 
@@ -16,8 +15,7 @@ public class Bridge : MonoBehaviour
         if (other.CompareTag("Gap"))
         {
             gap = other.gameObject;
-            gap.SetActive(false);
-            
+            gap.GetComponent<Collider2D>().enabled = false;
         }
     }
 
@@ -25,7 +23,7 @@ public class Bridge : MonoBehaviour
     {
         if (gap != null)
         {
-            gap.SetActive(true);
+            gap.GetComponent<Collider2D>().enabled = true;
         }
     }
 }
