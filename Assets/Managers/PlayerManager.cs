@@ -46,6 +46,7 @@ public class PlayerManager : MonoBehaviour
             movementInput = Vector2.zero;
             FullHeal();
             UIManager.instance.SwitchToLevelEditor();
+            UIManager.instance.ShowLossScreen();
         }
 
         if (GameManager.instance.IsLevelEditorMode())

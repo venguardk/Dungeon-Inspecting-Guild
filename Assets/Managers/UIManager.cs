@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     [SerializeField] private TextMeshProUGUI goldBudgetText, threatLevelText, playerHealthText;
-    [SerializeField] private Canvas playModeCanvas, levelEditorCanvas;
+    [SerializeField] private Canvas playModeCanvas, levelEditorCanvas, lossCanvas;
     [SerializeField] private GameObject assetsTab, threatsTab;
 
     private void Awake()
@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
         UpdateStatText();
         levelEditorCanvas.enabled = true;
         playModeCanvas.enabled = false;
+        lossCanvas.enabled = false;
         assetsTab.SetActive(true);
         threatsTab.SetActive(false);
     }
@@ -90,5 +91,17 @@ public class UIManager : MonoBehaviour
         GameManager.instance.SwitchToLevelEditor();
         levelEditorCanvas.enabled = true;
         playModeCanvas.enabled = false;
+    }
+
+    public void ShowLossScreen()
+    {
+        levelEditorCanvas.enabled = false;
+        lossCanvas.enabled = true;
+    }
+
+    public void ReattemptLevel()
+    {
+        lossCanvas.enabled = false;
+        levelEditorCanvas.enabled = true;
     }
 }
