@@ -16,11 +16,12 @@ public class AssetController : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        levelEditorManager.DeactivateButton();
+        //levelEditorManager.DeactivateButton();
     }
 
     public void ButtonClicked()
     {
+        levelEditorManager.DeactivateButton();
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y); //Updating where the mouse is
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 

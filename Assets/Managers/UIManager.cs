@@ -78,6 +78,7 @@ public class UIManager : MonoBehaviour
     {
         if (LevelEditorManager.instance.LevelValuesMet())
         {
+            LevelEditorManager.instance.DeactivateButton();
             GameManager.instance.SwitchToPlayMode();
             levelEditorCanvas.enabled = false;
             playModeCanvas.enabled = true;
