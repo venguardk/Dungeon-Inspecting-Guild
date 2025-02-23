@@ -13,7 +13,7 @@ public class Shield : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerManager>().BecomeInvincible();
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
     }
 }

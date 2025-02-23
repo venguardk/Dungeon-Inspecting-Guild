@@ -85,6 +85,14 @@ public class PlayerManager : MonoBehaviour
             rb.linearVelocity = movementVelocity;
             FlipSprite();
         }
+
+        if (health <= 0)
+        {
+            playerDirection = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
+            movementInput = Vector2.zero;
+            UIManager.instance.SwitchToLevelEditor();
+        }
     }
 
     private void Attack()
@@ -120,13 +128,6 @@ public class PlayerManager : MonoBehaviour
         if (isInvincible == false && !GameManager.instance.IsLevelEditorMode())
         {
             health -= damage;
-            if (health <= 0)
-            {
-                playerDirection = Vector2.zero;
-                rb.linearVelocity = Vector2.zero;
-                movementInput = Vector2.zero;
-                UIManager.instance.SwitchToLevelEditor();
-            }
         }
     }
 

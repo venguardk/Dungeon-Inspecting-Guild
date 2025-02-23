@@ -16,6 +16,7 @@ public class SpikeTrap : MonoBehaviour
         isTrapping = false;
         active = false;
         spikeCollider = GetComponent<Collider2D>();
+        spikeCollider.enabled = false;
     }
 
     private void FixedUpdate()
@@ -34,7 +35,7 @@ public class SpikeTrap : MonoBehaviour
             StopAllCoroutines();
             if (active)
             {
-                spikeCollider.isTrigger = true;
+                spikeCollider.enabled = true;
                 spikesComponent.SetActive(false);
                 active = false;
             }
@@ -48,13 +49,13 @@ public class SpikeTrap : MonoBehaviour
             yield return new WaitForSeconds(timeIntervals);
             if (active)
             {
-                spikeCollider.isTrigger = true;
+                spikeCollider.enabled = false;
                 spikesComponent.SetActive(false);
                 active = false;
             }
             else
             {
-                spikeCollider.isTrigger = false;
+                spikeCollider.enabled = true;
                 spikesComponent.SetActive(true);
                 active = true;
             }

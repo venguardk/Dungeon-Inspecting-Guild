@@ -13,7 +13,7 @@ public class Key : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerManager>().AddKey();
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
     }
 }
