@@ -39,6 +39,15 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        if (health <= 0)
+        {
+            playerDirection = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
+            movementInput = Vector2.zero;
+            FullHeal();
+            UIManager.instance.SwitchToLevelEditor();
+        }
+
         if (GameManager.instance.IsLevelEditorMode())
         {
             return;
@@ -84,14 +93,6 @@ public class PlayerManager : MonoBehaviour
             movementVelocity = movementInput * moveSpeed;
             rb.linearVelocity = movementVelocity;
             FlipSprite();
-        }
-
-        if (health <= 0)
-        {
-            playerDirection = Vector2.zero;
-            rb.linearVelocity = Vector2.zero;
-            movementInput = Vector2.zero;
-            UIManager.instance.SwitchToLevelEditor();
         }
     }
 
