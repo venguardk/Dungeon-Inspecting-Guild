@@ -23,7 +23,7 @@ public class Door : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && !locked)
         {
-            Debug.Log("Player entered the door");
+            SceneLoadManager.instance.LoadScene("GameWin");
         }
     }
 }

@@ -5,9 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Prototype Tilemap.unity
     guid: fb76ca9372885cf4f9f605925564eceb
+  - enabled: 1
+    path: Assets/Scenes/BugFixing.unity
+    guid: 44d15bc5e97374182bd37974ea736697
+  - enabled: 1
+    path: Assets/Scenes/GameWin.unity
+    guid: 997f29c1c30ca48e086e6d0b47e0f794
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

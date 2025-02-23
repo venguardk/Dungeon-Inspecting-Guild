@@ -140,13 +140,11 @@ public class PlayerManager : MonoBehaviour
     public void AddKey()
     {
         keyCount++;
-        Debug.Log("Player has " + keyCount + " keys!");
     }
 
     public void RemoveKey()
     {
         keyCount--;
-        Debug.Log("Player has " + keyCount + " keys!");
     }
 
     public bool HasKey()
