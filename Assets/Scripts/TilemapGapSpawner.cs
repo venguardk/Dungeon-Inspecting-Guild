@@ -25,7 +25,7 @@ public class TilemapGapSpawner : MonoBehaviour
                 {
                     Vector3 worldPosition = tilemap.GetCellCenterWorld(cellPosition);
                     GameObject newGap = Instantiate(gapPrefab, worldPosition, Quaternion.identity, gapsParent);
-                    LevelEditorManager.instance.AddObject(gapPrefab, worldPosition, 0, 0);
+                    LevelEditorManager.instance.AddObject(gapPrefab, worldPosition, 0, 0, true);
                 }
             }
         }

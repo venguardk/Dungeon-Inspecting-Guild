@@ -13,18 +13,10 @@ public class SerializableGameObject
 
     public SerializableGameObject(GameObject gameObject)
     {
-        if (PrefabUtility.GetPrefabAssetType(gameObject) != PrefabAssetType.NotAPrefab)
-        {
-            this.initial = false;
-            string path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(gameObject);
-            Debug.Log(path);
-            this.prefab = System.IO.Path.GetFileNameWithoutExtension(path);
-        }
-        else
-        {
-            this.initial = true;
-            this.prefab = "";
-        }
+        this.initial = false;
+        string path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(gameObject);
+        Debug.Log(path);
+        this.prefab = System.IO.Path.GetFileNameWithoutExtension(path);
 
         this.name = gameObject.name;
     }

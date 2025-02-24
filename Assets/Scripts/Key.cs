@@ -12,8 +12,8 @@ public class Key : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerManager>().AddKey();
-            Destroy(this.gameObject);
+            LevelEditorManager.instance.deeacitaveObj(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 }

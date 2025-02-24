@@ -13,7 +13,8 @@ public class Potion : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerManager>().FullHeal();
-            Destroy(this.gameObject);
+            LevelEditorManager.instance.deeacitaveObj(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 }

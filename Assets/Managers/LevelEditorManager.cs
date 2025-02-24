@@ -18,11 +18,12 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public Tilemap Floor;
     public Tilemap Gap;
-    private List<GameObject> initialObject;
-    private Dictionary<Vector2, GameObject> RoomDictionary0;
-    private Dictionary<Vector2, GameObject> RoomDictionary1;
-    private Dictionary<Vector2, float> AngleDictionary0;
-    private Dictionary<Vector2, float> AngleDictionary1;
+    private List<GameObject> initialObject = new List<GameObject>();
+    private List<GameObject> deactivatedObject = new List<GameObject>();
+    private Dictionary<Vector2, GameObject> RoomDictionary0 = new Dictionary<Vector2, GameObject>();
+    private Dictionary<Vector2, GameObject> RoomDictionary1 = new Dictionary<Vector2, GameObject>();
+    private Dictionary<Vector2, float> AngleDictionary0 = new Dictionary<Vector2, float>();
+    private Dictionary<Vector2, float> AngleDictionary1 = new Dictionary<Vector2, float>();
     private string[] tagList = { "AddedItem", "Enemy", "Collectible", "Player", "Gap" };
 
     private void Awake()
@@ -39,11 +40,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        initialObject = new List<GameObject>();
-        RoomDictionary0 = new Dictionary<Vector2, GameObject>();
-        RoomDictionary1 = new Dictionary<Vector2, GameObject>();
-        AngleDictionary0 = new Dictionary<Vector2, float>();
-        AngleDictionary1 = new Dictionary<Vector2, float>();
         var allInitialObjects = new List<GameObject>();
         foreach (string tag in tagList)
         {
@@ -228,6 +224,10 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     {
         DataPersistenceManager.instance.LoadGame();
         var allObjects = new List<GameObject>();
+        foreach (GameObject activate in deactivatedObject)
+        {
+            activate.SetActive(true);
+        }
         foreach (string tag in tagList)
         {
             GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
@@ -275,7 +275,16 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
+<<<<<<< Updated upstream
         ResetCurrentThreatAssetsCount(); //Resetting the current threat assets count
+=======
+        this.initialObject.Clear();
+        foreach(GameObject items in data.initialObject)
+        {
+            this.initialObject.Add(items);
+        }
+
+>>>>>>> Stashed changes
         this.RoomDictionary0.Clear();
         this.AngleDictionary0.Clear();
         foreach (KeyValuePair<Vector2, GameObject> items in data.RoomDictionary0)
@@ -296,6 +305,11 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData data)
     {
+        data.initialObject.Clear();
+        foreach (GameObject items in this.initialObject)
+        {
+            data.initialObject.Add(items);
+        }
         data.RoomDictionary0.Clear();
         data.AngleDictionary0.Clear();
         foreach (KeyValuePair<Vector2, GameObject> items in this.RoomDictionary0)
@@ -313,19 +327,32 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void AddObject(GameObject added, Vector3 addedCoordinate, float rotation, int objType)
+    public void AddObject(GameObject added, Vector3 addedCoordinate, float rotation, int objType, bool initial)
     {
         Vector2 addedCoordinate2d = new Vector2(addedCoordinate.x, addedCoordinate.y);
         if (objType == 0 && RoomDictionary0.ContainsKey(addedCoordinate2d) == false)
         {
             RoomDictionary0.Add(addedCoordinate2d, added);
             AngleDictionary0.Add(addedCoordinate2d, rotation);
+            
         }
         else if (objType == 1 && RoomDictionary1.ContainsKey(addedCoordinate2d) == false)
         {
             RoomDictionary1.Add(addedCoordinate2d, added);
             AngleDictionary1.Add(addedCoordinate2d, rotation);
         }
+<<<<<<< Updated upstream
+=======
+        if(initial == true)
+        {
+            initialObject.Add(added);
+        }
+    }
+
+    public void deeacitaveObj(GameObject obj)
+    {
+        deactivatedObject.Add(obj);
+>>>>>>> Stashed changes
     }
 
     private bool coordinateChecker(Vector2 coordinate, Tilemap tilemap)

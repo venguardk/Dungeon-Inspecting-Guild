@@ -13,7 +13,7 @@ public class CameraFollowPlayer : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 newPosition = new Vector3(target.position.x, target.position.y, -10f);
+        Vector3 newPosition = new Vector3(target.GetChild(0).position.x, target.GetChild(0).position.y, -10f);
 
         Vector3 boundPosition = new Vector3(Mathf.Clamp(newPosition.x, minPosition.x, maxPosition.x), Mathf.Clamp(newPosition.y, minPosition.y, maxPosition.y), -10f); //Mathf.Clamp checks first argument and ensures if it is within min and max
 

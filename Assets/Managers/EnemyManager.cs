@@ -10,7 +10,8 @@ public class EnemyManager : MonoBehaviour
         Debug.Log("Enemy Health: " + health);
         if (health <= 0)
         {
-            Destroy(this.gameObject);
+            LevelEditorManager.instance.deeacitaveObj(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 }
