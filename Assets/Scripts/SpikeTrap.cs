@@ -16,7 +16,6 @@ public class SpikeTrap : MonoBehaviour
         isTrapping = false;
         active = false;
         spikeCollider = GetComponent<Collider2D>();
-        spikeCollider.enabled = false;
     }
 
     private void FixedUpdate()
@@ -25,6 +24,7 @@ public class SpikeTrap : MonoBehaviour
         {
             if (isTrapping == false)
             {
+                spikeCollider.enabled = false;
                 isTrapping = true;
                 StartCoroutine(ActivateSpikes());
             }

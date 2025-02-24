@@ -13,8 +13,8 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     public GameObject[] assets, assetImages;
     public int currentButtonPressed;
     [SerializeField] private int goldBudget, requiredThreatLevel;
-    [SerializeField] private Transform assetParent;
-    private int goldSpent, currentThreatLevel;
+    [SerializeField] private int requiredDartShooters, requiredSpikeTraps, requiredFlamethrowers, requiredEnemies;
+    private int goldSpent, currentThreatLevel, currentDartShooters, currentSpikeTraps, currentFlamethrowers, currentEnemies;
 
     public Tilemap Floor;
     public Tilemap Gap;
@@ -146,6 +146,56 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         currentThreatLevel -= threatLevel;
     }
 
+    public void AddThreatAssetCount(int assetID)
+    {
+        switch (assetID)
+        {
+            case 1: //Dartshooter
+                currentDartShooters++;
+                break;
+            case 2: //Spikes
+                currentSpikeTraps++;
+                break;
+            case 3: //Flamethrowers
+                currentFlamethrowers++;
+                break;
+            case 4: //Enemies
+                currentEnemies++;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void MinusThreatAssetCount(int assetID)
+    {
+        switch (assetID)
+        {
+            case 1: //Dartshooter
+                currentDartShooters--;
+                break;
+            case 2: //Spikes
+                currentSpikeTraps--;
+                break;
+            case 3: //Flamethrowers
+                currentFlamethrowers--;
+                break;
+            case 4: //Enemies
+                currentEnemies--;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void ResetCurrentThreatAssetsCount()
+    {
+        currentDartShooters = 0;
+        currentSpikeTraps = 0;
+        currentFlamethrowers = 0;
+        currentEnemies = 0;
+    }
+
     public void RemoveAsset(Vector2 position, int objType)
     {
         if (objType == 0)
@@ -220,12 +270,12 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             {
                 Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary1[loaded.Key])).SetActive(true);
             }
-
         }
     }
 
     public void LoadData(GameData data)
     {
+        ResetCurrentThreatAssetsCount(); //Resetting the current threat assets count
         this.RoomDictionary0.Clear();
         this.AngleDictionary0.Clear();
         foreach (KeyValuePair<Vector2, GameObject> items in data.RoomDictionary0)
@@ -241,7 +291,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             this.RoomDictionary1.Add(items.Key, items.Value);
             Debug.Log(items.Key + ", " + items.Value);
             this.AngleDictionary1.Add(items.Key, data.AngleDictionary1[items.Key]);
-            
         }
     }
 
@@ -277,8 +326,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             RoomDictionary1.Add(addedCoordinate2d, added);
             AngleDictionary1.Add(addedCoordinate2d, rotation);
         }
-
-
     }
 
     private bool coordinateChecker(Vector2 coordinate, Tilemap tilemap)
@@ -320,6 +367,11 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public bool LevelValuesMet()
     {
-        return goldSpent <= goldBudget && currentThreatLevel >= requiredThreatLevel;
+        return goldSpent <= goldBudget
+        && currentThreatLevel >= requiredThreatLevel
+        && currentDartShooters >= requiredDartShooters
+        && currentSpikeTraps >= requiredSpikeTraps
+        && currentFlamethrowers >= requiredFlamethrowers
+        && currentEnemies >= requiredEnemies;
     }
 }

@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09469cdd029284d15a8cecfd4bc1191f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 3
+  ID: 4
   goldCost: 0
   threatLevel: 2
   objType: 0

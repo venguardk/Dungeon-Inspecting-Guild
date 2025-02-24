@@ -14,6 +14,7 @@ public class AssetManager : MonoBehaviour
             levelEditorManager = GameObject.FindGameObjectWithTag("LevelEditorManager").GetComponent<LevelEditorManager>();
             levelEditorManager.AddGold(goldCost);
             levelEditorManager.AddThreatLevel(threatLevel);
+            levelEditorManager.AddThreatAssetCount(ID);
         }
     }
 
@@ -27,10 +28,11 @@ public class AssetManager : MonoBehaviour
                 bridgeScript.EnableGap();
             }
 
-            Destroy(this.gameObject);
             levelEditorManager.MinusGold(goldCost);
             levelEditorManager.MinusThreatLevel(threatLevel);
             levelEditorManager.RemoveAsset(new Vector2(this.transform.position.x, this.transform.position.y), objType);
+            levelEditorManager.MinusThreatAssetCount(ID);
+            Destroy(this.gameObject);
         }
     }
 }
