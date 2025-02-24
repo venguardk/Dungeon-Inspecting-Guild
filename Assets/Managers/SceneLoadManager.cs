@@ -18,6 +18,11 @@ public class SceneLoadManager : MonoBehaviour
         }
     }
 
+    public void PlayLevel()
+    {
+        SceneManager.LoadScene("Prototype 1");
+    }
+
     public void LoadScene(string sceneName)
     {
         previousScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
