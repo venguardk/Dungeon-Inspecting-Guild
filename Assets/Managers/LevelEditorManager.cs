@@ -275,16 +275,13 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-<<<<<<< Updated upstream
         ResetCurrentThreatAssetsCount(); //Resetting the current threat assets count
-=======
         this.initialObject.Clear();
-        foreach(GameObject items in data.initialObject)
+        foreach (GameObject items in data.initialObject)
         {
             this.initialObject.Add(items);
         }
 
->>>>>>> Stashed changes
         this.RoomDictionary0.Clear();
         this.AngleDictionary0.Clear();
         foreach (KeyValuePair<Vector2, GameObject> items in data.RoomDictionary0)
@@ -334,16 +331,14 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             RoomDictionary0.Add(addedCoordinate2d, added);
             AngleDictionary0.Add(addedCoordinate2d, rotation);
-            
+
         }
         else if (objType == 1 && RoomDictionary1.ContainsKey(addedCoordinate2d) == false)
         {
             RoomDictionary1.Add(addedCoordinate2d, added);
             AngleDictionary1.Add(addedCoordinate2d, rotation);
         }
-<<<<<<< Updated upstream
-=======
-        if(initial == true)
+        if (initial == true)
         {
             initialObject.Add(added);
         }
@@ -352,7 +347,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     public void deeacitaveObj(GameObject obj)
     {
         deactivatedObject.Add(obj);
->>>>>>> Stashed changes
     }
 
     private bool coordinateChecker(Vector2 coordinate, Tilemap tilemap)
