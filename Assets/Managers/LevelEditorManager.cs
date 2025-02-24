@@ -365,6 +365,46 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         return currentThreatLevel;
     }
 
+    public int GetDartsCount()
+    {
+        return currentDartShooters;
+    }
+
+    public int GetDartsRequirement()
+    {
+        return requiredDartShooters;
+    }
+
+    public int GetSpikesCount()
+    {
+        return currentSpikeTraps;
+    }
+
+    public int GetSpikesRequirement()
+    {
+        return requiredSpikeTraps;
+    }
+
+    public int GetFlamethrowersCount()
+    {
+        return currentFlamethrowers;
+    }
+
+    public int GetFlamethrowersRequirement()
+    {
+        return requiredFlamethrowers;
+    }
+
+    public int GetEnemiesCount()
+    {
+        return currentEnemies;
+    }
+
+    public int GetEnemiesRequirement()
+    {
+        return requiredEnemies;
+    }
+
     public bool LevelValuesMet()
     {
         return goldSpent <= goldBudget

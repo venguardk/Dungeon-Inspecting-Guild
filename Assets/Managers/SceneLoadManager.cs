@@ -20,7 +20,7 @@ public class SceneLoadManager : MonoBehaviour
 
     public void PlayLevel()
     {
-        SceneManager.LoadScene("Prototype 1");
+        SceneManager.LoadScene("Prototype 2");
     }
 
     public void LoadScene(string sceneName)
@@ -37,5 +37,10 @@ public class SceneLoadManager : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     [SerializeField] private TextMeshProUGUI goldBudgetText, threatLevelText, playerHealthText;
+    [SerializeField] private TextMeshProUGUI dartsCountText, spikesCountText, flameCountText, enemyCountText;
     [SerializeField] private Canvas playModeCanvas, levelEditorCanvas, lossCanvas;
     [SerializeField] private GameObject assetsTab, threatsTab;
 
@@ -36,6 +37,7 @@ public class UIManager : MonoBehaviour
     void FixedUpdate()
     {
         UpdateStatText();
+        UpdateStatColours();
     }
 
     private void UpdateStatText()
@@ -43,14 +45,21 @@ public class UIManager : MonoBehaviour
         goldBudgetText.text = "Gold Budget: " + LevelEditorManager.instance.GetGoldRemaining().ToString();
         threatLevelText.text = "Threat Level: " + LevelEditorManager.instance.GetCurrentThreatLevel().ToString() + "/" + LevelEditorManager.instance.GetRequiredThreatLevel().ToString();
         playerHealthText.text = $"Health: {PlayerManager.instance.GetPlayerHealth()}";
+        dartsCountText.text = $"Darts: {LevelEditorManager.instance.GetDartsCount()}/{LevelEditorManager.instance.GetDartsRequirement()}";
+        spikesCountText.text = $"Spikes: {LevelEditorManager.instance.GetSpikesCount()}/{LevelEditorManager.instance.GetSpikesRequirement()}";
+        flameCountText.text = $"Flames: {LevelEditorManager.instance.GetFlamethrowersCount()}/{LevelEditorManager.instance.GetFlamethrowersRequirement()}";
+        enemyCountText.text = $"Enemies: {LevelEditorManager.instance.GetEnemiesCount()}/{LevelEditorManager.instance.GetEnemiesRequirement()}";
+    }
 
+    private void UpdateStatColours()
+    {
         if (LevelEditorManager.instance.GetGoldRemaining() < 0)
         {
             goldBudgetText.color = Color.red;
         }
         else
         {
-            goldBudgetText.color = new Color(255f / 255f, 193f / 255f, 85f / 255f);
+            goldBudgetText.color = new Color(135f / 255f, 103f / 255f, 46f / 255f);
         }
 
         if (LevelEditorManager.instance.GetCurrentThreatLevel() < LevelEditorManager.instance.GetRequiredThreatLevel())
@@ -60,6 +69,42 @@ public class UIManager : MonoBehaviour
         else
         {
             threatLevelText.color = Color.green;
+        }
+
+        if (LevelEditorManager.instance.GetDartsCount() < LevelEditorManager.instance.GetDartsRequirement())
+        {
+            dartsCountText.color = Color.red;
+        }
+        else
+        {
+            dartsCountText.color = Color.green;
+        }
+
+        if (LevelEditorManager.instance.GetSpikesCount() < LevelEditorManager.instance.GetSpikesRequirement())
+        {
+            spikesCountText.color = Color.red;
+        }
+        else
+        {
+            spikesCountText.color = Color.green;
+        }
+
+        if (LevelEditorManager.instance.GetFlamethrowersCount() < LevelEditorManager.instance.GetFlamethrowersRequirement())
+        {
+            flameCountText.color = Color.red;
+        }
+        else
+        {
+            flameCountText.color = Color.green;
+        }
+
+        if (LevelEditorManager.instance.GetEnemiesCount() < LevelEditorManager.instance.GetEnemiesRequirement())
+        {
+            enemyCountText.color = Color.red;
+        }
+        else
+        {
+            enemyCountText.color = Color.green;
         }
     }
 
