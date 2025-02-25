@@ -336,7 +336,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             this.initialObject.Add(items);
         }
-
         this.RoomDictionary0.Clear();
         this.AngleDictionary0.Clear();
         foreach (KeyValuePair<Vector2, GameObject> items in data.RoomDictionary0)
