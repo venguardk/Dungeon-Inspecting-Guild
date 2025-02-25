@@ -54,7 +54,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             foreach (GameObject obj in allInitialObjects)
             {
-                
                 initialObject.Add(obj);
                 //Separate the initial objects into each dictionary depending on their tags
                 Vector2 initialCoordinate = new Vector2(obj.transform.position.x, obj.transform.position.y);
