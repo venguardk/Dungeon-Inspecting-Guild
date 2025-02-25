@@ -7,6 +7,7 @@ using System.IO;
 public class GameDataSerialized
 {
     public List<SerializableGameObject> initialObject;
+    public List<SerializableGameObject> initalObject;
     public List<SerializableKeyValuePair<SerializableVector2, SerializableGameObject>> RoomDictionary0;
     public List<SerializableKeyValuePair<SerializableVector2, float>> AngleDictionary0;
     public List<SerializableKeyValuePair<SerializableVector2, SerializableGameObject>> RoomDictionary1;
@@ -20,6 +21,11 @@ public class GameDataSerialized
             initialObject.Add(new SerializableGameObject(obj));
         }
 
+        initalObject = new List<SerializableGameObject>();
+        foreach (GameObject obj in gameData.initialObject)
+        {
+            new SerializableGameObject(obj);
+        }
         RoomDictionary0 = new List<SerializableKeyValuePair<SerializableVector2, SerializableGameObject>>();
         foreach (var item in gameData.RoomDictionary0)
         {
