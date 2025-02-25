@@ -256,7 +256,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
         foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary0)
         {
-            Debug.Log(loaded.Value.name);
+            //Debug.Log(loaded.Value.name);
             if (initialObject.Contains(loaded.Value))
             {
                 if (loaded.Value == initialAsset[0])

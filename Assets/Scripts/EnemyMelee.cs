@@ -22,6 +22,9 @@ public class EnemyMelee : MonoBehaviour
     {
         if (GameManager.instance.IsLevelEditorMode())
         {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            rb = GetComponent<Rigidbody2D>();
+            attackHitBox.SetActive(false);
             StopChasingPlayer();
             return;
         }
