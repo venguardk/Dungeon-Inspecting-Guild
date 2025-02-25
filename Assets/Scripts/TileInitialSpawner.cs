@@ -24,8 +24,8 @@ public class TileInitialSpawner : MonoBehaviour
                 if (tilemap.HasTile(cellPosition))
                 {
                     Vector3 gridPosition = new Vector3(Mathf.Ceil((tilemap.GetCellCenterWorld(cellPosition).x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((tilemap.GetCellCenterWorld(cellPosition).y - 0.5f) / 0.96f) * 0.96f + 0.34f, 0);
-                    GameObject newGap = Instantiate(initialPrefab, gridPosition, Quaternion.identity, initialParent);
-                    LevelEditorManager.instance.AddObject(initialPrefab, gridPosition, 0, 0, true);
+                    GameObject newGap = Instantiate(initialPrefab, gridPosition, tilemap.transform.rotation, initialParent);
+                    LevelEditorManager.instance.AddObject(initialPrefab, gridPosition, tilemap.transform.rotation.z, 0, true);
                 }
             }
         }

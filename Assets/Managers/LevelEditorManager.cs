@@ -18,6 +18,9 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public Tilemap Floor;
     public Tilemap Gap;
+    public GameObject[] allAsset;
+    public GameObject[] initialAsset;
+    public Transform[] initialBase;
     private List<GameObject> initialObject = new List<GameObject>();
     private List<GameObject> deactivatedObject = new List<GameObject>();
     private Dictionary<Vector2, GameObject> RoomDictionary0 = new Dictionary<Vector2, GameObject>();
@@ -51,11 +54,15 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             foreach (GameObject obj in allInitialObjects)
             {
+                
                 initialObject.Add(obj);
                 //Separate the initial objects into each dictionary depending on their tags
                 Vector2 initialCoordinate = new Vector2(obj.transform.position.x, obj.transform.position.y);
-                RoomDictionary0.Add(initialCoordinate, obj);
-                AngleDictionary0.Add(initialCoordinate, obj.transform.eulerAngles.z);
+                if (RoomDictionary0.ContainsKey(initialCoordinate) == false)
+                {
+                    RoomDictionary0.Add(initialCoordinate, obj);
+                    AngleDictionary0.Add(initialCoordinate, obj.transform.eulerAngles.z);
+                }
             }
         }
     }
@@ -107,7 +114,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             DataPersistenceManager.instance.ExportGame();
         }
         //Import does not work yet
-        /*if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary0)
             {
@@ -119,7 +126,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             }
             DataPersistenceManager.instance.ImportGame();
             LevelLoad();
-        }*/
+        }
     }
 
     public void AddGold(int gold)
@@ -230,13 +237,13 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
         foreach (string tag in tagList)
         {
-            GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
-            allObjects.AddRange(initialObjects);
+            GameObject[] sceneObjects = GameObject.FindGameObjectsWithTag(tag);
+            allObjects.AddRange(sceneObjects);
         }
         foreach (GameObject obj in allObjects)
         {
             //if obj has goldCost or threatLevel, remove that
-            if (!initialObject.Contains(obj))
+            if (obj.transform.parent == null)
             {
                 AssetManager assetManager = obj.GetComponent<AssetManager>();
                 if (assetManager != null)
@@ -244,14 +251,40 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                     MinusGold(assetManager.goldCost);
                     MinusThreatLevel(assetManager.threatLevel);
                 }
-                Destroy(obj);
             }
+            Destroy(obj);
         }
         foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary0)
         {
+            Debug.Log(loaded.Value.name);
             if (initialObject.Contains(loaded.Value))
             {
-                loaded.Value.transform.position = loaded.Key;
+                if (loaded.Value == initialAsset[0])
+                {
+                    
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[0]);
+                }
+                else if (loaded.Value == initialAsset[1])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[1]);
+                }
+                else if (loaded.Value == initialAsset[2])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[2]);
+                }
+                else if (loaded.Value == initialAsset[3])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[3]);
+                }
+                else if (loaded.Value == initialAsset[4])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[4]);
+                }
+                else if (loaded.Value == initialAsset[5])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[5]);
+                }
+
             }
             else
             {
@@ -264,7 +297,30 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             if (initialObject.Contains(loaded.Value))
             {
-                loaded.Value.transform.position = loaded.Key;
+                if (loaded.Value == initialAsset[0])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[0]);
+                }
+                else if (loaded.Value == initialAsset[1])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[1]);
+                }
+                else if (loaded.Value == initialAsset[2])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[2]);
+                }
+                else if (loaded.Value == initialAsset[3])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[3]);
+                }
+                else if (loaded.Value == initialAsset[4])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[4]);
+                }
+                else if (loaded.Value == initialAsset[5])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[5]);
+                }
             }
             else
             {
@@ -275,16 +331,12 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-<<<<<<< Updated upstream
         ResetCurrentThreatAssetsCount(); //Resetting the current threat assets count
-=======
         this.initialObject.Clear();
         foreach(GameObject items in data.initialObject)
         {
             this.initialObject.Add(items);
         }
-
->>>>>>> Stashed changes
         this.RoomDictionary0.Clear();
         this.AngleDictionary0.Clear();
         foreach (KeyValuePair<Vector2, GameObject> items in data.RoomDictionary0)
@@ -298,7 +350,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         foreach (KeyValuePair<Vector2, GameObject> items in data.RoomDictionary1)
         {
             this.RoomDictionary1.Add(items.Key, items.Value);
-            Debug.Log(items.Key + ", " + items.Value);
             this.AngleDictionary1.Add(items.Key, data.AngleDictionary1[items.Key]);
         }
     }
@@ -341,8 +392,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             RoomDictionary1.Add(addedCoordinate2d, added);
             AngleDictionary1.Add(addedCoordinate2d, rotation);
         }
-<<<<<<< Updated upstream
-=======
         if(initial == true)
         {
             initialObject.Add(added);
@@ -352,7 +401,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     public void deeacitaveObj(GameObject obj)
     {
         deactivatedObject.Add(obj);
->>>>>>> Stashed changes
     }
 
     private bool coordinateChecker(Vector2 coordinate, Tilemap tilemap)
@@ -370,6 +418,11 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
 
         return false;
+    }
+
+    public GameObject gameObjectConvertion(string name)
+    {
+        return allAsset.FirstOrDefault(obj => obj.name == name);
     }
 
     //FOR UI MANAGER

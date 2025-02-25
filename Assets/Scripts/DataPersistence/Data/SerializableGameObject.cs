@@ -9,20 +9,16 @@ public class SerializableGameObject
 {
     public string name;
     public string prefab;
-    public bool initial;
 
     public SerializableGameObject(GameObject gameObject)
     {
-        this.initial = false;
-        string path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(gameObject);
-        Debug.Log(path);
-        this.prefab = System.IO.Path.GetFileNameWithoutExtension(path);
-
         this.name = gameObject.name;
+        this.prefab = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(gameObject);
     }
 
     public GameObject ToGameObject()
     {
-        return new GameObject(name);
+        Debug.Log("ToGameObject:" + LevelEditorManager.instance.gameObjectConvertion(this.name));
+        return LevelEditorManager.instance.gameObjectConvertion(this.name);
     }
 }

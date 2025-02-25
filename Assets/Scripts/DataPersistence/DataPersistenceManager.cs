@@ -38,6 +38,10 @@ public class DataPersistenceManager : MonoBehaviour
     public void ImportGame()
     {
         this.gameData = dataHandler.Load();
+        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            dataPersistenceObj.LoadData(gameData);
+        }
         Debug.Log("ImportGame");
     }
     public void ExportGame()
