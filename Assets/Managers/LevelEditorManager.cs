@@ -43,7 +43,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        var allInitialObjects = new List<GameObject>();
+        /*var allInitialObjects = new List<GameObject>();
         foreach (string tag in tagList)
         {
             GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
@@ -64,7 +64,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                     AngleDictionary0.Add(initialCoordinate, obj.transform.eulerAngles.z);
                 }
             }
-        }
+        }*/
     }
 
     private void Update()
