@@ -19,7 +19,7 @@ public class PushableBox : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Projectile"))
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Enemy"))
         {
             rb.linearVelocity = Vector2.zero;
         }
