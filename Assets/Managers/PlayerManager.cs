@@ -16,9 +16,9 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
         instance = this;
-        
+
     }
 
     private void Start()
@@ -39,6 +39,7 @@ public class PlayerManager : MonoBehaviour
             playerDirection = Vector2.zero;
             rb.linearVelocity = Vector2.zero;
             movementInput = Vector2.zero;
+            keyCount = 0;
             FullHeal();
             UIManager.instance.SwitchToLevelEditor();
             UIManager.instance.ShowLossScreen();
