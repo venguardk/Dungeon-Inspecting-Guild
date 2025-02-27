@@ -12552,10 +12552,10 @@ MonoBehaviour:
   currentButtonPressed: 0
   goldBudget: 250
   requiredThreatLevel: 0
-  requiredDartShooters: 1
-  requiredSpikeTraps: 5
-  requiredFlamethrowers: 1
-  requiredEnemies: 3
+  requiredDartShooters: 0
+  requiredSpikeTraps: 0
+  requiredFlamethrowers: 0
+  requiredEnemies: 0
   Floor: {fileID: 1690747106}
   Gap: {fileID: 1435495851}
   allAsset:

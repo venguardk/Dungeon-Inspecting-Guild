@@ -252,7 +252,13 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                     MinusThreatLevel(assetManager.threatLevel);
                 }
             }
+            if (gameObject.CompareTag(tagList[3]))
+            {
+                PlayerManager playerManager = obj.GetComponent<PlayerManager>();
+                playerManager.DestroyPlayer();
+            }
             Destroy(obj);
+            
         }
         foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary0)
         {
