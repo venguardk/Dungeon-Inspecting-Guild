@@ -12,6 +12,7 @@ public class Key : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            PlayerManager.instance.AddKey();
             LevelEditorManager.instance.deeacitaveObj(this.gameObject);
             this.gameObject.SetActive(false);
         }
