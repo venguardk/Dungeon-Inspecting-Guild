@@ -13178,7 +13178,7 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 0
       m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
+      m_TileMatrixIndex: 1
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
@@ -13191,6 +13191,24 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: -2387741790232506112, guid: 93a86d3f2598218448207f44af73f603, type: 3}
   m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: -2.853415e-36
+      e01: NaN
+      e02: -4.9284496e-19
+      e03: 0
+      e10: 4.9e-44
+      e11: 1e-44
+      e12: 4.5916e-41
+      e13: 0
+      e20: 6.3829e-41
+      e21: 0
+      e22: -2.8534121e-36
+      e23: 0
+      e30: 0
+      e31: 7.34684e-40
+      e32: 4.9e-44
+      e33: 1
   - m_RefCount: 1
     m_Data:
       e00: 1
