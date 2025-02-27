@@ -290,6 +290,34 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                 {
                     Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[5]);
                 }
+                else if (loaded.Value == initialAsset[6])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[6]);
+                }
+                else if (loaded.Value == initialAsset[7])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[7]);
+                }
+                else if (loaded.Value == initialAsset[8])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[8]);
+                }
+                else if (loaded.Value == initialAsset[9])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[9]);
+                }
+                else if (loaded.Value == initialAsset[10])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[10]);
+                }
+                else if (loaded.Value == initialAsset[11])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[11]);
+                }
+                else if (loaded.Value == initialAsset[12])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[12]);
+                }
 
             }
             else
