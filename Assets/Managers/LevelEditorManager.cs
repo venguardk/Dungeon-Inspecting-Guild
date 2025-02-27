@@ -235,6 +235,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             activate.SetActive(true);
         }
+        deactivatedObject.Clear();
         foreach (string tag in tagList)
         {
             GameObject[] sceneObjects = GameObject.FindGameObjectsWithTag(tag);
