@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class LevelEditorManager : MonoBehaviour, IDataPersistence
@@ -31,6 +33,10 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
+        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "" || SceneLoadManager.sceneMovement == "MainMenu")
+        {
+            DataPersistenceManager.instance.NewGame();
+        }
         if (instance == null)
         {
             instance = this;
@@ -41,30 +47,21 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    private void Start()
+    void Start()
     {
-        /*var allInitialObjects = new List<GameObject>();
-        foreach (string tag in tagList)
-        {
-            GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
-            allInitialObjects.AddRange(initialObjects);
-        }
+        StartCoroutine(RunAfterStart());
+    }
 
-        if (allInitialObjects.Count > 0)
+    private IEnumerator RunAfterStart()
+    {
+        yield return new WaitForEndOfFrame();
+        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "" || SceneLoadManager.sceneMovement == "MainMenu")
         {
-            foreach (GameObject obj in allInitialObjects)
-            {
-                
-                initialObject.Add(obj);
-                //Separate the initial objects into each dictionary depending on their tags
-                Vector2 initialCoordinate = new Vector2(obj.transform.position.x, obj.transform.position.y);
-                if (RoomDictionary0.ContainsKey(initialCoordinate) == false)
-                {
-                    RoomDictionary0.Add(initialCoordinate, obj);
-                    AngleDictionary0.Add(initialCoordinate, obj.transform.eulerAngles.z);
-                }
-            }
-        }*/
+            LevelSave();
+        }
+        Debug.Log(SceneLoadManager.sceneMovement);
+        LevelLoad();
+
     }
 
     private void Update()
@@ -454,6 +451,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
         return false;
     }
+
 
     public GameObject gameObjectConvertion(string name)
     {

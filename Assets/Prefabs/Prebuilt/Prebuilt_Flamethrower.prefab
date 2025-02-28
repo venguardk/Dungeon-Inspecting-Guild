@@ -392,7 +392,7 @@ MonoBehaviour:
   goldCost: 0
   threatLevel: 3
   objType: 0
-  prebuiltItem: 0
+  prebuiltItem: 1
 --- !u!114 &66626390623023014
 MonoBehaviour:
   m_ObjectHideFlags: 0
