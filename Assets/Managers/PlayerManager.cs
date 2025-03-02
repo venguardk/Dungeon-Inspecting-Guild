@@ -39,6 +39,7 @@ public class PlayerManager : MonoBehaviour
             playerDirection = Vector2.zero;
             rb.linearVelocity = Vector2.zero;
             movementInput = Vector2.zero;
+            keyCount = 0;
             FullHeal();
             keyCount = 0;
             UIManager.instance.SwitchToLevelEditor();

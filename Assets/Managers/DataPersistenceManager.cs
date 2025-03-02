@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -18,21 +19,33 @@ public class DataPersistenceManager : MonoBehaviour
     {
         if (instance != null) 
         {
-            Debug.LogError("More than one Data Persistence Manager in scene");
+            //Debug.LogError("More than one Data Persistence Manager in scene");
+            Destroy(this);
         }
-        instance = this;
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            string downloadsPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "Downloads");
+            this.dataHandler = new FileDataHandler(downloadsPath, fileName);
+        }
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        string downloadsPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "Downloads");
-        this.dataHandler = new FileDataHandler(downloadsPath, fileName);
-        this.dataPersistenceObjects = FindAllPersistenceObjects();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
     public void NewGame()
     {
         this.gameData = new GameData();
+        Debug.Log("NewGame");
     }
 
     public void ImportGame()
@@ -90,6 +103,17 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         Debug.Log("SaveGame");
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        this.dataPersistenceObjects = FindAllPersistenceObjects();
+        LoadGame();
+    }
+
+    public void OnSceneUnloaded(Scene scene)
+    {
+        SaveGame();
     }
 
     private List<IDataPersistence> FindAllPersistenceObjects()

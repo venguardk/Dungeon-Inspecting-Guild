@@ -8,12 +8,10 @@ using System.IO;
 public class SerializableGameObject
 {
     public string name;
-    public string prefab;
 
     public SerializableGameObject(GameObject gameObject)
     {
         this.name = gameObject.name;
-        this.prefab = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(gameObject);
     }
 
     public GameObject ToGameObject()
