@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 45305171010400443}
   - component: {fileID: 2255337156532238422}
   m_Layer: 0
-  m_Name: PrebuiltPotion_Test
+  m_Name: Prebuilt_Potion_Test
   m_TagString: Collectible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

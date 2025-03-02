@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 4451135279611864607}
   - component: {fileID: 582261602000916312}
   m_Layer: 0
-  m_Name: PrebuiltPushableBox
+  m_Name: Prebuilt_Pushable_Box
   m_TagString: AddedItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

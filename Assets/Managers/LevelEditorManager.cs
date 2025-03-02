@@ -74,7 +74,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         { //If the left mouse button is clicked, spawn the asset
 
             Vector2 MouseCoordinate = new Vector2(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f);
-            if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 0 && RoomDictionary0.ContainsKey(MouseCoordinate) == false && coordinateChecker(MouseCoordinate, Floor) == true && coordinateChecker(MouseCoordinate, Gap) == false)
+            if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 0 && RoomDictionary0.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Floor) == true && CoordinateChecker(MouseCoordinate, Gap) == false)
             {
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
@@ -83,7 +83,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                 RoomDictionary0.Add(MouseCoordinate, assets[currentButtonPressed]);
                 AngleDictionary0.Add(MouseCoordinate, rotation);
             }
-            else if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 1 && RoomDictionary1.ContainsKey(MouseCoordinate) == false && coordinateChecker(MouseCoordinate, Gap) == true)
+            else if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 1 && RoomDictionary1.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Gap) == true)
             {
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
@@ -427,12 +427,12 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void deeacitaveObj(GameObject obj)
+    public void DeacitaveObj(GameObject obj)
     {
         deactivatedObject.Add(obj);
     }
 
-    private bool coordinateChecker(Vector2 coordinate, Tilemap tilemap)
+    private bool CoordinateChecker(Vector2 coordinate, Tilemap tilemap)
     {
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(coordinate);
 
@@ -449,6 +449,14 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         return false;
     }
 
+    public bool FloorChecker(Vector2 coordinate)
+    {
+        return CoordinateChecker(coordinate, Floor);
+    }
+    public bool GapChecker(Vector2 coordinate)
+    {
+        return CoordinateChecker(coordinate, Gap);
+    }
 
     public GameObject gameObjectConvertion(string name)
     {

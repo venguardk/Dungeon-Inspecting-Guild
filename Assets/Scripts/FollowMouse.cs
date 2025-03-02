@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class FollowMouse : MonoBehaviour
 {
@@ -13,6 +14,33 @@ public class FollowMouse : MonoBehaviour
         worldPosition.x = Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f;
         worldPosition.y = Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f;
         transform.position = worldPosition;
+        if(LevelEditorManager.instance.FloorChecker(worldPosition) == false)
+        {
+            if(gameObject.name != "Bridge_Image(Clone)")
+            {
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else if (LevelEditorManager.instance.GapChecker(worldPosition) == false)
+            {
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            }
+        }
+        else
+        {
+            if(gameObject.name != "Bridge_Image(Clone)")
+            {
+                gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            }
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            
+        }
 
         if (isRotatable)
         { //If the asset is rotatable, rotate it by 90 right when E is pressed, or 90 left when Q is pressed
