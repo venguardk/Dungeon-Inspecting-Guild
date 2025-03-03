@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI goldBudgetText, threatLevelText, playerHealthText;
     [SerializeField] private TextMeshProUGUI dartsCountText, spikesCountText, flameCountText, enemyCountText;
     [SerializeField] private Canvas playModeCanvas, levelEditorCanvas, lossCanvas;
-    [SerializeField] private GameObject assetsTab, threatsTab;
+    [SerializeField] private GameObject assetsTab, threatsTab, assetDescriptionSection;
 
     private void Awake()
     {
@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
         lossCanvas.enabled = false;
         assetsTab.SetActive(true);
         threatsTab.SetActive(false);
+        assetDescriptionSection.SetActive(false);
     }
 
     void FixedUpdate()
@@ -106,6 +107,16 @@ public class UIManager : MonoBehaviour
         {
             enemyCountText.color = Color.green;
         }
+    }
+
+    public void DisplayDescription(int ID)
+    {
+        assetDescriptionSection.SetActive(true);
+    }
+
+    public void HideDescription()
+    {
+        assetDescriptionSection.SetActive(false);
     }
 
     public void AccessAssetsTab()

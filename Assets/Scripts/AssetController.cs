@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class AssetController : MonoBehaviour, IPointerEnterHandler
+public class AssetController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private int ID;
     public bool clicked;
@@ -52,6 +52,11 @@ public class AssetController : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //LevelEditorManager.instance.DeactivateButton();
+        UIManager.instance.DisplayDescription(ID);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.instance.HideDescription();
     }
 }
