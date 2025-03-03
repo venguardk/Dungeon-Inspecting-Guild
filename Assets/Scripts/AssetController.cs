@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class AssetController : MonoBehaviour
+public class AssetController : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] private int ID;
     public bool clicked;
@@ -48,5 +48,10 @@ public class AssetController : MonoBehaviour
     {
         GetComponent<Button>().interactable = true;
         buttonImage.color = Color.white;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //LevelEditorManager.instance.DeactivateButton();
     }
 }
