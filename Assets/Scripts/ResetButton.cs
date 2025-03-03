@@ -23,7 +23,7 @@ public class ResetButton : MonoBehaviour
         {
             pressTime += Time.deltaTime;
             buttonImage.color = new Color(1f, 1f - pressTime, 1f - pressTime);
-            buttonText.text = "Press and Hold";
+            buttonText.text = "PRESS AND HOLD";
             if (pressTime >= 1f)
             {
                 SceneLoadManager.instance.RestartScene();
@@ -34,7 +34,7 @@ public class ResetButton : MonoBehaviour
         {
             pressTime = 0f;
             buttonImage.color = Color.white;
-            buttonText.text = "Reset";
+            buttonText.text = "RESET";
         }
     }
 
