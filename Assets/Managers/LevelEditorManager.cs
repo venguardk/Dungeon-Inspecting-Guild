@@ -79,7 +79,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
                 GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
-                
+
                 RoomDictionary0.Add(MouseCoordinate, assets[currentButtonPressed]);
                 AngleDictionary0.Add(MouseCoordinate, rotation);
             }
@@ -194,9 +194,9 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                     Debug.Log(items.Key == position);
                     Debug.Log(RoomDictionary0[position]);
                 }
-                
+
             }
-            
+
             RoomDictionary0.Remove(position);
             AngleDictionary0.Remove(position);
         }
@@ -253,7 +253,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                 playerManager.DestroyPlayer();
             }
             Destroy(obj);
-            
+
         }
         foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary0)
         {
@@ -262,7 +262,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             {
                 if (loaded.Value == initialAsset[0])
                 {
-                    
+
                     Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[0]);
                 }
                 else if (loaded.Value == initialAsset[1])
@@ -362,7 +362,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     {
         ResetCurrentThreatAssetsCount(); //Resetting the current threat assets count
         this.initialObject.Clear();
-        foreach(GameObject items in data.initialObject)
+        foreach (GameObject items in data.initialObject)
         {
             this.initialObject.Add(items);
         }
@@ -414,14 +414,14 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             RoomDictionary0.Add(addedCoordinate2d, added);
             AngleDictionary0.Add(addedCoordinate2d, rotation);
-            
+
         }
         else if (objType == 1 && RoomDictionary1.ContainsKey(addedCoordinate2d) == false)
         {
             RoomDictionary1.Add(addedCoordinate2d, added);
             AngleDictionary1.Add(addedCoordinate2d, rotation);
         }
-        if(initial == true)
+        if (initial == true)
         {
             initialObject.Add(added);
         }
