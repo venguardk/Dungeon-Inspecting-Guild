@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class LevelEditorManager : MonoBehaviour, IDataPersistence
@@ -31,6 +33,10 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
+        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "" || SceneLoadManager.sceneMovement == "MainMenu")
+        {
+            DataPersistenceManager.instance.NewGame();
+        }
         if (instance == null)
         {
             instance = this;
@@ -41,30 +47,21 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    private void Start()
+    void Start()
     {
-        /*var allInitialObjects = new List<GameObject>();
-        foreach (string tag in tagList)
-        {
-            GameObject[] initialObjects = GameObject.FindGameObjectsWithTag(tag);
-            allInitialObjects.AddRange(initialObjects);
-        }
+        StartCoroutine(RunAfterStart());
+    }
 
-        if (allInitialObjects.Count > 0)
+    private IEnumerator RunAfterStart()
+    {
+        yield return new WaitForEndOfFrame();
+        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "" || SceneLoadManager.sceneMovement == "MainMenu")
         {
-            foreach (GameObject obj in allInitialObjects)
-            {
-                
-                initialObject.Add(obj);
-                //Separate the initial objects into each dictionary depending on their tags
-                Vector2 initialCoordinate = new Vector2(obj.transform.position.x, obj.transform.position.y);
-                if (RoomDictionary0.ContainsKey(initialCoordinate) == false)
-                {
-                    RoomDictionary0.Add(initialCoordinate, obj);
-                    AngleDictionary0.Add(initialCoordinate, obj.transform.eulerAngles.z);
-                }
-            }
-        }*/
+            LevelSave();
+        }
+        Debug.Log(SceneLoadManager.sceneMovement);
+        LevelLoad();
+
     }
 
     private void Update()
@@ -77,15 +74,16 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         { //If the left mouse button is clicked, spawn the asset
 
             Vector2 MouseCoordinate = new Vector2(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f);
-            if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 0 && RoomDictionary0.ContainsKey(MouseCoordinate) == false && coordinateChecker(MouseCoordinate, Floor) == true && coordinateChecker(MouseCoordinate, Gap) == false)
+            if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 0 && RoomDictionary0.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Floor) == true && CoordinateChecker(MouseCoordinate, Gap) == false)
             {
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
                 GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+
                 RoomDictionary0.Add(MouseCoordinate, assets[currentButtonPressed]);
                 AngleDictionary0.Add(MouseCoordinate, rotation);
             }
-            else if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 1 && RoomDictionary1.ContainsKey(MouseCoordinate) == false && coordinateChecker(MouseCoordinate, Gap) == true)
+            else if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 1 && RoomDictionary1.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Gap) == true)
             {
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
@@ -100,7 +98,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
         }
 
-        //For Debug and Exporting game
+        //For Debug
         if (Input.GetKeyDown(KeyCode.R))
         {
             foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary0)
@@ -111,21 +109,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             {
                 Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary1[items.Key]);
             }
-            DataPersistenceManager.instance.ExportGame();
-        }
-        //Import does not work yet
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary0)
-            {
-                Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary0[items.Key]);
-            }
-            foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary1)
-            {
-                Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary1[items.Key]);
-            }
-            DataPersistenceManager.instance.ImportGame();
-            LevelLoad();
         }
     }
 
@@ -203,6 +186,17 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     {
         if (objType == 0)
         {
+            foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary0)
+            {
+                Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary0[items.Key]);
+                if (items.Key == position)
+                {
+                    Debug.Log(items.Key == position);
+                    Debug.Log(RoomDictionary0[position]);
+                }
+
+            }
+
             RoomDictionary0.Remove(position);
             AngleDictionary0.Remove(position);
         }
@@ -235,6 +229,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             activate.SetActive(true);
         }
+        deactivatedObject.Clear();
         foreach (string tag in tagList)
         {
             GameObject[] sceneObjects = GameObject.FindGameObjectsWithTag(tag);
@@ -258,7 +253,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                 playerManager.DestroyPlayer();
             }
             Destroy(obj);
-            
+
         }
         foreach (KeyValuePair<Vector2, GameObject> loaded in RoomDictionary0)
         {
@@ -267,7 +262,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             {
                 if (loaded.Value == initialAsset[0])
                 {
-                    
+
                     Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[0]);
                 }
                 else if (loaded.Value == initialAsset[1])
@@ -289,6 +284,34 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
                 else if (loaded.Value == initialAsset[5])
                 {
                     Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[5]);
+                }
+                else if (loaded.Value == initialAsset[6])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[6]);
+                }
+                else if (loaded.Value == initialAsset[7])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[7]);
+                }
+                else if (loaded.Value == initialAsset[8])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[8]);
+                }
+                else if (loaded.Value == initialAsset[9])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[9]);
+                }
+                else if (loaded.Value == initialAsset[10])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[10]);
+                }
+                else if (loaded.Value == initialAsset[11])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[11]);
+                }
+                else if (loaded.Value == initialAsset[12])
+                {
+                    Instantiate(loaded.Value, new Vector3(loaded.Key.x, loaded.Key.y, 0), Quaternion.Euler(0, 0, AngleDictionary0[loaded.Key]), initialBase[12]);
                 }
 
             }
@@ -339,7 +362,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     {
         ResetCurrentThreatAssetsCount(); //Resetting the current threat assets count
         this.initialObject.Clear();
-        foreach(GameObject items in data.initialObject)
+        foreach (GameObject items in data.initialObject)
         {
             this.initialObject.Add(items);
         }
@@ -391,25 +414,25 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             RoomDictionary0.Add(addedCoordinate2d, added);
             AngleDictionary0.Add(addedCoordinate2d, rotation);
-            
+
         }
         else if (objType == 1 && RoomDictionary1.ContainsKey(addedCoordinate2d) == false)
         {
             RoomDictionary1.Add(addedCoordinate2d, added);
             AngleDictionary1.Add(addedCoordinate2d, rotation);
         }
-        if(initial == true)
+        if (initial == true)
         {
             initialObject.Add(added);
         }
     }
 
-    public void deeacitaveObj(GameObject obj)
+    public void DeacitaveObj(GameObject obj)
     {
         deactivatedObject.Add(obj);
     }
 
-    private bool coordinateChecker(Vector2 coordinate, Tilemap tilemap)
+    private bool CoordinateChecker(Vector2 coordinate, Tilemap tilemap)
     {
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(coordinate);
 
@@ -424,6 +447,15 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
 
         return false;
+    }
+
+    public bool FloorChecker(Vector2 coordinate)
+    {
+        return CoordinateChecker(coordinate, Floor);
+    }
+    public bool GapChecker(Vector2 coordinate)
+    {
+        return CoordinateChecker(coordinate, Gap);
     }
 
     public GameObject gameObjectConvertion(string name)

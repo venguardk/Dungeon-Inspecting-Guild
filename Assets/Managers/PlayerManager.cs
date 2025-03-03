@@ -39,6 +39,7 @@ public class PlayerManager : MonoBehaviour
             playerDirection = Vector2.zero;
             rb.linearVelocity = Vector2.zero;
             movementInput = Vector2.zero;
+            keyCount = 0;
             FullHeal();
             keyCount = 0;
             UIManager.instance.SwitchToLevelEditor();
@@ -62,17 +63,10 @@ public class PlayerManager : MonoBehaviour
             playerDirection = movementInput;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isAttacking == false)
+        if (Input.GetMouseButtonDown(0) && GameManager.instance.IsLevelEditorMode() == false && isAttacking == false)
         {
             Attack();
         }
-
-        //Reset scene by pressing R
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reset();
-        }
-
     }
 
     private void FixedUpdate()
@@ -96,7 +90,12 @@ public class PlayerManager : MonoBehaviour
     private void Attack()
     {
         isAttacking = true;
-        Vector3 direction = playerDirection;
+
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+
+        Vector3 direction = (mousePosition - transform.position).normalized;
+
         attackHitBox.transform.position = transform.position + direction * attackRange;
 
         attackHitBox.SetActive(true);
@@ -160,12 +159,6 @@ public class PlayerManager : MonoBehaviour
     {
         isInvincible = false;
         Debug.Log("Player is no longer invincible!");
-    }
-
-    public void Reset()
-    {
-        Debug.Log(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     //FOR UI

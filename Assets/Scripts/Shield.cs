@@ -13,7 +13,7 @@ public class Shield : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerManager>().BecomeInvincible();
-            LevelEditorManager.instance.deeacitaveObj(this.gameObject);
+            LevelEditorManager.instance.DeacitaveObj(this.gameObject);
             this.gameObject.SetActive(false);
         }
     }

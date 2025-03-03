@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameWin.unity
     guid: 997f29c1c30ca48e086e6d0b47e0f794
+  - enabled: 1
+    path: Assets/Scenes/ShareScene.unity
+    guid: 0e014ac0826146d40b0d1101328111b4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

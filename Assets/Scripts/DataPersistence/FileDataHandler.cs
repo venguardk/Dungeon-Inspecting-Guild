@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEditor;
 
 public class FileDataHandler
 {
