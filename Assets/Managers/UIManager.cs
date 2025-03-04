@@ -10,6 +10,33 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dartsCountText, spikesCountText, flameCountText, enemyCountText;
     [SerializeField] private Canvas playModeCanvas, levelEditorCanvas, lossCanvas;
     [SerializeField] private GameObject assetsTab, threatsTab, assetDescriptionSection;
+    [SerializeField] private TextMeshProUGUI assetDescription, assetName;
+    private string[] assetDescriptions = new string[]
+    {
+        "Can be placed to block paths and projectiles.",
+        "Shoots darts every few seconds.",
+        "Pops spikes up from the ground that instantly kills the player.",
+        "Rapidly shoots fireballs in a specific direction.",
+        "Chases the player when close and will attack if near.",
+        "A key that the can be picked up to unlock one door.",
+        "Restores the player back to full health when picked up.",
+        "A box that the player can push.",
+        "A shield that grants the player immunity for a few seconds.",
+        "A bridge that the player can use to cross gaps."
+    };
+    private string[] assetNames = new string[]
+    {
+        "Wall",
+        "Dart",
+        "Spike",
+        "Flamethrower",
+        "Enemy",
+        "Key",
+        "Potion",
+        "Box",
+        "Shield",
+        "Bridge"
+    };
 
     private void Awake()
     {
@@ -112,6 +139,8 @@ public class UIManager : MonoBehaviour
     public void DisplayDescription(int ID)
     {
         assetDescriptionSection.SetActive(true);
+        assetDescription.text = assetDescriptions[ID];
+        assetName.text = assetNames[ID];
     }
 
     public void HideDescription()
