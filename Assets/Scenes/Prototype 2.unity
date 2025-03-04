@@ -12644,7 +12644,7 @@ MonoBehaviour:
   - {fileID: 626263220615973888, guid: 381018a704b5c4800b24ce869c0d9b89, type: 3}
   currentButtonPressed: 0
   goldBudget: 200
-  requiredThreatLevel: 0
+  requiredThreatLevel: 10
   requiredDartShooters: 1
   requiredSpikeTraps: 2
   requiredFlamethrowers: 1
