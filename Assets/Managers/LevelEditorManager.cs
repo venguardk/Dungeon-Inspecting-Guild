@@ -59,7 +59,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             LevelSave();
         }
-        Debug.Log(SceneLoadManager.sceneMovement);
         LevelLoad();
 
     }
@@ -73,12 +72,13 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         if (Input.GetMouseButtonDown(0) && assetButtons[currentButtonPressed].clicked)
         { //If the left mouse button is clicked, spawn the asset
 
-            Vector2 MouseCoordinate = new Vector2(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f);
+            //Vector2 MouseCoordinate = new Vector2(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f);
+            Vector2 MouseCoordinate = new Vector2(Mathf.Ceil(worldPosition.x - 0.75f) + 0.5f, Mathf.Ceil(worldPosition.y - 0.75f) + 0.5f);
             if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 0 && RoomDictionary0.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Floor) == true && CoordinateChecker(MouseCoordinate, Gap) == false)
             {
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
-                GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+                GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.75f) + 0.5f, Mathf.Ceil(worldPosition.y - 0.75f) + 0.5f, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
 
                 RoomDictionary0.Add(MouseCoordinate, assets[currentButtonPressed]);
                 AngleDictionary0.Add(MouseCoordinate, rotation);
@@ -87,7 +87,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             {
                 float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
                 //Setting the asset so that it will be located in a grid position
-                GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+                GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.75f) + 0.5f, Mathf.Ceil(worldPosition.y - 0.75f) + 0.5f, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
                 RoomDictionary1.Add(MouseCoordinate, assets[currentButtonPressed]);
                 AngleDictionary1.Add(MouseCoordinate, rotation);
             }
