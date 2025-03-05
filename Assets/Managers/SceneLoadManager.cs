@@ -22,7 +22,7 @@ public class SceneLoadManager : MonoBehaviour
     public void PlayLevel()
     {
         sceneMovement = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene("Prototype 2");
+        SceneManager.LoadScene("Prototype 3");
     }
 
     public void LoadScene(string sceneName)

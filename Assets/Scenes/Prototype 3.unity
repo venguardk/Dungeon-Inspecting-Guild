@@ -2239,7 +2239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c6b3ea8269c467a9fd7933dd06af3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLevelEditorMode: 0
+  isLevelEditorMode: 1
 --- !u!4 &308486065
 Transform:
   m_ObjectHideFlags: 0
@@ -2981,7 +2981,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496609009}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 495957954}
@@ -13910,7 +13910,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1877916367}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 898612241}
@@ -17380,8 +17380,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 898612244}
   - {fileID: 495957955}
-  - {fileID: 199536929}
   - {fileID: 308486065}
+  - {fileID: 199536929}
   - {fileID: 866852357}
   - {fileID: 2072793696}
   - {fileID: 1742918818}
