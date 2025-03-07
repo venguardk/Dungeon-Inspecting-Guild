@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3035986935798443590}
   m_Layer: 0
   m_Name: Flamethrower_Test_Image
-  m_TagString: Untagged
+  m_TagString: AssetImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,4 +100,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc4ffcc058ff47b7ab297be419289ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRotatable: 0
+  isRotatable: 1
