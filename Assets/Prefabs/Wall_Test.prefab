@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  goldCost: 20
+  goldCost: 10
   threatLevel: 0
   objType: 0
   prebuiltItem: 0
