@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: df3afa089fa669a49b200926ca668236
+=======
+guid: 8adfe57ed2917b24da1b6da050c1b999
+>>>>>>> Stashed changes
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -124,17 +128,29 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Frame_0
     originalName: 
+<<<<<<< Updated upstream
     pivot: {x: 0.7758621, y: -1.2142857}
+=======
+    pivot: {x: 0.5294118, y: -1.1724138}
+>>>>>>> Stashed changes
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
+<<<<<<< Updated upstream
       x: 4
       y: 58
       width: 58
       height: 28
     spriteID: 1458b42744d8b3749874912ad974e92f
+=======
+      x: 97
+      y: 104
+      width: 85
+      height: 29
+    spriteID: 2041373700c604647a0b716a3a78d4e2
+>>>>>>> Stashed changes
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,10 +158,38 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
+<<<<<<< Updated upstream
     uvTransform: {x: 4, y: 58}
   - name: Frame_1
     originalName: 
     pivot: {x: 0.7627118, y: -0.7391304}
+=======
+    uvTransform: {x: 97, y: 104}
+  - name: Frame_1
+    originalName: 
+    pivot: {x: 0.5294118, y: -0.56666666}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 104
+      width: 85
+      height: 60
+    spriteID: baa7c3f37cb4c3b4a8961501491efe2b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 104}
+  - name: Frame_2
+    originalName: 
+    pivot: {x: 0.5294118, y: -0.02173913}
+>>>>>>> Stashed changes
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -153,9 +197,15 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
+<<<<<<< Updated upstream
       width: 59
       height: 46
     spriteID: 1270761159447be42b00c70ede27ec4f
+=======
+      width: 85
+      height: 92
+    spriteID: 0834c1e340114af438187bd34686c59b
+>>>>>>> Stashed changes
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -164,6 +214,30 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+<<<<<<< Updated upstream
+=======
+  - name: Frame_3
+    originalName: 
+    pivot: {x: 0.5294118, y: -0.02173913}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 97
+      y: 4
+      width: 85
+      height: 92
+    spriteID: 78f05cda218b51e48878225de021a905
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 97, y: 4}
+>>>>>>> Stashed changes
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -179,18 +253,48 @@ ScriptedImporter:
       cellRect:
         x: 3
         y: 34
+<<<<<<< Updated upstream
         width: 58
         height: 28
       spriteId: 1458b42744d8b3749874912ad974e92f
+=======
+        width: 85
+        height: 29
+      spriteId: 2041373700c604647a0b716a3a78d4e2
+>>>>>>> Stashed changes
     - name: Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
         x: 3
         y: 34
+<<<<<<< Updated upstream
         width: 59
         height: 46
       spriteId: 1270761159447be42b00c70ede27ec4f
+=======
+        width: 85
+        height: 60
+      spriteId: baa7c3f37cb4c3b4a8961501491efe2b
+    - name: Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 3
+        y: 2
+        width: 85
+        height: 92
+      spriteId: 0834c1e340114af438187bd34686c59b
+    - name: Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 3
+        y: 2
+        width: 85
+        height: 92
+      spriteId: 78f05cda218b51e48878225de021a905
+>>>>>>> Stashed changes
     linkedCells: []
     parentIndex: -1
   platformSettings:
