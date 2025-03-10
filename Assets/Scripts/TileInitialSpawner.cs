@@ -25,11 +25,11 @@ public class TileInitialSpawner : MonoBehaviour
                 {
                     //Vector3 gridPosition = new Vector3(Mathf.Ceil((tilemap.GetCellCenterWorld(cellPosition).x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((tilemap.GetCellCenterWorld(cellPosition).y - 0.5f) / 0.96f) * 0.96f + 0.34f, 0);
                     Vector3 gridPosition = new Vector3(Mathf.Ceil(tilemap.GetCellCenterWorld(cellPosition).x - 0.75f) + 0.5f, Mathf.Ceil(tilemap.GetCellCenterWorld(cellPosition).y - 0.75f) + 0.5f, 0);
-                    Debug.Log(initialPrefab.name + " " + tilemap.GetCellCenterWorld(cellPosition) + " " + gridPosition);
                     Matrix4x4 tileTransform = tilemap.GetTransformMatrix(cellPosition);
                     Quaternion rotation = Quaternion.LookRotation(tileTransform.GetColumn(2), tileTransform.GetColumn(1));
+                    Debug.Log(initialPrefab.name + " " + tilemap.GetCellCenterWorld(cellPosition) + " " + gridPosition + " " + rotation.eulerAngles);
                     GameObject newGap = Instantiate(initialPrefab, gridPosition, rotation, initialParent);
-                    LevelEditorManager.instance.AddObject(initialPrefab, gridPosition, rotation.z, 0, true);
+                    LevelEditorManager.instance.AddObject(initialPrefab, gridPosition, rotation.eulerAngles.z, 0, true);
                 }
             }
         }
