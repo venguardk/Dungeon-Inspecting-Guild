@@ -37,7 +37,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     {
         if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "" || SceneLoadManager.sceneMovement == "MainMenu")
         {
-            DataPersistenceManager.instance.NewGame();
+            DataPersistenceManager.instance.ResetGame();
         }
         if (instance == null)
         {
@@ -422,6 +422,17 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             data.RoomDictionary1.Add(items.Key, items.Value);
             data.AngleDictionary1.Add(items.Key, this.AngleDictionary1[items.Key]);
         }
+    }
+
+
+    public void SaveOption(ref OptionData optionData)
+    {
+        return;
+    }
+
+    public void LoadOption(OptionData optionData)
+    {
+        return;
     }
 
     public void AddObject(GameObject added, Vector3 addedCoordinate, float rotation, int objType, bool initial)

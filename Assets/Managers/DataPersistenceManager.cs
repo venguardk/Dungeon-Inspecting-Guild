@@ -10,6 +10,7 @@ public class DataPersistenceManager : MonoBehaviour
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
     private GameData gameData;
+    private OptionData optionData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
     public static DataPersistenceManager instance { get; private set; }
@@ -44,8 +45,15 @@ public class DataPersistenceManager : MonoBehaviour
     }
     public void NewGame()
     {
+        this.optionData = new OptionData();
         this.gameData = new GameData();
         Debug.Log("NewGame");
+    }
+
+    public void ResetGame()
+    {
+        this.gameData = new GameData();
+        Debug.Log("ResetGame");
     }
 
     public void ImportGame()
@@ -105,15 +113,50 @@ public class DataPersistenceManager : MonoBehaviour
         Debug.Log("SaveGame");
     }
 
+    // For saving options
+    public void LoadOption()
+    {
+        if (this.optionData == null)
+        {
+            Debug.Log("No option data");
+            SaveOption();
+        }
+
+        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            dataPersistenceObj.LoadOption(optionData);
+        }
+
+        Debug.Log("LoadOption");
+    }
+    public void SaveOption()
+    {
+
+        if (this.optionData == null)
+        {
+            Debug.Log("No option data");
+            NewGame();
+        }
+
+        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        {
+            dataPersistenceObj.SaveOption(ref optionData);
+        }
+
+        Debug.Log("SaveOption");
+    }
+
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         this.dataPersistenceObjects = FindAllPersistenceObjects();
         LoadGame();
+        LoadOption();
     }
 
     public void OnSceneUnloaded(Scene scene)
     {
         SaveGame();
+        SaveOption();
     }
 
     private List<IDataPersistence> FindAllPersistenceObjects()
