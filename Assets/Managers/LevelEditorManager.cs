@@ -17,6 +17,8 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     [SerializeField] private int goldBudget, requiredThreatLevel;
     [SerializeField] private int requiredDartShooters, requiredSpikeTraps, requiredFlamethrowers, requiredEnemies;
     private int goldSpent, currentThreatLevel, currentDartShooters, currentSpikeTraps, currentFlamethrowers, currentEnemies;
+    private bool isDragging = false;
+    private Vector2 previousMousePosition = Vector2.zero;
 
     public Tilemap Floor;
     public Tilemap Gap;
@@ -67,30 +69,24 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     {
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y); //Updating where the mouse is
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-
+        Vector2 mouseCoordinate = new Vector2(Mathf.Ceil(worldPosition.x - 0.75f) + 0.5f, Mathf.Ceil(worldPosition.y - 0.75f) + 0.5f);
 
         if (Input.GetMouseButtonDown(0) && assetButtons[currentButtonPressed].clicked)
         { //If the left mouse button is clicked, spawn the asset
+            isDragging = true;
+            previousMousePosition = mouseCoordinate;
+            GenerateAssetAt(mouseCoordinate);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
 
-            //Vector2 MouseCoordinate = new Vector2(Mathf.Ceil((worldPosition.x - 0.5f) / 0.96f) * 0.96f + 0.06f, Mathf.Ceil((worldPosition.y - 0.5f) / 0.96f) * 0.96f + 0.34f);
-            Vector2 MouseCoordinate = new Vector2(Mathf.Ceil(worldPosition.x - 0.75f) + 0.5f, Mathf.Ceil(worldPosition.y - 0.75f) + 0.5f);
-            if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 0 && RoomDictionary0.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Floor) == true && CoordinateChecker(MouseCoordinate, Gap) == false)
-            {
-                float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
-                //Setting the asset so that it will be located in a grid position
-                GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.75f) + 0.5f, Mathf.Ceil(worldPosition.y - 0.75f) + 0.5f, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+        }
 
-                RoomDictionary0.Add(MouseCoordinate, assets[currentButtonPressed]);
-                AngleDictionary0.Add(MouseCoordinate, rotation);
-            }
-            else if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 1 && RoomDictionary1.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Gap) == true)
-            {
-                float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
-                //Setting the asset so that it will be located in a grid position
-                GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(Mathf.Ceil(worldPosition.x - 0.75f) + 0.5f, Mathf.Ceil(worldPosition.y - 0.75f) + 0.5f, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
-                RoomDictionary1.Add(MouseCoordinate, assets[currentButtonPressed]);
-                AngleDictionary1.Add(MouseCoordinate, rotation);
-            }
+        if (isDragging && mouseCoordinate != previousMousePosition)
+        {
+            previousMousePosition = mouseCoordinate;
+            GenerateAssetAt(mouseCoordinate);
         }
         else if (Input.GetMouseButtonDown(1) && assetButtons[currentButtonPressed].clicked)
         { //If the right mouse button is clicked, cancel addition
@@ -109,6 +105,27 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             {
                 Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary1[items.Key]);
             }
+        }
+    }
+
+    private void GenerateAssetAt(Vector2 MouseCoordinate)
+    {
+        if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 0 && RoomDictionary0.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Floor) == true && CoordinateChecker(MouseCoordinate, Gap) == false)
+        {
+            float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
+            //Setting the asset so that it will be located in a grid position
+            GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(MouseCoordinate.x, MouseCoordinate.y, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+
+            RoomDictionary0.Add(MouseCoordinate, assets[currentButtonPressed]);
+            AngleDictionary0.Add(MouseCoordinate, rotation);
+        }
+        else if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 1 && RoomDictionary1.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Gap) == true)
+        {
+            float rotation = GameObject.FindGameObjectWithTag("AssetImage").transform.rotation.eulerAngles.z; //Acquiring rotation from asset
+            //Setting the asset so that it will be located in a grid position
+            GameObject AddedObject = Instantiate(assets[currentButtonPressed], new Vector3(MouseCoordinate.x, MouseCoordinate.y, 0), Quaternion.Euler(0, 0, rotation)); //Spawn the asset at the mouse position
+            RoomDictionary1.Add(MouseCoordinate, assets[currentButtonPressed]);
+            AngleDictionary1.Add(MouseCoordinate, rotation);
         }
     }
 
