@@ -15,6 +15,8 @@ public class AssetManager : MonoBehaviour
             levelEditorManager.AddGold(goldCost);
             levelEditorManager.AddThreatLevel(threatLevel);
             levelEditorManager.AddThreatAssetCount(ID);
+
+            AudioManager.instance.PlayAddAssetSound(ID);
         }
     }
 
