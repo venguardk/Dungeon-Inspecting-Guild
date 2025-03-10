@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 4940022383978896953}
   - component: {fileID: 979735958001806901}
   m_Layer: 0
-  m_Name: Prebuilt_Key_Test
+  m_Name: Prebuilt_Key
   m_TagString: Collectible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

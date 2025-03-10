@@ -25,6 +25,12 @@ public class SceneLoadManager : MonoBehaviour
         SceneManager.LoadScene("Prototype 3");
     }
 
+    public void LoadInstructions()
+    {
+        sceneMovement = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene("InstructionsPage");
+    }
+
     public void LoadScene(string sceneName)
     {
         sceneMovement = SceneManager.GetActiveScene().name;
