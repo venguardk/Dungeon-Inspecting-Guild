@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 1861077991387803242}
   - component: {fileID: 66626390623023014}
   m_Layer: 0
-  m_Name: Flamethrower_Test
+  m_Name: Flamethrower
   m_TagString: AddedItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
