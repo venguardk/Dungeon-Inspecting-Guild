@@ -18,14 +18,14 @@ public class UIManager : MonoBehaviour
     {
         "Can be placed to block paths and projectiles.",
         "Shoots darts every few seconds.",
-        "Pops spikes up from the ground that instantly kills the player.",
+        "Pops spikes up from the ground every few seconds.",
         "Rapidly shoots fireballs in a specific direction.",
-        "Chases the player when close and will attack if near.",
+        "Chases the inspector when close and will attack if near.",
         "A key that the can be picked up to unlock one door.",
-        "Restores the player back to full health when picked up.",
-        "A box that the player can push.",
-        "A shield that grants the player immunity for a few seconds.",
-        "A bridge that the player can use to cross gaps."
+        "Restores the inspector back to full health when picked up.",
+        "A box that the inspector can push.",
+        "A shield that grants the inspector immunity for a few seconds.",
+        "A bridge that the inspector can use to cross gaps."
     };
     private string[] assetNames = new string[]
     {
