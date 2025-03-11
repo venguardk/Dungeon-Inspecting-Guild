@@ -200,6 +200,7 @@ MonoBehaviour:
   attackDuration: 0.2
   attackRange: 1
   health: 10
+  playerSprite: {fileID: 3269349395089234087}
 --- !u!50 &5857550487080113228
 Rigidbody2D:
   serializedVersion: 5
@@ -348,7 +349,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 6d080657584c265409570d4c5e0b33ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

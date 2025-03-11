@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d86c45a6deb18434c86c2850a2a29135
+guid: 5677f811530954820bbf18f160232057
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: TD Tiles WIP
+  - name: Anim_Player-Sheet
     originalName: 
-    pivot: {x: 0.5010799, y: -0.0021231424}
+    pivot: {x: 0.52136755, y: -0.071428575}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,9 +132,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 926
-      height: 942
-    spriteID: a7f16690aba612349ac5fc76cf9e661c
+      width: 117
+      height: 28
+    spriteID: 63784d88fe9a1475c8dbe504ce614688
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,25 +142,25 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 1, y: 2}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1309288561
-    name: TD Tiles WIP
+    guid: 961377693
+    name: Anim_Player-Sheet
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: TD Tiles WIP
+    - name: Anim_Player-Sheet
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 16
-        y: 2
-        width: 926
-        height: 942
-      spriteId: a7f16690aba612349ac5fc76cf9e661c
+        x: 0
+        y: 0
+        width: 128
+        height: 32
+      spriteId: 63784d88fe9a1475c8dbe504ce614688
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -179,4 +179,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 960, y: 960}
+  canvasSize: {x: 128, y: 32}

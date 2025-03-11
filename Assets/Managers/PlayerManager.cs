@@ -11,7 +11,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject attackHitBox;
     [SerializeField] private float attackDuration = 0.1f, attackRange = 1f;
     [SerializeField] private int health = 10;
-    private bool isAttacking, isInvincible;
+    [SerializeField] private SpriteRenderer playerSprite;
+    private bool isAttacking, isInvincible, isHurt;
     private int keyCount = 0;
 
     private void Awake()
@@ -124,9 +125,21 @@ public class PlayerManager : MonoBehaviour
     {
         if (isInvincible == false && !GameManager.instance.IsLevelEditorMode())
         {
+            if (isHurt == false)
+            {
+                isHurt = true;
+                playerSprite.color = Color.red;
+                Invoke(nameof(EndDamageFlash), 0.2f);
+            }
             health -= damage;
             UIManager.instance.UpdatePlayerStats();
         }
+    }
+
+    private void EndDamageFlash()
+    {
+        playerSprite.color = Color.white;
+        isHurt = false;
     }
 
     public void FullHeal()
@@ -154,6 +167,7 @@ public class PlayerManager : MonoBehaviour
 
     public void BecomeInvincible()
     {
+        playerSprite.color = new Color(178.5f / 255f, 0, 178.5f / 255f);
         isInvincible = true;
         Debug.Log("Player is now invincible!");
         Invoke(nameof(EndInvincibility), 5f); //Calls EndInvincibility after 5 seconds
@@ -161,6 +175,7 @@ public class PlayerManager : MonoBehaviour
 
     private void EndInvincibility()
     {
+        playerSprite.color = Color.white;
         isInvincible = false;
         Debug.Log("Player is no longer invincible!");
     }
