@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,11 +7,13 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    [SerializeField] private TextMeshProUGUI goldBudgetText, threatLevelText, playerHealthText;
+    [SerializeField] private TextMeshProUGUI goldBudgetText, threatLevelText, keyCountText;
     [SerializeField] private TextMeshProUGUI dartsCountText, spikesCountText, flameCountText, enemyCountText;
     [SerializeField] private Canvas playModeCanvas, levelEditorCanvas, lossCanvas;
     [SerializeField] private GameObject assetsTab, threatsTab, assetDescriptionSection;
     [SerializeField] private TextMeshProUGUI assetDescription, assetName;
+    [SerializeField] private Image[] heartIcons; //5 Heart Icons
+    [SerializeField] private Sprite fullHeart, halfHeart, emptyHeart;
     private string[] assetDescriptions = new string[]
     {
         "Can be placed to block paths and projectiles.",
@@ -53,33 +56,35 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        UpdateStatText();
         levelEditorCanvas.enabled = true;
         playModeCanvas.enabled = false;
         lossCanvas.enabled = false;
         assetsTab.SetActive(true);
         threatsTab.SetActive(false);
         assetDescriptionSection.SetActive(false);
+        UpdateLevelStatText();
     }
 
     void FixedUpdate()
     {
-        UpdateStatText();
-        UpdateStatColours();
+        if (GameManager.instance.IsLevelEditorMode())
+        {
+            UpdateLevelStatText();
+            UpdateLevelStatColours();
+        }
     }
 
-    private void UpdateStatText()
+    private void UpdateLevelStatText()
     {
         goldBudgetText.text = "Gold Budget: " + LevelEditorManager.instance.GetGoldRemaining().ToString();
         threatLevelText.text = "Threat Level: " + LevelEditorManager.instance.GetCurrentThreatLevel().ToString() + "/" + LevelEditorManager.instance.GetRequiredThreatLevel().ToString();
-        playerHealthText.text = $"Health: {PlayerManager.instance.GetPlayerHealth()}";
         dartsCountText.text = $"Darts: {LevelEditorManager.instance.GetDartsCount()}/{LevelEditorManager.instance.GetDartsRequirement()}";
         spikesCountText.text = $"Spikes: {LevelEditorManager.instance.GetSpikesCount()}/{LevelEditorManager.instance.GetSpikesRequirement()}";
         flameCountText.text = $"Flames: {LevelEditorManager.instance.GetFlamethrowersCount()}/{LevelEditorManager.instance.GetFlamethrowersRequirement()}";
         enemyCountText.text = $"Enemies: {LevelEditorManager.instance.GetEnemiesCount()}/{LevelEditorManager.instance.GetEnemiesRequirement()}";
     }
 
-    private void UpdateStatColours()
+    private void UpdateLevelStatColours()
     {
         if (LevelEditorManager.instance.GetGoldRemaining() < 0)
         {
@@ -133,6 +138,91 @@ public class UIManager : MonoBehaviour
         else
         {
             enemyCountText.color = Color.green;
+        }
+    }
+
+    public void UpdatePlayerStats()
+    {
+        UpdatePlayerHealthUI();
+        keyCountText.text = PlayerManager.instance.GetKeyCount().ToString();
+    }
+
+    private void UpdatePlayerHealthUI()
+    {
+        switch (PlayerManager.instance.GetPlayerHealth())
+        {
+            case 10:
+                heartIcons[0].sprite = fullHeart;
+                heartIcons[1].sprite = fullHeart;
+                heartIcons[2].sprite = fullHeart;
+                heartIcons[3].sprite = fullHeart;
+                heartIcons[4].sprite = fullHeart;
+                break;
+            case 9:
+                heartIcons[0].sprite = fullHeart;
+                heartIcons[1].sprite = fullHeart;
+                heartIcons[2].sprite = fullHeart;
+                heartIcons[3].sprite = fullHeart;
+                heartIcons[4].sprite = halfHeart;
+                break;
+            case 8:
+                heartIcons[0].sprite = fullHeart;
+                heartIcons[1].sprite = fullHeart;
+                heartIcons[2].sprite = fullHeart;
+                heartIcons[3].sprite = fullHeart;
+                heartIcons[4].sprite = emptyHeart;
+                break;
+            case 7:
+                heartIcons[0].sprite = fullHeart;
+                heartIcons[1].sprite = fullHeart;
+                heartIcons[2].sprite = fullHeart;
+                heartIcons[3].sprite = halfHeart;
+                heartIcons[4].sprite = emptyHeart;
+                break;
+            case 6:
+                heartIcons[0].sprite = fullHeart;
+                heartIcons[1].sprite = fullHeart;
+                heartIcons[2].sprite = fullHeart;
+                heartIcons[3].sprite = emptyHeart;
+                heartIcons[4].sprite = emptyHeart;
+                break;
+            case 5:
+                heartIcons[0].sprite = fullHeart;
+                heartIcons[1].sprite = fullHeart;
+                heartIcons[2].sprite = halfHeart;
+                heartIcons[3].sprite = emptyHeart;
+                heartIcons[4].sprite = emptyHeart;
+                break;
+            case 4:
+                heartIcons[0].sprite = fullHeart;
+                heartIcons[1].sprite = fullHeart;
+                heartIcons[2].sprite = emptyHeart;
+                heartIcons[3].sprite = emptyHeart;
+                heartIcons[4].sprite = emptyHeart;
+                break;
+            case 3:
+                heartIcons[0].sprite = fullHeart;
+                heartIcons[1].sprite = halfHeart;
+                heartIcons[2].sprite = emptyHeart;
+                heartIcons[3].sprite = emptyHeart;
+                heartIcons[4].sprite = emptyHeart;
+                break;
+            case 2:
+                heartIcons[0].sprite = fullHeart;
+                heartIcons[1].sprite = emptyHeart;
+                heartIcons[2].sprite = emptyHeart;
+                heartIcons[3].sprite = emptyHeart;
+                heartIcons[4].sprite = emptyHeart;
+                break;
+            case 1:
+                heartIcons[0].sprite = halfHeart;
+                heartIcons[1].sprite = emptyHeart;
+                heartIcons[2].sprite = emptyHeart;
+                heartIcons[3].sprite = emptyHeart;
+                heartIcons[4].sprite = emptyHeart;
+                break;
+            default:
+                break;
         }
     }
 

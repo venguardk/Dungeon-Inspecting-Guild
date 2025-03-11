@@ -6,7 +6,7 @@ public class Spikes : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerManager>().TakeDamage(10);
+            collision.gameObject.GetComponent<PlayerManager>().TakeDamage(3);
         }
     }
 }

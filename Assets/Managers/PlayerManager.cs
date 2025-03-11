@@ -125,22 +125,26 @@ public class PlayerManager : MonoBehaviour
         if (isInvincible == false && !GameManager.instance.IsLevelEditorMode())
         {
             health -= damage;
+            UIManager.instance.UpdatePlayerStats();
         }
     }
 
     public void FullHeal()
     {
         health = 10;
+        UIManager.instance.UpdatePlayerStats();
     }
 
     public void AddKey()
     {
         keyCount++;
+        UIManager.instance.UpdatePlayerStats();
     }
 
     public void RemoveKey()
     {
         keyCount--;
+        UIManager.instance.UpdatePlayerStats();
     }
 
     public bool HasKey()
@@ -165,6 +169,11 @@ public class PlayerManager : MonoBehaviour
     public int GetPlayerHealth()
     {
         return health;
+    }
+
+    public int GetKeyCount()
+    {
+        return keyCount;
     }
 
     //FOR RESET
