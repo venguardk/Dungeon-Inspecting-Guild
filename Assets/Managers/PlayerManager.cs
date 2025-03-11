@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private SpriteRenderer playerSprite;
     private bool isAttacking, isInvincible, isHurt;
     private int keyCount = 0;
+    private Animator animator;  // animation component
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class PlayerManager : MonoBehaviour
         health = 10;
         keyCount = 0;
         isInvincible = false;
+        animator = GetComponent<Animator>();    // establishing animator
     }
 
     private void Update()
@@ -59,10 +61,23 @@ public class PlayerManager : MonoBehaviour
         }
 
         movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        Debug.Log(movementInput);
         if (movementInput != Vector2.zero)
         {
+            animator.SetBool("isWalking", true);    // sets to walking
             playerDirection = movementInput;
+            animator.SetFloat("lastInputX", movementInput.x);   // grabs last input
+            animator.SetFloat("lastInputY", movementInput.y);
+
         }
+        else
+        {
+            animator.SetBool("isWalking", false);    // sets to idle
+
+        }
+
+        animator.SetFloat("inputX", movementInput.x); // conditionals for blend state
+        animator.SetFloat("inputY", movementInput.y);
 
         if (Input.GetMouseButtonDown(0) && GameManager.instance.IsLevelEditorMode() == false && isAttacking == false)
         {
@@ -84,7 +99,9 @@ public class PlayerManager : MonoBehaviour
         {
             movementVelocity = movementInput * moveSpeed;
             rb.linearVelocity = movementVelocity;
-            FlipSprite();
+
+            // commented out bc it was flipping sprite
+            //FlipSprite();
         }
     }
 

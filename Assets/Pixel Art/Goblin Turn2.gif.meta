@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Goblin Turn2_0: 894025137398431029
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

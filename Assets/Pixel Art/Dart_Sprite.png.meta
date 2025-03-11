@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Dart_Sprite_0: 2623708691270838435
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

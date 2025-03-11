@@ -134,7 +134,7 @@ ScriptedImporter:
       y: 4
       width: 117
       height: 28
-    spriteID: 63784d88fe9a1475c8dbe504ce614688
+    spriteID: 8e40d582ac1ac0d4582e357aa2155eea
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,7 +152,7 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: Anim_Player-Sheet
+    - name: Player_Sheet
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -160,7 +160,7 @@ ScriptedImporter:
         y: 0
         width: 128
         height: 32
-      spriteId: 63784d88fe9a1475c8dbe504ce614688
+      spriteId: 8e40d582ac1ac0d4582e357aa2155eea
     linkedCells: []
     parentIndex: -1
   platformSettings:
