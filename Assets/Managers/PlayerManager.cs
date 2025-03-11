@@ -61,7 +61,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        Debug.Log(movementInput);
+        //Debug.Log(movementInput);
         if (movementInput != Vector2.zero)
         {
             animator.SetBool("isWalking", true);    // sets to walking
@@ -185,7 +185,6 @@ public class PlayerManager : MonoBehaviour
     {
         playerSprite.color = new Color(178.5f / 255f, 0, 178.5f / 255f);
         isInvincible = true;
-        Debug.Log("Player is now invincible!");
         Invoke(nameof(EndInvincibility), 5f); //Calls EndInvincibility after 5 seconds
     }
 
@@ -193,7 +192,6 @@ public class PlayerManager : MonoBehaviour
     {
         playerSprite.color = Color.white;
         isInvincible = false;
-        Debug.Log("Player is no longer invincible!");
     }
 
     //FOR UI
