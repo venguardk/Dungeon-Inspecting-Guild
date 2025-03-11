@@ -144,7 +144,7 @@ public class UIManager : MonoBehaviour
     public void UpdatePlayerStats()
     {
         UpdatePlayerHealthUI();
-        keyCountText.text = PlayerManager.instance.GetKeyCount().ToString();
+        keyCountText.text = "x" + PlayerManager.instance.GetKeyCount().ToString();
     }
 
     private void UpdatePlayerHealthUI()
