@@ -99,9 +99,6 @@ public class PlayerManager : MonoBehaviour
         {
             movementVelocity = movementInput * moveSpeed;
             rb.linearVelocity = movementVelocity;
-
-            // commented out bc it was flipping sprite
-            //FlipSprite();
         }
     }
 
@@ -115,6 +112,8 @@ public class PlayerManager : MonoBehaviour
         Vector3 direction = (mousePosition - transform.position).normalized;
 
         attackHitBox.transform.position = transform.position + direction * attackRange;
+        float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) + 90;
+        attackHitBox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         attackHitBox.SetActive(true);
         Invoke(nameof(EndAttack), attackDuration); //Calls EndAttack after attackDuration seconds
@@ -126,17 +125,17 @@ public class PlayerManager : MonoBehaviour
         isAttacking = false;
     }
 
-    private void FlipSprite()
-    {
-        if (playerDirection == Vector2.left)
-        {
-            sr.flipX = true;
-        }
-        else if (playerDirection == Vector2.right)
-        {
-            sr.flipX = false;
-        }
-    }
+    // private void FlipSprite()
+    // {
+    //     if (playerDirection == Vector2.left)
+    //     {
+    //         sr.flipX = true;
+    //     }
+    //     else if (playerDirection == Vector2.right)
+    //     {
+    //         sr.flipX = false;
+    //     }
+    // }
 
     public void TakeDamage(int damage)
     {
