@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class SceneLoadManager : MonoBehaviour
     public static SceneLoadManager instance;
     public static string previousScene = "";
     public static string sceneMovement = "";
+    public static bool NewGame = true;
 
     private void Awake()
     {
@@ -22,6 +24,23 @@ public class SceneLoadManager : MonoBehaviour
     public void PlayLevel()
     {
         sceneMovement = SceneManager.GetActiveScene().name;
+        NewGame = false;
+        SceneManager.LoadScene("Prototype 3");
+    }
+
+    public void ContinueLevel()
+    {
+        if(NewGame == false)
+        {
+            sceneMovement = "ContinueLevel";
+            Debug.Log("Continue");
+        }
+        else
+        {
+            sceneMovement = SceneManager.GetActiveScene().name;
+            NewGame = false;
+        }
+        
         SceneManager.LoadScene("Prototype 3");
     }
 
@@ -54,5 +73,15 @@ public class SceneLoadManager : MonoBehaviour
     {
         sceneMovement = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        return;
+    }
+
+    public void LoadData(GameData data)
+    {
+        return;
     }
 }

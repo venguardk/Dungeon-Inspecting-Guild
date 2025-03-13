@@ -9,15 +9,20 @@ public class DataPersistenceManager : MonoBehaviour
 {
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
+    [SerializeField] private string saveName;
+    [SerializeField] private string optionName;
     private GameData gameData;
     private OptionData optionData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
+    private FileDataHandler saveHandler;
+    private FileDataHandler optionHandler;
     public static DataPersistenceManager instance { get; private set; }
 
     //Main Save/Load systems based on How to make a Save & Load System in Unity - https://youtu.be/aUi9aijvpgs?si=GLtBO4zP_VGItJr-
     private void Awake()
     {
+        Debug.Log(Application.persistentDataPath);
         if (instance != null) 
         {
             //Debug.LogError("More than one Data Persistence Manager in scene");
@@ -29,6 +34,8 @@ public class DataPersistenceManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             string downloadsPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "Downloads");
             this.dataHandler = new FileDataHandler(downloadsPath, fileName);
+            this.saveHandler = new FileDataHandler(Application.persistentDataPath, saveName);
+            this.optionHandler = new FileDataHandler(Application.persistentDataPath, optionName);
         }
     }
 
@@ -83,6 +90,7 @@ public class DataPersistenceManager : MonoBehaviour
     }
     public void LoadGame()
     {
+        this.gameData = saveHandler.Load();
         if (this.gameData == null)
         {
             Debug.Log("No game data");
@@ -109,13 +117,14 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.SaveData(ref gameData);
         }
-
+        saveHandler.Save(gameData);
         Debug.Log("SaveGame");
     }
 
     // For saving options
     public void LoadOption()
     {
+        this.optionData = optionHandler.LoadOption();
         if (this.optionData == null)
         {
             Debug.Log("No option data");
@@ -142,7 +151,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.SaveOption(ref optionData);
         }
-
+        optionHandler.SaveOption(optionData);
         Debug.Log("SaveOption");
     }
 

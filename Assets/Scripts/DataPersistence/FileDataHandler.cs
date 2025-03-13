@@ -70,4 +70,55 @@ public class FileDataHandler
             Debug.Log("Error saving data to file: " + fullPath + "\n" + e);
         }
     }
+
+    public OptionData LoadOption()
+    {
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        OptionData loadedData = null;
+        if (File.Exists(fullPath))
+        {
+            try
+            {
+                string dataToLoad = "";
+                using (FileStream stream = new FileStream(fullPath, FileMode.Open))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        dataToLoad = reader.ReadToEnd();
+                    }
+                }
+
+                loadedData = JsonUtility.FromJson<OptionData>(dataToLoad);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Error loading data from file: " + fullPath + "\n" + e);
+            }
+        }
+
+        return loadedData;
+    }
+
+    public void SaveOption(OptionData data)
+    {
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        try
+        {
+            Directory.CreateDirectory(dataDirPath);
+
+            string dataToStore = JsonUtility.ToJson(data, true);
+
+            using (FileStream stream = new FileStream(fullPath, FileMode.Create))
+            {
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    writer.Write(dataToStore);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error saving data to file: " + fullPath + "\n" + e);
+        }
+    }
 }

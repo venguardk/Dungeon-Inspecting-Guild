@@ -16,7 +16,7 @@ public class SerializableGameObject
 
     public GameObject ToGameObject()
     {
-        Debug.Log("ToGameObject:" + LevelEditorManager.instance.gameObjectConvertion(this.name));
-        return LevelEditorManager.instance.gameObjectConvertion(this.name);
+        Debug.Log("ToGameObject:" + AssetTranslator.instance.gameObjectConvertion(this.name));
+        return AssetTranslator.instance.gameObjectConvertion(this.name);
     }
 }
