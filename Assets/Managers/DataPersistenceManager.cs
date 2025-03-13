@@ -22,7 +22,6 @@ public class DataPersistenceManager : MonoBehaviour
     //Main Save/Load systems based on How to make a Save & Load System in Unity - https://youtu.be/aUi9aijvpgs?si=GLtBO4zP_VGItJr-
     private void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
         if (instance != null) 
         {
             //Debug.LogError("More than one Data Persistence Manager in scene");
@@ -60,6 +59,8 @@ public class DataPersistenceManager : MonoBehaviour
     public void ResetGame()
     {
         this.gameData = new GameData();
+        saveHandler.Save(this.gameData);
+        
         Debug.Log("ResetGame");
     }
 

@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
-public class SceneLoadManager : MonoBehaviour
+public class SceneLoadManager : MonoBehaviour, IDataPersistence
 {
     public static SceneLoadManager instance;
     public static string previousScene = "";
     public static string sceneMovement = "";
-    public static bool NewGame = true;
+    private bool NewGame = true;
 
     private void Awake()
     {
@@ -83,5 +83,15 @@ public class SceneLoadManager : MonoBehaviour
     public void LoadData(GameData data)
     {
         return;
+    }
+    public void SaveOption(ref OptionData optionData)
+    {
+
+        optionData.NewGame = this.NewGame;
+    }
+
+    public void LoadOption(OptionData optionData)
+    {
+        this.NewGame = optionData.NewGame;
     }
 }
