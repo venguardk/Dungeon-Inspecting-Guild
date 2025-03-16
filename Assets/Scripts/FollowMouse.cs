@@ -67,6 +67,11 @@ public class FollowMouse : MonoBehaviour
                     transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90);
                     Invoke("ResetRotateCooldown", rotateCooldown);
                 }
+
+                if (Input.GetButtonDown("JoystickButton3"))
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
+                }
             }
             else
             {
