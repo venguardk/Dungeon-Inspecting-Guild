@@ -1,9 +1,12 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerControlsOption : MonoBehaviour, IDataPersistence
 {
     public static PlayerControlsOption instance;
     public bool isOneHandMode = false;
+    public TMP_FontAsset fontEng;
+    public TMP_FontAsset fontJap;
 
     private void Awake()
     {

@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 102323520}
   - component: {fileID: 102323522}
   - component: {fileID: 102323521}
+  - component: {fileID: 102323523}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -176,10 +177,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Load Dungeon
+  m_text: "\u8AAD\u307F\u8FBC\u3080"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
+  m_sharedMaterial: {fileID: -4026316374917566274, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -255,6 +256,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102323519}
   m_CullTransparentMesh: 1
+--- !u!114 &102323523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102323519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f962550f583aab4fa97e670a4abdb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translations:
+  - name: English
+    language: English
+    font: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    text: Load Dungeon
+  - name: "\u65E5\u672C\u8A9E"
+    language: "\u65E5\u672C\u8A9E"
+    font: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
+    text: "\u8AAD\u307F\u8FBC\u3080"
 --- !u!1 &213998316
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,6 +288,7 @@ GameObject:
   - component: {fileID: 213998317}
   - component: {fileID: 213998319}
   - component: {fileID: 213998318}
+  - component: {fileID: 213998320}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -312,10 +335,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Share Dungeons
+  m_text: "\u30C0\u30F3\u30B8\u30E7\u30F3\u3092\u5171\u6709\u3059\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
+  m_sharedMaterial: {fileID: -4026316374917566274, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -391,6 +414,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213998316}
   m_CullTransparentMesh: 1
+--- !u!114 &213998320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213998316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f962550f583aab4fa97e670a4abdb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translations:
+  - name: English
+    language: English
+    font: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    text: Share Dungeons
+  - name: "\u65E5\u672C\u8A9E"
+    language: "\u65E5\u672C\u8A9E"
+    font: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
+    text: "\u30C0\u30F3\u30B8\u30E7\u30F3\u3092\u5171\u6709\u3059\u308B"
 --- !u!1 &285899630
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +499,69 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.97455865, y: 2.6710315, z: 14.446396}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &413110404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 413110407}
+  - component: {fileID: 413110406}
+  - component: {fileID: 413110405}
+  m_Layer: 0
+  m_Name: SceneColor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &413110405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413110404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afd85d0b3e3c6e439acaa8234ccc9b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: {fileID: 413110406}
+--- !u!114 &413110406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413110404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: d214985443fb7994289bc3548a00ee02, type: 2}
+--- !u!4 &413110407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413110404}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.606853, y: -0.90554696, z: 0.096290186}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -576,7 +683,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -955,6 +1062,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1509605154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1509605156}
+  - component: {fileID: 1509605155}
+  m_Layer: 0
+  m_Name: GameLanguage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1509605155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509605154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78e982636dec494d837ce2b52d02796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1509605156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509605154}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.97455865, y: 2.6710315, z: 14.446397}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1567460509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,6 +1256,7 @@ GameObject:
   - component: {fileID: 1936088177}
   - component: {fileID: 1936088179}
   - component: {fileID: 1936088178}
+  - component: {fileID: 1936088180}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1151,10 +1303,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Save Dungeon
+  m_text: "\u4FDD\u5B58\u3059\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
+  m_sharedMaterial: {fileID: -4026316374917566274, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1230,6 +1382,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936088176}
   m_CullTransparentMesh: 1
+--- !u!114 &1936088180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936088176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f962550f583aab4fa97e670a4abdb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translations:
+  - name: English
+    language: English
+    font: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    text: Save Dungeon
+  - name: "\u65E5\u672C\u8A9E"
+    language: "\u65E5\u672C\u8A9E"
+    font: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
+    text: "\u4FDD\u5B58\u3059\u308B"
 --- !u!1 &1958880278
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,6 +1414,7 @@ GameObject:
   - component: {fileID: 1958880279}
   - component: {fileID: 1958880281}
   - component: {fileID: 1958880280}
+  - component: {fileID: 1958880282}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1287,10 +1461,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Return to Dungeon
+  m_text: "\u30C0\u30F3\u30B8\u30E7\u30F3\u3078\u3082\u3069\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
+  m_sharedMaterial: {fileID: -4026316374917566274, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1366,6 +1540,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1958880278}
   m_CullTransparentMesh: 1
+--- !u!114 &1958880282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958880278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f962550f583aab4fa97e670a4abdb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  translations:
+  - name: English
+    language: English
+    font: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    text: Return to Dungeon
+  - name: "\u65E5\u672C\u8A9E"
+    language: "\u65E5\u672C\u8A9E"
+    font: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
+    text: "\u30C0\u30F3\u30B8\u30E7\u30F3\u3078\u3082\u3069\u308B"
 --- !u!1 &2023039309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,6 +1832,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 585133807}
+  - {fileID: 1509605156}
+  - {fileID: 413110407}
   - {fileID: 1318823964}
   - {fileID: 1567460511}
   - {fileID: 285899632}

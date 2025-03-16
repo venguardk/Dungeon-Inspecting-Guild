@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,7 +40,34 @@ public class UIManager : MonoBehaviour
         "Shield",
         "Bridge"
     };
-
+    public TMP_FontAsset fontEng;
+    public TMP_FontAsset fontJap;
+    private string[] assetDescriptionsJap = new string[]
+    {
+        "道を塞いだり飛んできたモノを防いだりするカベ",
+        "数秒に一回、矢を放つワナ",
+        "数秒に一回、トゲが飛び出してくるワナ",
+        "ひとつの方向へ連続して火の玉を放つワナ",
+        "アナタを追いかけて攻撃して来るテキ",
+        "カギの掛かったトビラを開けれるカギ",
+        "アナタの体力を全回復させれるクスリ",
+        "アナタが押して動かせるハコ",
+        "アナタを数秒間無敵にできるバリア",
+        "アナタがスキマを通るのに使えるハシ"
+    };
+    private string[] assetNamesJap = new string[]
+    {
+        "カベ",
+        "ワナ（矢）",
+        "ワナ（トゲ）",
+        "ワナ（炎）",
+        "テキ",
+        "カギ",
+        "クスリ",
+        "ハコ",
+        "バリア",
+        "ハシ"
+    };
     private void Awake()
     {
         if (instance == null)
@@ -76,12 +103,36 @@ public class UIManager : MonoBehaviour
 
     private void UpdateLevelStatText()
     {
-        goldBudgetText.text = "Gold Budget: " + LevelEditorManager.instance.GetGoldRemaining().ToString();
-        threatLevelText.text = "Threat Level: " + LevelEditorManager.instance.GetCurrentThreatLevel().ToString() + "/" + LevelEditorManager.instance.GetRequiredThreatLevel().ToString();
-        dartsCountText.text = $"Darts: {LevelEditorManager.instance.GetDartsCount()}/{LevelEditorManager.instance.GetDartsRequirement()}";
-        spikesCountText.text = $"Spikes: {LevelEditorManager.instance.GetSpikesCount()}/{LevelEditorManager.instance.GetSpikesRequirement()}";
-        flameCountText.text = $"Flames: {LevelEditorManager.instance.GetFlamethrowersCount()}/{LevelEditorManager.instance.GetFlamethrowersRequirement()}";
-        enemyCountText.text = $"Enemies: {LevelEditorManager.instance.GetEnemiesCount()}/{LevelEditorManager.instance.GetEnemiesRequirement()}";
+        if (GameLanguageManager.gameLanguage == "日本語")
+        {
+            goldBudgetText.font = fontJap;
+            goldBudgetText.text = "予算: " + LevelEditorManager.instance.GetGoldRemaining().ToString();
+            threatLevelText.font = fontJap;
+            threatLevelText.text = "危険度: " + LevelEditorManager.instance.GetCurrentThreatLevel().ToString() + "/" + LevelEditorManager.instance.GetRequiredThreatLevel().ToString();
+            dartsCountText.font = fontJap;
+            dartsCountText.text = $"ワナ（矢）: {LevelEditorManager.instance.GetDartsCount()}/{LevelEditorManager.instance.GetDartsRequirement()}";
+            spikesCountText.font = fontJap;
+            spikesCountText.text = $"ワナ（トゲ）: {LevelEditorManager.instance.GetSpikesCount()}/{LevelEditorManager.instance.GetSpikesRequirement()}";
+            flameCountText.font = fontJap;
+            flameCountText.text = $"ワナ（炎）: {LevelEditorManager.instance.GetFlamethrowersCount()}/{LevelEditorManager.instance.GetFlamethrowersRequirement()}";
+            enemyCountText.font = fontJap;
+            enemyCountText.text = $"テキ: {LevelEditorManager.instance.GetEnemiesCount()}/{LevelEditorManager.instance.GetEnemiesRequirement()}";
+        }
+        else
+        {
+            goldBudgetText.font = fontEng;
+            goldBudgetText.text = "Gold Budget: " + LevelEditorManager.instance.GetGoldRemaining().ToString();
+            threatLevelText.font = fontEng;
+            threatLevelText.text = "Threat Level: " + LevelEditorManager.instance.GetCurrentThreatLevel().ToString() + "/" + LevelEditorManager.instance.GetRequiredThreatLevel().ToString();
+            dartsCountText.font = fontEng;
+            dartsCountText.text = $"Darts: {LevelEditorManager.instance.GetDartsCount()}/{LevelEditorManager.instance.GetDartsRequirement()}";
+            spikesCountText.font = fontEng;
+            spikesCountText.text = $"Spikes: {LevelEditorManager.instance.GetSpikesCount()}/{LevelEditorManager.instance.GetSpikesRequirement()}";
+            flameCountText.font = fontEng;
+            flameCountText.text = $"Flames: {LevelEditorManager.instance.GetFlamethrowersCount()}/{LevelEditorManager.instance.GetFlamethrowersRequirement()}";
+            enemyCountText.font = fontEng;
+            enemyCountText.text = $"Enemies: {LevelEditorManager.instance.GetEnemiesCount()}/{LevelEditorManager.instance.GetEnemiesRequirement()}";
+        }
     }
 
     private void UpdateLevelStatColours()
@@ -229,8 +280,21 @@ public class UIManager : MonoBehaviour
     public void DisplayDescription(int ID)
     {
         assetDescriptionSection.SetActive(true);
-        assetDescription.text = assetDescriptions[ID];
-        assetName.text = assetNames[ID];
+        if(GameLanguageManager.gameLanguage == "日本語")
+        {
+            assetDescription.font = fontJap;
+            assetName.font = fontJap;
+            assetDescription.text = assetDescriptionsJap[ID];
+            assetName.text = assetNamesJap[ID];
+        }
+        else
+        {
+            assetDescription.font = fontEng;
+            assetName.font = fontEng;
+            assetDescription.text = assetDescriptions[ID];
+            assetName.text = assetNames[ID];
+        }
+        
     }
 
     public void HideDescription()
