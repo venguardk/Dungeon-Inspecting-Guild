@@ -124,7 +124,6 @@ public class PlayerManager : MonoBehaviour
     private void Attack()
     {
         isAttacking = true;
-
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
 
