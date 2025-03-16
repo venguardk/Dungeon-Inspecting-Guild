@@ -60,8 +60,27 @@ public class PlayerManager : MonoBehaviour
             return; //Stops player from moving while attacking
         }
 
-        movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        //Debug.Log(movementInput);
+        if (PlayerControlsOption.instance.isOneHandMode)
+        {
+            // One hand mode: use right-click is down for movement
+            if (Input.GetMouseButton(1))
+            {
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePosition.z = 0; // Set z to 0 to ignore depth
+                playerDirection = (mousePosition - transform.position).normalized;
+                movementInput = playerDirection;
+            }
+            else
+            {
+                movementInput = Vector2.zero;
+            }
+        }
+        else
+        {
+            // Normal mode: use WASD or arrow keys for movement
+            movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        }
+
         if (movementInput != Vector2.zero)
         {
             animator.SetBool("isWalking", true);    // sets to walking
@@ -124,18 +143,6 @@ public class PlayerManager : MonoBehaviour
         attackHitBox.SetActive(false);
         isAttacking = false;
     }
-
-    // private void FlipSprite()
-    // {
-    //     if (playerDirection == Vector2.left)
-    //     {
-    //         sr.flipX = true;
-    //     }
-    //     else if (playerDirection == Vector2.right)
-    //     {
-    //         sr.flipX = false;
-    //     }
-    // }
 
     public void TakeDamage(int damage)
     {

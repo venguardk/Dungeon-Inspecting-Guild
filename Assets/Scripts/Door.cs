@@ -3,6 +3,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     [SerializeField] public bool locked = false;
+    [SerializeField] private GameObject doorBlock;
     public Collider2D doorCollider;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -12,6 +13,7 @@ public class Door : MonoBehaviour
         if (locked)
         {
             doorCollider.isTrigger = false;
+            doorBlock.SetActive(true);
         }
         else
         {

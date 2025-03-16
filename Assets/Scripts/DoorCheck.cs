@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DoorCheck : MonoBehaviour
 {
-    [SerializeField] private GameObject door;
+    [SerializeField] private GameObject door, doorBlock;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -11,10 +11,11 @@ public class DoorCheck : MonoBehaviour
             door.GetComponent<Door>().locked = false;
             door.GetComponent<Door>().doorCollider.isTrigger = true;
             door.GetComponent<SpriteRenderer>().enabled = false;
+            doorBlock.SetActive(false);
 
             // adjusting to get rid of locked door sprites
 
-            for (int i = 1; i < door.transform.childCount; i++)
+            for (int i = 1; i < door.transform.childCount - 1; i++)
             {
                 GameObject door_lock = door.transform.GetChild(i).gameObject;
                 door_lock.GetComponent<SpriteRenderer>().enabled = false;

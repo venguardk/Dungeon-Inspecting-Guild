@@ -7324,6 +7324,9 @@ MonoBehaviour:
   requiredEnemies: 0
   Floor: {fileID: 565897596}
   Gap: {fileID: 1703137319}
+  allAsset: []
+  initialAsset: []
+  initialBase: []
 --- !u!4 &1385677677
 Transform:
   m_ObjectHideFlags: 0
@@ -7774,6 +7777,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: Share.json
+  saveName: 
+  optionName: 
 --- !u!4 &1402116846
 Transform:
   m_ObjectHideFlags: 0
@@ -9678,7 +9683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldBudgetText: {fileID: 561112003}
   threatLevelText: {fileID: 1388283968}
-  playerHealthText: {fileID: 1337579443}
+  keyCountText: {fileID: 0}
   dartsCountText: {fileID: 0}
   spikesCountText: {fileID: 0}
   flameCountText: {fileID: 0}
@@ -9688,6 +9693,13 @@ MonoBehaviour:
   lossCanvas: {fileID: 0}
   assetsTab: {fileID: 1771182512}
   threatsTab: {fileID: 829313764}
+  assetDescriptionSection: {fileID: 0}
+  assetDescription: {fileID: 0}
+  assetName: {fileID: 0}
+  heartIcons: []
+  fullHeart: {fileID: 0}
+  halfHeart: {fileID: 0}
+  emptyHeart: {fileID: 0}
 --- !u!4 &2026884624
 Transform:
   m_ObjectHideFlags: 0
