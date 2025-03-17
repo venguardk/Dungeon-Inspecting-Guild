@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+    PlayerActions controls;    //input system declaration
     private Vector2 movementInput, movementVelocity, playerDirection;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -20,6 +22,7 @@ public class PlayerManager : MonoBehaviour
     {
 
         instance = this;
+        controls = new PlayerActions();    // input system instance
 
     }
 
@@ -120,6 +123,25 @@ public class PlayerManager : MonoBehaviour
             rb.linearVelocity = movementVelocity;
         }
     }
+
+    // Keven's Additions ------------------------------------------------------------
+
+    //public void OnMovement(InputAction.CallbackContext value)
+    //{
+    //    Vector2 inputMovement = value.ReadValue<Vector2>();
+    //    rawInputMovement = new Vector3(inputMovement.x, 0, inputMovement.y);
+    //}
+
+    //public void OnAttack(InputAction.CallbackContext value)
+    //{
+    //    if(value.started)
+    //    {
+    //        //playerAnimationBehaviour.PlayAttackAnimation();
+    //        Attack();
+    //    }
+    //}
+
+    // End of Additions -------------------------------------------------------------
 
     private void Attack()
     {
