@@ -6,6 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
     PlayerActions controls;    //input system declaration
+    Vector2 aimVect;
     private Vector2 movementInput, movementVelocity, playerDirection;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -36,6 +37,7 @@ public class PlayerManager : MonoBehaviour
         keyCount = 0;
         isInvincible = false;
         animator = GetComponent<Animator>();    // establishing animator
+        aimVect = Vector2.zero;
     }
 
     private void Update()
@@ -101,10 +103,10 @@ public class PlayerManager : MonoBehaviour
         animator.SetFloat("inputX", movementInput.x); // conditionals for blend state
         animator.SetFloat("inputY", movementInput.y);
 
-        if (Input.GetMouseButtonDown(0) && GameManager.instance.IsLevelEditorMode() == false && isAttacking == false)
-        {
-            Attack();
-        }
+        //if (Input.GetMouseButtonDown(0) && GameManager.instance.IsLevelEditorMode() == false && isAttacking == false)
+        //{
+        //    Attack(aimVect);
+        //}
     }
 
     private void FixedUpdate()
@@ -124,29 +126,67 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    // Keven's Additions ------------------------------------------------------------
+    // Keven's Additions ===========================================================
 
+    // Quest mode -----------------------------------------------
+    // input movement
     //public void OnMovement(InputAction.CallbackContext value)
     //{
     //    Vector2 inputMovement = value.ReadValue<Vector2>();
     //    rawInputMovement = new Vector3(inputMovement.x, 0, inputMovement.y);
     //}
+    //
+    public void OnAttack(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            //playerAnimationBehaviour.PlayAttackAnimation();
+            Attack(aimVect);
+            Debug.Log("Attacking");
+            
+        }
+    }
 
-    //public void OnAttack(InputAction.CallbackContext value)
-    //{
-    //    if(value.started)
-    //    {
-    //        //playerAnimationBehaviour.PlayAttackAnimation();
-    //        Attack();
-    //    }
-    //}
+    
+    public void onAim(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            aimVect = value.ReadValue<Vector2>();
+            Debug.Log("Aiming" + aimVect);
+        }
+    }
 
-    // End of Additions -------------------------------------------------------------
+    // Edit Mode -------------------------------------------------
 
-    private void Attack()
+    // input system for rotating left
+    public void onRotateLeft(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            Debug.Log("Rotate Left");
+        }
+
+    }
+
+    // input system for rotating right
+    public void onRotateRight(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            Debug.Log("Rotate Left");
+        }
+
+    }
+
+    // End of Additions ===========================================================
+
+    private void Attack(Vector2 aimVect)
     {
         isAttacking = true;
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); // using old input system
+        
+        Vector3 mousePosition = aimVect;
         mousePosition.z = 0;
 
         Vector3 direction = (mousePosition - transform.position).normalized;

@@ -44,6 +44,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Value"",
+                    ""id"": ""177b6aa9-5174-4632-af7e-9f09e515ef62"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -125,7 +134,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""Left Stick"",
                     ""id"": ""71a48fa9-56ed-4b94-a9d6-884b0b3edcbc"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -178,6 +187,28 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff998225-2613-458b-857c-d437d290db2d"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d3df73b-4037-47cd-92eb-4063cf997856"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -189,6 +220,24 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""name"": ""Place Asset"",
                     ""type"": ""Button"",
                     ""id"": ""695fb768-b5e5-4d1d-bcf8-9c2a8d08646f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""7721c8d7-9642-4185-825a-0e7fdf62dd77"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotate Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""17e75242-3f51-4d3f-84d9-bb814bbee87c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -217,42 +266,44 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Place Asset"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63145367-bbd6-4284-abc5-f6eb240a6cca"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46384d43-75fd-4a71-b56d-925fa1689976"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": [
-        {
-            ""name"": ""Keyboard Scheme"",
-            ""bindingGroup"": ""Keyboard Scheme"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Keyboard>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Gamepad Scheme"",
-            ""bindingGroup"": ""Gamepad Scheme"",
-            ""devices"": [
-                {
-                    ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": false,
-                    ""isOR"": false
-                }
-            ]
-        }
-    ]
+    ""controlSchemes"": []
 }");
         // QuestMode
         m_QuestMode = asset.FindActionMap("QuestMode", throwIfNotFound: true);
         m_QuestMode_Attack = m_QuestMode.FindAction("Attack", throwIfNotFound: true);
         m_QuestMode_Movement = m_QuestMode.FindAction("Movement", throwIfNotFound: true);
+        m_QuestMode_Aim = m_QuestMode.FindAction("Aim", throwIfNotFound: true);
         // EditMode
         m_EditMode = asset.FindActionMap("EditMode", throwIfNotFound: true);
         m_EditMode_PlaceAsset = m_EditMode.FindAction("Place Asset", throwIfNotFound: true);
+        m_EditMode_RotateLeft = m_EditMode.FindAction("Rotate Left", throwIfNotFound: true);
+        m_EditMode_RotateRight = m_EditMode.FindAction("Rotate Right", throwIfNotFound: true);
     }
 
     ~@PlayerActions()
@@ -322,12 +373,14 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private List<IQuestModeActions> m_QuestModeActionsCallbackInterfaces = new List<IQuestModeActions>();
     private readonly InputAction m_QuestMode_Attack;
     private readonly InputAction m_QuestMode_Movement;
+    private readonly InputAction m_QuestMode_Aim;
     public struct QuestModeActions
     {
         private @PlayerActions m_Wrapper;
         public QuestModeActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Attack => m_Wrapper.m_QuestMode_Attack;
         public InputAction @Movement => m_Wrapper.m_QuestMode_Movement;
+        public InputAction @Aim => m_Wrapper.m_QuestMode_Aim;
         public InputActionMap Get() { return m_Wrapper.m_QuestMode; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -343,6 +396,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
         }
 
         private void UnregisterCallbacks(IQuestModeActions instance)
@@ -353,6 +409,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
         }
 
         public void RemoveCallbacks(IQuestModeActions instance)
@@ -375,11 +434,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_EditMode;
     private List<IEditModeActions> m_EditModeActionsCallbackInterfaces = new List<IEditModeActions>();
     private readonly InputAction m_EditMode_PlaceAsset;
+    private readonly InputAction m_EditMode_RotateLeft;
+    private readonly InputAction m_EditMode_RotateRight;
     public struct EditModeActions
     {
         private @PlayerActions m_Wrapper;
         public EditModeActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @PlaceAsset => m_Wrapper.m_EditMode_PlaceAsset;
+        public InputAction @RotateLeft => m_Wrapper.m_EditMode_RotateLeft;
+        public InputAction @RotateRight => m_Wrapper.m_EditMode_RotateRight;
         public InputActionMap Get() { return m_Wrapper.m_EditMode; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -392,6 +455,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @PlaceAsset.started += instance.OnPlaceAsset;
             @PlaceAsset.performed += instance.OnPlaceAsset;
             @PlaceAsset.canceled += instance.OnPlaceAsset;
+            @RotateLeft.started += instance.OnRotateLeft;
+            @RotateLeft.performed += instance.OnRotateLeft;
+            @RotateLeft.canceled += instance.OnRotateLeft;
+            @RotateRight.started += instance.OnRotateRight;
+            @RotateRight.performed += instance.OnRotateRight;
+            @RotateRight.canceled += instance.OnRotateRight;
         }
 
         private void UnregisterCallbacks(IEditModeActions instance)
@@ -399,6 +468,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @PlaceAsset.started -= instance.OnPlaceAsset;
             @PlaceAsset.performed -= instance.OnPlaceAsset;
             @PlaceAsset.canceled -= instance.OnPlaceAsset;
+            @RotateLeft.started -= instance.OnRotateLeft;
+            @RotateLeft.performed -= instance.OnRotateLeft;
+            @RotateLeft.canceled -= instance.OnRotateLeft;
+            @RotateRight.started -= instance.OnRotateRight;
+            @RotateRight.performed -= instance.OnRotateRight;
+            @RotateRight.canceled -= instance.OnRotateRight;
         }
 
         public void RemoveCallbacks(IEditModeActions instance)
@@ -416,31 +491,16 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         }
     }
     public EditModeActions @EditMode => new EditModeActions(this);
-    private int m_KeyboardSchemeSchemeIndex = -1;
-    public InputControlScheme KeyboardSchemeScheme
-    {
-        get
-        {
-            if (m_KeyboardSchemeSchemeIndex == -1) m_KeyboardSchemeSchemeIndex = asset.FindControlSchemeIndex("Keyboard Scheme");
-            return asset.controlSchemes[m_KeyboardSchemeSchemeIndex];
-        }
-    }
-    private int m_GamepadSchemeSchemeIndex = -1;
-    public InputControlScheme GamepadSchemeScheme
-    {
-        get
-        {
-            if (m_GamepadSchemeSchemeIndex == -1) m_GamepadSchemeSchemeIndex = asset.FindControlSchemeIndex("Gamepad Scheme");
-            return asset.controlSchemes[m_GamepadSchemeSchemeIndex];
-        }
-    }
     public interface IQuestModeActions
     {
         void OnAttack(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
     }
     public interface IEditModeActions
     {
         void OnPlaceAsset(InputAction.CallbackContext context);
+        void OnRotateLeft(InputAction.CallbackContext context);
+        void OnRotateRight(InputAction.CallbackContext context);
     }
 }
