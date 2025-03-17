@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameLanguageManager : MonoBehaviour, IDataPersistence
 {
@@ -7,6 +7,20 @@ public class GameLanguageManager : MonoBehaviour, IDataPersistence
     public void ToggleLanguage(string optionLanguage)
     {
         gameLanguage = optionLanguage;
+        DataPersistenceManager.instance.SaveOption();
+    }
+
+    public void SwitchLanguage(int optionLanguage)
+    {
+        switch (optionLanguage)
+        {
+            case 0:
+                gameLanguage = "English";
+                break;
+            case 1:
+                gameLanguage = "日本語";
+                break;
+        }
         DataPersistenceManager.instance.SaveOption();
     }
 
