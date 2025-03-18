@@ -9,6 +9,7 @@ public class Flamethrower : MonoBehaviour
     [SerializeField] private Transform parent, shootPoint;
     [SerializeField] private float shootSpeed = 2.5f;
     [SerializeField] private float shootDelay = 0.25f;
+    [SerializeField] private AudioSource shootAudio;
     private bool isShooting;
 
     private void Start()
@@ -31,11 +32,13 @@ public class Flamethrower : MonoBehaviour
             {
                 isShooting = true;
                 StartCoroutine(ShootFire());
+                shootAudio.Play();
             }
         }
         else
         {
             isShooting = false;
+            shootAudio.Stop();
             StopAllCoroutines();
         }
     }

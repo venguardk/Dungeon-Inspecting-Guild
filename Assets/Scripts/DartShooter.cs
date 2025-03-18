@@ -9,6 +9,7 @@ public class DartShooter : MonoBehaviour
     [SerializeField] private Transform parent, shootPoint;
     [SerializeField] private float shootSpeed = 1f;
     [SerializeField] private float shootDelay = 1f;
+    [SerializeField] private AudioSource shootAudio;
     private bool isShooting;
 
     private void Start()
@@ -48,6 +49,7 @@ public class DartShooter : MonoBehaviour
             GameObject chosenDart = GetDart();
             if (chosenDart != null)
             {
+                shootAudio.Play();
                 chosenDart.transform.position = shootPoint.position;
                 chosenDart.transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
                 chosenDart.SetActive(true);

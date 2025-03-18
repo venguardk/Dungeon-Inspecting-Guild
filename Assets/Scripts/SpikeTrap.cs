@@ -6,6 +6,7 @@ public class SpikeTrap : MonoBehaviour
 {
     [SerializeField] private GameObject spikesComponent;
     [SerializeField] private float timeIntervals = 2f;
+    [SerializeField] private AudioSource audioSrc;
     private bool active;
     private bool isTrapping;
     private Collider2D spikeCollider;
@@ -57,6 +58,7 @@ public class SpikeTrap : MonoBehaviour
             {
                 spikeCollider.enabled = true;
                 spikesComponent.SetActive(true);
+                audioSrc.Play();
                 active = true;
             }
         }
