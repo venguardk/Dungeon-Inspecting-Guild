@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.InputSystem;
 
 public class FollowMouse : MonoBehaviour
 {
@@ -7,9 +8,11 @@ public class FollowMouse : MonoBehaviour
     [SerializeField] private bool isRotatable;
     private bool rotateIsOnCooldown = false;
     private float rotateCooldown = 0.2f; //Cooldown for rotation to prevent spamming
+    //PlayerActions controls;
 
-    private void Start()
+    private void Awake()
     {
+        //controls = new PlayerActions();
         rotateIsOnCooldown = false;
     }
 
@@ -73,17 +76,17 @@ public class FollowMouse : MonoBehaviour
                     transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
                 }
             }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
-                }
-                else if (Input.GetKeyDown(KeyCode.E))
-                {
-                    transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90);
-                }
-            }
+            //else
+            //{
+            //    if (Input.GetKeyDown(KeyCode.Q))
+            //    {
+            //        transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
+            //    }
+            //    else if (Input.GetKeyDown(KeyCode.E))
+            //    {
+            //        transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90);
+            //    }
+            //}
         }
     }
 
@@ -91,4 +94,36 @@ public class FollowMouse : MonoBehaviour
     {
         rotateIsOnCooldown = false;
     }
+
+    // input system for rotating left
+    public void onRotateLeft(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            Debug.Log("Rotate Left");
+            if (isRotatable)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
+            }
+            
+        }
+
+    }
+
+    // input system for rotating right
+    public void onRotateRight(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {
+            Debug.Log("Rotate Right");
+            if (isRotatable)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90);
+            }
+            
+        }
+
+    }
+
+
 }

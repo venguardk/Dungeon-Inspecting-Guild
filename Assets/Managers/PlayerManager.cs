@@ -159,26 +159,6 @@ public class PlayerManager : MonoBehaviour
 
     // Edit Mode -------------------------------------------------
 
-    // input system for rotating left
-    public void onRotateLeft(InputAction.CallbackContext value)
-    {
-        if (value.started)
-        {
-            Debug.Log("Rotate Left");
-        }
-
-    }
-
-    // input system for rotating right
-    public void onRotateRight(InputAction.CallbackContext value)
-    {
-        if (value.started)
-        {
-            Debug.Log("Rotate Left");
-        }
-
-    }
-
     // End of Additions ===========================================================
 
     private void Attack(Vector2 aimVect)
