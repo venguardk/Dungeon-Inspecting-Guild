@@ -322,3 +322,4 @@ MonoBehaviour:
   shootPoint: {fileID: 2528824834140521387}
   shootSpeed: 3
   shootDelay: 0.2
+  shootAudio: {fileID: 0}

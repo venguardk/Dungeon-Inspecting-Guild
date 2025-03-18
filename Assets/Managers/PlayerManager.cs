@@ -15,6 +15,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float attackDuration = 0.1f, attackRange = 1f;
     [SerializeField] private int health = 10;
     [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip attackAudioClip;
     private bool isAttacking, isInvincible, isHurt;
     private int keyCount = 0;
     private Animator animator;  // animation component
@@ -143,11 +145,11 @@ public class PlayerManager : MonoBehaviour
             //playerAnimationBehaviour.PlayAttackAnimation();
             Attack(aimVect);
             Debug.Log("Attacking");
-            
+
         }
     }
 
-    
+
     public void onAim(InputAction.CallbackContext value)
     {
         if (value.performed)
@@ -165,7 +167,7 @@ public class PlayerManager : MonoBehaviour
     {
         isAttacking = true;
         //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); // using old input system
-        
+
         Vector3 mousePosition = aimVect;
         mousePosition.z = 0;
 
@@ -176,6 +178,8 @@ public class PlayerManager : MonoBehaviour
         attackHitBox.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
         attackHitBox.SetActive(true);
+        playerAudioSource.clip = attackAudioClip; //Playing Attack SFX
+        playerAudioSource.Play();
         Invoke(nameof(EndAttack), attackDuration); //Calls EndAttack after attackDuration seconds
     }
 
