@@ -3,10 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class EnemyMelee : MonoBehaviour
 {
-    [SerializeField] private float chaseRange = 10f, attackRange = 0.95f;
+    [SerializeField] private float chaseRange = 10f, attackRange = 1.5f;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float attackDelay = 0.5f, attackDuration = 0.5f, attackCooldown = 1f;
     [SerializeField] private GameObject attackHitBox;
+    [SerializeField] private AudioSource attackAudio;
     private Transform player;
     private Rigidbody2D rb;
     private bool isAttacking = false;
@@ -36,6 +37,7 @@ public class EnemyMelee : MonoBehaviour
             ChasePlayer();
             if (distanceToPlayer <= attackRange && isAttacking == false)
             {
+                isAttacking = true;
                 Invoke("AttackPlayer", attackDelay);
             }
         }
@@ -61,11 +63,12 @@ public class EnemyMelee : MonoBehaviour
     {
         //Fail if enemy gets hurt
         rb.linearVelocity = Vector2.zero;
-        isAttacking = true;
 
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         attackHitBox.transform.position = transform.position + directionToPlayer * 1f;
         attackHitBox.SetActive(true);
+        attackAudio.Play();
+        Debug.Log("Attack!");
 
         Invoke("AttackReset", attackDuration);
     }

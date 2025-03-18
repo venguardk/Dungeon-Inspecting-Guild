@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4388433796444447554}
   - component: {fileID: 3476380042585148709}
   - component: {fileID: -1694855804946264519}
+  - component: {fileID: 3199285197678825991}
   m_Layer: 7
   m_Name: Prebuilt_EnemyMelee
   m_TagString: Enemy
@@ -167,12 +168,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseRange: 10
-  attackRange: 2
+  attackRange: 1.5
   moveSpeed: 1
   attackDelay: 0.5
   attackDuration: 0.5
   attackCooldown: 0.5
   attackHitBox: {fileID: 7794935097643150104}
+  attackAudio: {fileID: 3199285197678825991}
 --- !u!50 &3476380042585148709
 Rigidbody2D:
   serializedVersion: 5
@@ -217,6 +219,103 @@ MonoBehaviour:
   threatLevel: 2
   objType: 0
   prebuiltItem: 1
+--- !u!82 &3199285197678825991
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306255356623157137}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 53154c6463c5b4c7983e8c41bc603a1b, type: 3}
+  m_Resource: {fileID: 8300000, guid: 53154c6463c5b4c7983e8c41bc603a1b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1.7
+  MaxDistance: 9.04
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3701477033248053293
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +391,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: -911301008, guid: 93a86d3f2598218448207f44af73f603, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

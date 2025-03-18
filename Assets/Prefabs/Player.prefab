@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 1718651608576032571}
   - component: {fileID: 6953331176971678519}
   - component: {fileID: -925508852802605198}
+  - component: {fileID: 7217628244483259919}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -432,6 +433,14 @@ MonoBehaviour:
   m_DefaultActionMap: QuestMode
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!81 &7217628244483259919
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269042918397021328}
+  m_Enabled: 1
 --- !u!1 &7130403482467605005
 GameObject:
   m_ObjectHideFlags: 0
