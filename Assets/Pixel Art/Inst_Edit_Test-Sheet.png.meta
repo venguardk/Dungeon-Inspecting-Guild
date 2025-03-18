@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 68a50dafcae0e3746b7f306a7a23647a
+guid: a0572966d9df7a24cbad3872c112370e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8978337593114271994
-    second: InstructionsQuest_0
+      213: -8860156391950634995
+    second: Inst_Edit_Test-Sheet_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: InstructionsQuest_0
+      name: Inst_Edit_Test-Sheet_0
       rect:
         serializedVersion: 2
-        x: 95
-        y: 29
-        width: 1373
-        height: 788
+        x: 0
+        y: 0
+        width: 3656
+        height: 262
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 60f53e04789866380800000000000000
-      internalID: -8978337593114271994
+      spriteID: d00306364b66a0580800000000000000
+      internalID: -8860156391950634995
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      InstructionsQuest_0: -8978337593114271994
+      Inst_Edit_Test-Sheet_0: -8860156391950634995
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
