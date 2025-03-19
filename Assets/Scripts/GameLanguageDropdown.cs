@@ -6,9 +6,15 @@ public class GameLanguageDropdown : MonoBehaviour
     public TMP_Dropdown dropdown; // Reference to the Dropdown - TextMesh Pro
     public TMP_FontAsset[] fonts; // Array of TMP Font Assets
 
+
     void Start()
     {
+        int index = dropdown.options.FindIndex(option => option.text == GameLanguageManager.gameLanguage);
 
+        if (index != -1)
+        {
+            dropdown.value = index;
+        }
         // Loop through each option and assign a different font
         for (int i = 0; i < dropdown.options.Count; i++)
         {
