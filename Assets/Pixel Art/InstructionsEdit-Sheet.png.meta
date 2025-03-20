@@ -105,8 +105,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1563
-        height: 864
+        width: 521
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,10 +125,10 @@ TextureImporter:
       name: InstructionsEdit-Sheet_1
       rect:
         serializedVersion: 2
-        x: 1563
+        x: 521
         y: 0
-        width: 1563
-        height: 864
+        width: 521
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: InstructionsEdit-Sheet_2
       rect:
         serializedVersion: 2
-        x: 3126
+        x: 1042
         y: 0
-        width: 1563
-        height: 864
+        width: 521
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,10 +169,10 @@ TextureImporter:
       name: InstructionsEdit-Sheet_3
       rect:
         serializedVersion: 2
-        x: 4689
+        x: 1563
         y: 0
-        width: 1563
-        height: 864
+        width: 521
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,10 +191,10 @@ TextureImporter:
       name: InstructionsEdit-Sheet_4
       rect:
         serializedVersion: 2
-        x: 6252
+        x: 2084
         y: 0
-        width: 1563
-        height: 864
+        width: 521
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,10 +213,10 @@ TextureImporter:
       name: InstructionsEdit-Sheet_5
       rect:
         serializedVersion: 2
-        x: 7815
+        x: 2605
         y: 0
-        width: 1563
-        height: 864
+        width: 521
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,10 +235,10 @@ TextureImporter:
       name: InstructionsEdit-Sheet_6
       rect:
         serializedVersion: 2
-        x: 9378
+        x: 3126
         y: 0
-        width: 1563
-        height: 864
+        width: 521
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,10 +257,10 @@ TextureImporter:
       name: InstructionsEdit-Sheet_7
       rect:
         serializedVersion: 2
-        x: 10941
+        x: 3647
         y: 0
-        width: 1563
-        height: 864
+        width: 521
+        height: 288
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
