@@ -76,17 +76,17 @@ public class FollowMouse : MonoBehaviour
                     transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
                 }
             }
-            //else
-            //{
-            //    if (Input.GetKeyDown(KeyCode.Q))
-            //    {
-            //        transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
-            //    }
-            //    else if (Input.GetKeyDown(KeyCode.E))
-            //    {
-            //        transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90);
-            //    }
-            //}
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
+                }
+                else if (Input.GetKeyDown(KeyCode.E))
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90);
+                }
+            }
         }
     }
 
@@ -105,7 +105,7 @@ public class FollowMouse : MonoBehaviour
             {
                 transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + 90);
             }
-            
+
         }
 
     }
@@ -120,7 +120,7 @@ public class FollowMouse : MonoBehaviour
             {
                 transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 90);
             }
-            
+
         }
 
     }
