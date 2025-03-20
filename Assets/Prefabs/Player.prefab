@@ -157,11 +157,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7515384581636288902}
   - component: {fileID: 4390800522674560462}
+  - component: {fileID: -925508852802605198}
   - component: {fileID: 5857550487080113228}
   - component: {fileID: 3408353281645550343}
   - component: {fileID: 1718651608576032571}
   - component: {fileID: 6953331176971678519}
-  - component: {fileID: -925508852802605198}
   - component: {fileID: 7217628244483259919}
   - component: {fileID: 8902557832130691057}
   m_Layer: 0
@@ -208,6 +208,96 @@ MonoBehaviour:
   playerSprite: {fileID: 3269349395089234087}
   playerAudioSource: {fileID: 8902557832130691057}
   attackAudioClip: {fileID: 8300000, guid: d70c9126231f34c519b18cb710747307, type: 3}
+--- !u!114 &-925508852802605198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269042918397021328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 3188761b5f004974e878976bc416517d, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4390800522674560462}
+        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3ba11032-d917-48b8-90de-f55267bd9074
+    m_ActionName: 'PlayerControls/Attack[/Mouse/leftButton,/DualSenseGamepadHID/rightTrigger]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4390800522674560462}
+        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bc7a9468-9e76-4a42-aacf-3ed838bebc2f
+    m_ActionName: 'PlayerControls/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 695fb768-b5e5-4d1d-bcf8-9c2a8d08646f
+    m_ActionName: 'EditMode/Place Asset[/Mouse/leftButton,/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4390800522674560462}
+        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_MethodName: OnAim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 177b6aa9-5174-4632-af7e-9f09e515ef62
+    m_ActionName: 'QuestMode/Aim[/XInputControllerWindows/rightStick]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7721c8d7-9642-4185-825a-0e7fdf62dd77
+    m_ActionName: 'EditMode/Rotate Asset[/XInputControllerWindows/buttonNorth,/XInputControllerWindows/buttonWest]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 17e75242-3f51-4d3f-84d9-bb814bbee87c
+    m_ActionName: 'EditMode/Rotate Right[/XInputControllerWindows/buttonNorth]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: QuestMode
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!50 &5857550487080113228
 Rigidbody2D:
   serializedVersion: 5
@@ -358,84 +448,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-925508852802605198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4269042918397021328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 3188761b5f004974e878976bc416517d, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4390800522674560462}
-        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
-        m_MethodName: OnAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3ba11032-d917-48b8-90de-f55267bd9074
-    m_ActionName: 'PlayerControls/Attack[/Mouse/leftButton,/DualSenseGamepadHID/rightTrigger]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bc7a9468-9e76-4a42-aacf-3ed838bebc2f
-    m_ActionName: 'PlayerControls/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8649821993494290387, guid: 4972bb47a328b694c9dac3a76be0ebf8, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 695fb768-b5e5-4d1d-bcf8-9c2a8d08646f
-    m_ActionName: 'EditMode/Place Asset[/Mouse/leftButton,/XInputControllerWindows/buttonSouth]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 177b6aa9-5174-4632-af7e-9f09e515ef62
-    m_ActionName: 'QuestMode/Aim[/XInputControllerWindows/rightStick]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7721c8d7-9642-4185-825a-0e7fdf62dd77
-    m_ActionName: 'EditMode/Rotate Asset[/XInputControllerWindows/buttonNorth,/XInputControllerWindows/buttonWest]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 17e75242-3f51-4d3f-84d9-bb814bbee87c
-    m_ActionName: 'EditMode/Rotate Right[/XInputControllerWindows/buttonNorth]'
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: QuestMode
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!81 &7217628244483259919
 AudioListener:
   m_ObjectHideFlags: 0

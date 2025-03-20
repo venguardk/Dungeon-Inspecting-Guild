@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
-    PlayerActions controls;    //input system declaration
+    private PlayerActions playerInput;    //input system declaration
     Vector2 aimVect;
-    private Vector2 movementInput, movementVelocity, playerDirection;
+    private Vector2 movementInput, movementVelocity, playerDirection, inputVect;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     [SerializeField] private float moveSpeed = 1f;
@@ -21,12 +21,29 @@ public class PlayerManager : MonoBehaviour
     private int keyCount = 0;
     private Animator animator;  // animation component
 
+    public string deviceType;
+
     private void Awake()
     {
 
         instance = this;
-        controls = new PlayerActions();    // input system instance
+        //playerInput = GetComponent<playerInput>();
+        //playerInput.SwitchCurrentActionMap();
 
+        playerInput = new PlayerActions();    // input system instance, not sure if needed
+        //playerInput.QuestMode.Movement.performed += MovementPerformed;
+        //playerInput.QuestMode.Attack.performed += OnAttack;
+        //playerInput.QuestMode.Aim.performed += OnAim;
+    }
+
+    private void OnEnable()
+    {
+        playerInput.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerInput.Disable();
     }
 
     private void Start()
@@ -58,6 +75,8 @@ public class PlayerManager : MonoBehaviour
 
         if (GameManager.instance.IsLevelEditorMode())
         {
+            playerInput.QuestMode.Disable();
+            playerInput.EditMode.Enable();
             return;
         }
 
@@ -85,7 +104,9 @@ public class PlayerManager : MonoBehaviour
         else
         {
             // Normal mode: use WASD or arrow keys for movement
-            movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            //movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            //Debug.Log(inputVect);
+            movementInput = inputVect;
         }
 
         if (movementInput != Vector2.zero)
@@ -132,31 +153,37 @@ public class PlayerManager : MonoBehaviour
 
     // Quest mode -----------------------------------------------
     // input movement
-    //public void OnMovement(InputAction.CallbackContext value)
-    //{
-    //    Vector2 inputMovement = value.ReadValue<Vector2>();
-    //    rawInputMovement = new Vector3(inputMovement.x, 0, inputMovement.y);
-    //}
-    //
-    public void OnAttack(InputAction.CallbackContext value)
+
+    public void OnMovement(InputAction.CallbackContext context)
     {
-        if (value.performed)
+        Debug.Log("Moving" + context.ReadValue<Vector2>());
+        inputVect = context.ReadValue<Vector2>();
+        deviceType = context.control.name;
+        Debug.Log("Device: " + deviceType);
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed && GameManager.instance.IsLevelEditorMode() == false && isAttacking == false)
         {
             //playerAnimationBehaviour.PlayAttackAnimation();
             Attack(aimVect);
-            Debug.Log("Attacking");
-
+            Debug.Log("Attacking" + aimVect);
         }
     }
 
 
-    public void onAim(InputAction.CallbackContext value)
+    public void OnAim(InputAction.CallbackContext context)
     {
-        if (value.performed)
+        if (context.performed)
         {
-            aimVect = value.ReadValue<Vector2>();
-            Debug.Log("Aiming" + aimVect);
+            aimVect = context.ReadValue<Vector2>();
+            deviceType = context.control.name;  // name of action
+
+            Debug.Log("Pos:" + aimVect);
+            Debug.Log("device: " + deviceType);
         }
+
     }
 
     // Edit Mode -------------------------------------------------
@@ -166,12 +193,24 @@ public class PlayerManager : MonoBehaviour
     private void Attack(Vector2 aimVect)
     {
         isAttacking = true;
-        //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); // using old input system
+        Vector3 direction;
+        if (deviceType == "position")
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(aimVect); // using old input system
 
-        Vector3 mousePosition = aimVect;
-        mousePosition.z = 0;
+            //Vector3 mousePosition = aimVect;
+            mousePosition.z = 0;
 
-        Vector3 direction = (mousePosition - transform.position).normalized;
+            Debug.Log("Mouse Pos: " + mousePosition);
+            Debug.Log("Aiming" + aimVect);
+
+            direction = (mousePosition - transform.position).normalized;
+        }
+        else
+        {
+            direction = playerDirection;
+        }
+
 
         attackHitBox.transform.position = transform.position + direction * attackRange;
         float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) + 90;

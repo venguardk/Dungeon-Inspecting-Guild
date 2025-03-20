@@ -12,7 +12,7 @@ public class FollowMouse : MonoBehaviour
 
     private void Awake()
     {
-        //controls = new PlayerActions();
+        //controls = new PlayerActions(); //player controls instance, not sure if needed
         rotateIsOnCooldown = false;
     }
 
@@ -96,9 +96,9 @@ public class FollowMouse : MonoBehaviour
     }
 
     // input system for rotating left
-    public void onRotateLeft(InputAction.CallbackContext value)
+    public void OnRotateLeft(InputAction.CallbackContext value)
     {
-        if (value.started)
+        if (value.performed)
         {
             Debug.Log("Rotate Left");
             if (isRotatable)
@@ -111,9 +111,9 @@ public class FollowMouse : MonoBehaviour
     }
 
     // input system for rotating right
-    public void onRotateRight(InputAction.CallbackContext value)
+    public void OnRotateRight(InputAction.CallbackContext value)
     {
-        if (value.started)
+        if (value.performed)
         {
             Debug.Log("Rotate Right");
             if (isRotatable)
