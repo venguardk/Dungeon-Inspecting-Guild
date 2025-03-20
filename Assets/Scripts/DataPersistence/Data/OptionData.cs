@@ -8,6 +8,7 @@ public class OptionData
     public string LangOption;
     public bool NewGame;
     public bool isOneHandMode;
+    public bool VolumeOn;
 
     public OptionData()
     {
@@ -15,5 +16,6 @@ public class OptionData
         this.LangOption = "English";
         this.NewGame = true;
         this.isOneHandMode = false;
+        this.VolumeOn = true;
     }
 }
