@@ -5,18 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Prototype Tilemap.unity
-    guid: fb76ca9372885cf4f9f605925564eceb
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: cf423f8e73dbe425198e1ed865cd06e6
   - enabled: 1
     path: Assets/Scenes/InstructionsPage.unity
     guid: 699c6068ebab44c2d9f90ba875b6ee94
-  - enabled: 0
-    path: Assets/Scenes/Prototype 2.unity
-    guid: 270ad332f7516424aa4c9688c53b3139
   - enabled: 1
     path: Assets/Scenes/Prototype 3.unity
     guid: c9b8662c6e8c8414e99c7d3e599ee568
