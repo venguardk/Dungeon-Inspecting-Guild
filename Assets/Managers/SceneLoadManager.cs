@@ -30,7 +30,7 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
 
     public void ContinueLevel()
     {
-        if(NewGame == false)
+        if (NewGame == false)
         {
             sceneMovement = "ContinueLevel";
             Debug.Log("Continue");
@@ -40,7 +40,7 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
             sceneMovement = SceneManager.GetActiveScene().name;
             NewGame = false;
         }
-        
+
         SceneManager.LoadScene("Prototype 3");
     }
 
@@ -93,5 +93,10 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
     public void LoadOption(OptionData optionData)
     {
         this.NewGame = optionData.NewGame;
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
