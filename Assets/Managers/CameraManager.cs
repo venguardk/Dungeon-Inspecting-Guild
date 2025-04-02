@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    //This script handles the camera switching between level editor camera and the play mode camera
     public static CameraManager instance;
     [SerializeField] private Camera levelEditorCamera, playModeCamera;
 

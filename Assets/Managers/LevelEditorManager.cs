@@ -10,6 +10,9 @@ using UnityEngine.Tilemaps;
 public class LevelEditorManager : MonoBehaviour, IDataPersistence
 {
     //Main update function of this script is based on How to make a Level Editor in Unity - https://youtu.be/eWBDuEWUOwc?si=lxP03a4ICCOSW2Z_
+    //This script handles the level editor and all the assets in it, as well as keeps track of the level's stats and layout
+    //Other scripts this script interacts with: AssetManager, GameManager, AudioManager, CameraManager, PlayerManager, DataPersistenceManager
+
     public static LevelEditorManager instance;
     public AssetController[] assetButtons;
     public GameObject[] assets, assetImages;
@@ -39,6 +42,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             DataPersistenceManager.instance.ResetGame();
         }
+
         if (instance == null)
         {
             instance = this;
@@ -62,11 +66,11 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             LevelSave();
         }
         LevelLoad();
-
     }
 
     private void Update()
     {
+        //This function handles the placement of assets in the level editor
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y); //Updating where the mouse is
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
         Vector2 mouseCoordinate = new Vector2(Mathf.Ceil(worldPosition.x - 0.75f) + 0.5f, Mathf.Ceil(worldPosition.y - 0.75f) + 0.5f);
@@ -83,7 +87,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
         }
 
-        if (isDragging && mouseCoordinate != previousMousePosition)
+        if (isDragging && mouseCoordinate != previousMousePosition) //If mouse is being clicked and dragged, continue to spawn the asset
         {
             previousMousePosition = mouseCoordinate;
             GenerateAssetAt(mouseCoordinate);
@@ -93,22 +97,9 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             assetButtons[currentButtonPressed].clicked = false;
             Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
         }
-
-        //For Debug
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary0)
-            {
-                Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary0[items.Key]);
-            }
-            foreach (KeyValuePair<Vector2, GameObject> items in RoomDictionary1)
-            {
-                Debug.Log(items.Key + " " + items.Value + " " + AngleDictionary1[items.Key]);
-            }
-        }
     }
 
-    private void GenerateAssetAt(Vector2 MouseCoordinate)
+    private void GenerateAssetAt(Vector2 MouseCoordinate) //Add asset to current mouse position and adding to dictionary
     {
         if (assets[currentButtonPressed].GetComponent<AssetManager>().objType == 0 && RoomDictionary0.ContainsKey(MouseCoordinate) == false && CoordinateChecker(MouseCoordinate, Floor) == true && CoordinateChecker(MouseCoordinate, Gap) == false)
         {
@@ -129,6 +120,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
     }
 
+    //HELPER FUNCTIONS FOR LEVEL EDITOR STATS
     public void AddGold(int gold)
     {
         goldSpent += gold;
@@ -224,7 +216,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void DeactivateButton()
+    public void DeactivateButton() //This function is called when the player clicks on the asset button in the level editor
     {
         assetButtons[currentButtonPressed].clicked = false;
         Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
@@ -232,7 +224,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
 
     //FOR SAVING AND LOADING
-
     public void LevelSave()
     {
         DataPersistenceManager.instance.SaveGame();

@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
+    //This script handles the player movement and stats
+    //Other scripts this script interacts with: GameManager, UIManager, PlayerControlsOption
     public static PlayerManager instance;
     private PlayerActions playerInput;    //input system declaration
     Vector2 aimVect;
@@ -61,7 +63,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (health <= 0)
+        if (health <= 0) //If health is less than or equal to 0, go back to level editor
         {
             playerDirection = Vector2.zero;
             rb.linearVelocity = Vector2.zero;
@@ -73,7 +75,7 @@ public class PlayerManager : MonoBehaviour
             UIManager.instance.ShowLossScreen();
         }
 
-        if (GameManager.instance.IsLevelEditorMode())
+        if (GameManager.instance.IsLevelEditorMode()) //Preventing player from moving whilst in level editor mode
         {
             playerInput.QuestMode.Disable();
             playerInput.EditMode.Enable();
@@ -82,8 +84,8 @@ public class PlayerManager : MonoBehaviour
 
         if (isAttacking)
         {
-            movementInput = Vector2.zero;
-            return; //Stops player from moving while attacking
+            movementInput = Vector2.zero; //Stops player from moving while attacking
+            return;
         }
 
         if (PlayerControlsOption.instance.isOneHandMode)
@@ -104,12 +106,10 @@ public class PlayerManager : MonoBehaviour
         else
         {
             // Normal mode: use WASD or arrow keys for movement
-            //movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-            //Debug.Log(inputVect);
             movementInput = inputVect;
         }
 
-        if (movementInput != Vector2.zero)
+        if (movementInput != Vector2.zero) //Animator
         {
             animator.SetBool("isWalking", true);    // sets to walking
             playerDirection = movementInput;
@@ -125,14 +125,9 @@ public class PlayerManager : MonoBehaviour
 
         animator.SetFloat("inputX", movementInput.x); // conditionals for blend state
         animator.SetFloat("inputY", movementInput.y);
-
-        //if (Input.GetMouseButtonDown(0) && GameManager.instance.IsLevelEditorMode() == false && isAttacking == false)
-        //{
-        //    Attack(aimVect);
-        //}
     }
 
-    private void FixedUpdate()
+    private void FixedUpdate() //Additional checks whilst in play mode
     {
         if (GameManager.instance.IsLevelEditorMode())
         {
@@ -190,7 +185,7 @@ public class PlayerManager : MonoBehaviour
 
     // End of Additions ===========================================================
 
-    private void Attack(Vector2 aimVect)
+    private void Attack(Vector2 aimVect) //Player attack
     {
         isAttacking = true;
         Vector3 direction;
@@ -228,7 +223,7 @@ public class PlayerManager : MonoBehaviour
         isAttacking = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage) //Player takes damage
     {
         if (isInvincible == false && !GameManager.instance.IsLevelEditorMode())
         {
@@ -249,13 +244,13 @@ public class PlayerManager : MonoBehaviour
         isHurt = false;
     }
 
-    public void FullHeal()
+    public void FullHeal() //Reset player health to max
     {
         health = 10;
         UIManager.instance.UpdatePlayerStats();
     }
 
-    public void AddKey()
+    public void AddKey() //Add a key to the player stats
     {
         keyCount++;
         UIManager.instance.UpdatePlayerStats();
@@ -285,7 +280,7 @@ public class PlayerManager : MonoBehaviour
         isInvincible = false;
     }
 
-    //FOR UI
+    //FOR UI MANAGER
     public int GetPlayerHealth()
     {
         return health;

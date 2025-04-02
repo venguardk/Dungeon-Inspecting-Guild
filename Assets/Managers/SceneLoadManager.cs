@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : MonoBehaviour, IDataPersistence
 {
+    //This script handles the transition between scenes and the saving/loading of data
     public static SceneLoadManager instance;
     public static string previousScene = "";
     public static string sceneMovement = "";
@@ -21,14 +22,15 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void PlayLevel()
+    public void PlayLevel() //Go to main level
     {
         sceneMovement = SceneManager.GetActiveScene().name;
         NewGame = false;
         SceneManager.LoadScene("Prototype 3");
     }
 
-    public void ContinueLevel()
+    public void ContinueLevel() //Go to main level and continue from where the player left off
+
     {
         if (NewGame == false)
         {
@@ -44,32 +46,32 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
         SceneManager.LoadScene("Prototype 3");
     }
 
-    public void LoadInstructions()
+    public void LoadInstructions() //Go to instructions page
     {
         sceneMovement = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("InstructionsPage");
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName) //Load a scene by name
     {
         sceneMovement = SceneManager.GetActiveScene().name;
         previousScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName);
     }
 
-    public void LoadPreviousScene()
+    public void LoadPreviousScene() //Return to previous scene
     {
         sceneMovement = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(previousScene);
     }
 
-    public void RestartScene()
+    public void RestartScene() //Restart current scene
     {
         sceneMovement = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void ReturnToMainMenu()
+    public void ReturnToMainMenu() //Return to main menu
     {
         sceneMovement = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("MainMenu");
@@ -95,7 +97,7 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
         this.NewGame = optionData.NewGame;
     }
 
-    public void ExitGame()
+    public void ExitGame() //Close game
     {
         Application.Quit();
     }

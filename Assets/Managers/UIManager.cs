@@ -6,6 +6,8 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    //This script handles the UI for the main levels both during level editor and play mode
+    //Other scripts this script interacts with: GameManager, LevelEditorManager, PlayerManager, GameLanguageManager
     public static UIManager instance;
     [SerializeField] private TextMeshProUGUI goldBudgetText, threatLevelText, keyCountText;
     [SerializeField] private TextMeshProUGUI dartsCountText, spikesCountText, flameCountText, enemyCountText;
@@ -14,7 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI assetDescription, assetName;
     [SerializeField] private Image[] heartIcons; //5 Heart Icons
     [SerializeField] private Sprite fullHeart, halfHeart, emptyHeart;
-    private string[] assetDescriptions = new string[]
+    private string[] assetDescriptions = new string[] //Array of asset descriptions
     {
         "Can be placed to block paths and projectiles.",
         "Shoots darts every few seconds.",
@@ -27,7 +29,7 @@ public class UIManager : MonoBehaviour
         "A shield that grants the inspector immunity for a few seconds.",
         "A bridge that the inspector can use to cross gaps."
     };
-    private string[] assetNames = new string[]
+    private string[] assetNames = new string[] //Array of asset descriptions
     {
         "Wall",
         "Dart",
@@ -80,7 +82,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         levelEditorCanvas.enabled = true;
@@ -137,6 +138,9 @@ public class UIManager : MonoBehaviour
 
     private void UpdateLevelStatColours()
     {
+        //Updates the color of the level stats, specifically the gold budget, threat level, and asset counts
+        //This is used to indicate if the player has enough gold, threat level, and asset counts
+        //Green indicates requirement is met, red indicates requirement is not met
         if (LevelEditorManager.instance.GetGoldRemaining() < 0)
         {
             goldBudgetText.color = Color.red;
@@ -200,6 +204,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdatePlayerHealthUI()
     {
+        //Display the appropriate amount of hearts based on the player's health
         switch (PlayerManager.instance.GetPlayerHealth())
         {
             case 10:
@@ -280,7 +285,7 @@ public class UIManager : MonoBehaviour
     public void DisplayDescription(int ID)
     {
         assetDescriptionSection.SetActive(true);
-        if(GameLanguageManager.gameLanguage == "日本語")
+        if (GameLanguageManager.gameLanguage == "日本語")
         {
             assetDescription.font = fontJap;
             assetName.font = fontJap;
@@ -294,7 +299,7 @@ public class UIManager : MonoBehaviour
             assetDescription.text = assetDescriptions[ID];
             assetName.text = assetNames[ID];
         }
-        
+
     }
 
     public void HideDescription()
@@ -302,13 +307,13 @@ public class UIManager : MonoBehaviour
         assetDescriptionSection.SetActive(false);
     }
 
-    public void AccessAssetsTab()
+    public void AccessAssetsTab() //Access the assets tab
     {
         assetsTab.SetActive(true);
         threatsTab.SetActive(false);
     }
 
-    public void AccessThreatsTab()
+    public void AccessThreatsTab() //Access the threats tab
     {
         assetsTab.SetActive(false);
         threatsTab.SetActive(true);
@@ -338,7 +343,7 @@ public class UIManager : MonoBehaviour
         lossCanvas.enabled = true;
     }
 
-    public void ReattemptLevel()
+    public void ReattemptLevel() //Close lossCanvas and open levelEditorCanvas
     {
         lossCanvas.enabled = false;
         levelEditorCanvas.enabled = true;
