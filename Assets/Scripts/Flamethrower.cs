@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Flamethrower : MonoBehaviour
 {
+    // This script is used on the Flamethrower prefab to shoot fireballs at the player
+    // Other scripts this script interacts with: Fireball
     private List<GameObject> fireballList = new List<GameObject>();
     [SerializeField] private GameObject fireballPrefab;
     [SerializeField] private Transform parent, shootPoint;
@@ -14,6 +16,7 @@ public class Flamethrower : MonoBehaviour
 
     private void Start()
     {
+        // Initialize the fireball prefab pool with 10 inactive fireballs
         Vector3 spawnPoint = Vector3.zero;
         for (int i = 0; i < 10; i++)
         {
@@ -28,15 +31,17 @@ public class Flamethrower : MonoBehaviour
     {
         if (GameManager.instance.IsLevelEditorMode() == false)
         {
+            // If in play mode, proceed to fire
             if (isShooting == false)
             {
                 isShooting = true;
                 StartCoroutine(ShootFire());
-                shootAudio.Play();
+                shootAudio.Play(); // Play the shooting sound
             }
         }
         else
         {
+            // If in level editor mode, stop shooting
             isShooting = false;
             shootAudio.Stop();
             StopAllCoroutines();
@@ -47,6 +52,7 @@ public class Flamethrower : MonoBehaviour
     {
         while (true)
         {
+            // Continuously shoot fireballs
             yield return new WaitForSeconds(shootDelay);
             GameObject chosenFireball = GetFireball();
             if (chosenFireball != null)

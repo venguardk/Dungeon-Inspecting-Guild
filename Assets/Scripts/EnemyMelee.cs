@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class EnemyMelee : MonoBehaviour
 {
+    // This script is used to control the EnemyMelee prefab, specifically its movement and its interactions with the player
     [SerializeField] private float chaseRange = 10f, attackRange = 1.5f;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float attackDelay = 0.5f, attackDuration = 0.5f, attackCooldown = 1f;
@@ -14,14 +15,14 @@ public class EnemyMelee : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object in the scene
         rb = GetComponent<Rigidbody2D>();
         attackHitBox.SetActive(false);
     }
 
     void Update()
     {
-        if (GameManager.instance.IsLevelEditorMode())
+        if (GameManager.instance.IsLevelEditorMode()) // If in level editor mode, stop chasing the player and do nothing
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
             rb = GetComponent<Rigidbody2D>();
@@ -30,18 +31,18 @@ public class EnemyMelee : MonoBehaviour
             return;
         }
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position); //Acquiring distance to player
 
-        if (distanceToPlayer <= chaseRange && isAttacking == false)
+        if (distanceToPlayer <= chaseRange && isAttacking == false) //If player is within chase range chase them
         {
             ChasePlayer();
-            if (distanceToPlayer <= attackRange && isAttacking == false)
+            if (distanceToPlayer <= attackRange && isAttacking == false) //If player is within attack range, stop moving, and attack
             {
                 isAttacking = true;
-                Invoke("AttackPlayer", attackDelay);
+                Invoke("AttackPlayer", attackDelay); //There is a small delay before attacking
             }
         }
-        else
+        else //If player is outside of chase range, stop chasing
         {
             StopChasingPlayer();
         }
@@ -61,16 +62,16 @@ public class EnemyMelee : MonoBehaviour
 
     void AttackPlayer()
     {
-        //Fail if enemy gets hurt
+        // Stop moving
         rb.linearVelocity = Vector2.zero;
 
+        // Activate the attack hitbox in the direction of the player
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
         attackHitBox.transform.position = transform.position + directionToPlayer * 1f;
         attackHitBox.SetActive(true);
         attackAudio.Play();
-        Debug.Log("Attack!");
 
-        Invoke("AttackReset", attackDuration);
+        Invoke("AttackReset", attackDuration); // There is a small delay before the attack hitbox is deactivated
     }
 
     void AttackReset()

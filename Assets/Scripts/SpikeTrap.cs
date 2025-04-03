@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpikeTrap : MonoBehaviour
 {
+    // This script is attached to the SpikeTrap prefab; The script controls the spikes that are activated and deactivated
     [SerializeField] private GameObject spikesComponent;
     [SerializeField] private float timeIntervals = 2f;
     [SerializeField] private AudioSource audioSrc;
@@ -23,6 +24,7 @@ public class SpikeTrap : MonoBehaviour
     {
         if (GameManager.instance.IsLevelEditorMode() == false)
         {
+            // If in play mode, start the spikes
             if (isTrapping == false)
             {
                 spikeCollider.enabled = false;
@@ -32,9 +34,10 @@ public class SpikeTrap : MonoBehaviour
         }
         else
         {
+            // If in level editor mode, stop the spikes
             isTrapping = false;
             StopAllCoroutines();
-            if (active)
+            if (active) //If the spikes were active when swapping back to level editor, deactivate them
             {
                 spikeCollider.enabled = true;
                 spikesComponent.SetActive(false);
@@ -47,15 +50,18 @@ public class SpikeTrap : MonoBehaviour
     {
         while (true)
         {
+            // Activate and deactivate the spikes at regular intervals
             yield return new WaitForSeconds(timeIntervals);
             if (active)
             {
+                // If the spikes are active, deactivate them
                 spikeCollider.enabled = false;
                 spikesComponent.SetActive(false);
                 active = false;
             }
             else
             {
+                // If the spikes are inactive, activate them
                 spikeCollider.enabled = true;
                 spikesComponent.SetActive(true);
                 audioSrc.Play();

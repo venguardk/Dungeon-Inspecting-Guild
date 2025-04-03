@@ -4,15 +4,13 @@ using UnityEngine.InputSystem;
 
 public class FollowMouse : MonoBehaviour
 {
-    //Add this script to all images that follow the mouse
-    [SerializeField] private bool isRotatable;
+    //Add this script to all Asset Images prefabs, this enables them to follow the mouse whenever its respective asset button is active
+    [SerializeField] private bool isRotatable; //If the asset is rotatable, set this to true in the inspector; This is used to determine if the asset can be rotated
     private bool rotateIsOnCooldown = false;
     private float rotateCooldown = 0.2f; //Cooldown for rotation to prevent spamming
-    //PlayerActions controls;
 
     private void Awake()
     {
-        //controls = new PlayerActions(); //player controls instance, not sure if needed
         rotateIsOnCooldown = false;
     }
 
@@ -21,12 +19,13 @@ public class FollowMouse : MonoBehaviour
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y); //Updating where the mouse is
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
-        //Setting the image following the mouse to gird position
         worldPosition.x = Mathf.Ceil(worldPosition.x - 0.75f) + 0.5f;
         worldPosition.y = Mathf.Ceil(worldPosition.y - 0.75f) + 0.5f;
         transform.position = worldPosition;
+
         if (LevelEditorManager.instance.FloorChecker(worldPosition) == false)
         {
+            //If the asset is not on a floor tile, disable the sprite renderer
             if (gameObject.name != "Bridge_Image(Clone)")
             {
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -54,7 +53,8 @@ public class FollowMouse : MonoBehaviour
         }
 
         if (isRotatable)
-        { //If the asset is rotatable, rotate it by 90 right when E is pressed, or 90 left when Q is pressed
+        {
+            //If the asset is rotatable, rotate it by 90 right when E is pressed, or 90 left when Q is pressed
             if (PlayerControlsOption.instance.isOneHandMode == true)
             {
                 float scrollInput = Input.GetAxis("Mouse ScrollWheel");
@@ -90,7 +90,7 @@ public class FollowMouse : MonoBehaviour
         }
     }
 
-    private void ResetRotateCooldown()
+    private void ResetRotateCooldown() //Used for limited dexterity mode
     {
         rotateIsOnCooldown = false;
     }

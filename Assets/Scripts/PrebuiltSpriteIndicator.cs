@@ -4,7 +4,8 @@ public class PrebuiltSpriteIndicator : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // This script is attached to the prebuilt asset prefabs to display the prebuilt indicator
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -12,6 +13,7 @@ public class PrebuiltSpriteIndicator : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Display the prebuilt indicator if the game is in level editor mode; Otherwise, hide the prebuilt indicator
         if (GameManager.instance.IsLevelEditorMode())
         {
             spriteRenderer.enabled = true;

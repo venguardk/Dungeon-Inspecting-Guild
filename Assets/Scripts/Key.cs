@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // This script is attached to the Key prefab
     void Start()
     {
         this.gameObject.SetActive(true);
@@ -12,8 +12,9 @@ public class Key : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            // If the player collides with the key, add it to the player's inventory
             PlayerManager.instance.AddKey();
-            LevelEditorManager.instance.DeacitaveObj(this.gameObject);
+            LevelEditorManager.instance.DeacitaveObj(this.gameObject); // Deactivate the key as opposed to destroying it
             this.gameObject.SetActive(false);
         }
     }

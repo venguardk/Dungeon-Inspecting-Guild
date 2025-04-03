@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerControlsOption : MonoBehaviour, IDataPersistence
 {
+    // This script is used to manage the player's control options from the button in the Options menu
     public static PlayerControlsOption instance;
     public bool isOneHandMode = false;
     public TMP_FontAsset fontEng;
@@ -22,8 +23,8 @@ public class PlayerControlsOption : MonoBehaviour, IDataPersistence
 
     public void ToggleControls()
     {
+        // This function is called when the player presses the button to toggle between limited dexterity and full dexterity mode
         isOneHandMode = !isOneHandMode;
-        Debug.Log("One Hand Mode: " + isOneHandMode);
         DataPersistenceManager.instance.SaveOption();
     }
 
@@ -44,6 +45,7 @@ public class PlayerControlsOption : MonoBehaviour, IDataPersistence
 
     public void LoadOption(OptionData data)
     {
+        // This function is called when the game loads to set the player's control options; This enables the player to save their control options between sessions
         this.isOneHandMode = data.isOneHandMode;
     }
 }
