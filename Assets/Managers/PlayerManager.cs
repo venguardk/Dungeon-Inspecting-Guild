@@ -151,10 +151,10 @@ public class PlayerManager : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        Debug.Log("Moving" + context.ReadValue<Vector2>());
+        //Debug.Log("Moving" + context.ReadValue<Vector2>());
         inputVect = context.ReadValue<Vector2>();
         deviceType = context.control.name;
-        Debug.Log("Device: " + deviceType);
+        //Debug.Log("Device: " + deviceType);
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -163,7 +163,7 @@ public class PlayerManager : MonoBehaviour
         {
             //playerAnimationBehaviour.PlayAttackAnimation();
             Attack(aimVect);
-            Debug.Log("Attacking" + aimVect);
+            // Debug.Log("Attacking" + aimVect);
         }
     }
 
@@ -175,8 +175,8 @@ public class PlayerManager : MonoBehaviour
             aimVect = context.ReadValue<Vector2>();
             deviceType = context.control.name;  // name of action
 
-            Debug.Log("Pos:" + aimVect);
-            Debug.Log("device: " + deviceType);
+            // Debug.Log("Pos:" + aimVect);
+            // Debug.Log("device: " + deviceType);
         }
 
     }
@@ -196,8 +196,8 @@ public class PlayerManager : MonoBehaviour
             //Vector3 mousePosition = aimVect;
             mousePosition.z = 0;
 
-            Debug.Log("Mouse Pos: " + mousePosition);
-            Debug.Log("Aiming" + aimVect);
+            // Debug.Log("Mouse Pos: " + mousePosition);
+            // Debug.Log("Aiming" + aimVect);
 
             direction = (mousePosition - transform.position).normalized;
         }

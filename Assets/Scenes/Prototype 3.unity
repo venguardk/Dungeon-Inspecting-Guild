@@ -2534,7 +2534,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 46feea03d4a604a9d9b840fc8fd03aaf, type: 3}
   - {fileID: 8300000, guid: 5e662be16a32b4fe2815495e85c82e39, type: 3}
   - {fileID: 8300000, guid: 6580991afc55b4681b89de8c84444a34, type: 3}
-  - {fileID: 8300000, guid: ff0abc5dac9854581b52742a5df0e829, type: 3}
+  - {fileID: 8300000, guid: 2386957811e9e46729f8d6241f3a2b82, type: 3}
   - {fileID: 8300000, guid: 2386957811e9e46729f8d6241f3a2b82, type: 3}
   - {fileID: 8300000, guid: 61d9d0eb81cc64b688c10c718deba41f, type: 3}
   - {fileID: 8300000, guid: 2386957811e9e46729f8d6241f3a2b82, type: 3}
@@ -3682,7 +3682,7 @@ GameObject:
   - component: {fileID: 496609013}
   - component: {fileID: 496609012}
   m_Layer: 5
-  m_Name: Play_UI
+  m_Name: Quest_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13767,7 +13767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 1.24
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
