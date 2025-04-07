@@ -14,6 +14,10 @@ public class Flamethrower : MonoBehaviour
     [SerializeField] private AudioSource shootAudio;
     private bool isShooting;
 
+    // proprieties 
+    //public bool propProjectile = true;
+    //public 'type' propElem = electric;
+
     private void Start()
     {
         // Initialize the fireball prefab pool with 10 inactive fireballs
