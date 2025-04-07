@@ -7,6 +7,7 @@ using System.IO;
 [System.Serializable]
 public class SerializableGameObject
 {
+    // This script is for converting GameObject into a serializable format for JSON file, and converting it back to GameObject
     public string name;
 
     public SerializableGameObject(GameObject gameObject)

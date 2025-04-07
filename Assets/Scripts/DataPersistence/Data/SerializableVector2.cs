@@ -6,6 +6,7 @@ using System.IO;
 [System.Serializable]
 public class SerializableVector2
 {
+    // This script is for converting Vector2 into a serializable format for JSON file, and converting it back
     public float x;
     public float y;
 

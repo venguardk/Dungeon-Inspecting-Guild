@@ -20,11 +20,12 @@ public class DataPersistenceManager : MonoBehaviour
     public static DataPersistenceManager instance { get; private set; }
 
     //Main Save/Load systems based on How to make a Save & Load System in Unity - https://youtu.be/aUi9aijvpgs?si=GLtBO4zP_VGItJr-
+    //This script handles the game's save and load mechanic
+    //Other scripts this script interacts with: LevelEditorManager, SceneLoadManager, FileDataHandler, HighContrastGrayScale, PlayerCOntrolsOption, GameLanguageManager, IDataPersistence, OptionData, ShareManager, GameDataSrialized, SerializableGameObject, SerializableKeyValuePair, SerializableVecotr2, GameData
     private void Awake()
     {
         if (instance != null) 
         {
-            //Debug.LogError("More than one Data Persistence Manager in scene");
             Destroy(this);
         }
         else
@@ -49,6 +50,8 @@ public class DataPersistenceManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
+
+    // Creates a new OptionData and GameData for save and load
     public void NewGame()
     {
         this.optionData = new OptionData();
@@ -56,6 +59,7 @@ public class DataPersistenceManager : MonoBehaviour
         Debug.Log("NewGame");
     }
 
+    // Resets the components with GameData and save it
     public void ResetGame()
     {
         this.gameData = new GameData();
@@ -64,6 +68,7 @@ public class DataPersistenceManager : MonoBehaviour
         Debug.Log("ResetGame");
     }
 
+    // Take an JSON file and load it in to GameData
     public void ImportGame()
     {
         this.gameData = dataHandler.Load();
@@ -73,6 +78,8 @@ public class DataPersistenceManager : MonoBehaviour
         }
         Debug.Log("ImportGame");
     }
+
+    // Take the current GameData and export it into JSON file
     public void ExportGame()
     {
 
@@ -89,6 +96,8 @@ public class DataPersistenceManager : MonoBehaviour
         dataHandler.Save(gameData);
         Debug.Log("ExportGame");
     }
+
+    // Take the current GameData and use the variables within it to run LoadData script within each scripts with IDataPersistence
     public void LoadGame()
     {
         this.gameData = saveHandler.Load();
@@ -105,6 +114,8 @@ public class DataPersistenceManager : MonoBehaviour
 
         Debug.Log("LoadGame");
     }
+
+    // Take the current GameData and use the variables within it to run SaveData script within each scripts with IDataPersistence
     public void SaveGame()
     {
 
@@ -122,7 +133,7 @@ public class DataPersistenceManager : MonoBehaviour
         Debug.Log("SaveGame");
     }
 
-    // For saving options
+    // Take the current OptionData and use the variables within it to run LoadData script within each scripts with IDataPersistence
     public void LoadOption()
     {
         this.optionData = optionHandler.LoadOption();
@@ -139,6 +150,8 @@ public class DataPersistenceManager : MonoBehaviour
 
         Debug.Log("LoadOption");
     }
+
+    // Take the current OptionData and use the variables within it to run SaveData script within each scripts with IDataPersistence
     public void SaveOption()
     {
 
@@ -156,6 +169,7 @@ public class DataPersistenceManager : MonoBehaviour
         Debug.Log("SaveOption");
     }
 
+    // Load the data saved from the previous scene
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         this.dataPersistenceObjects = FindAllPersistenceObjects();
@@ -163,12 +177,14 @@ public class DataPersistenceManager : MonoBehaviour
         LoadOption();
     }
 
+    // Save the current data for the next scene loaded
     public void OnSceneUnloaded(Scene scene)
     {
         SaveGame();
         SaveOption();
     }
 
+    // Search all scripts with IDataPersistence in scene
     private List<IDataPersistence> FindAllPersistenceObjects()
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistence>();

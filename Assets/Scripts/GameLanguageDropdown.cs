@@ -30,6 +30,7 @@ public class GameLanguageDropdown : MonoBehaviour
 
     public void fontUpdate(int index)
     {
+        // Updates the font when Dropdown option is changed
         switch (index)
         {
             case 0:

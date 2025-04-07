@@ -6,6 +6,7 @@ using System.IO;
 [System.Serializable]
 public class SerializableKeyValuePair<TKey, TValue>
 {
+    // This script is for converting key value pair into a serializable format for JSON file, and converting it back
     public TKey key;
     public TValue value;
 

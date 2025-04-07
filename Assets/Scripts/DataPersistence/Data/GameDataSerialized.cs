@@ -6,12 +6,14 @@ using System.IO;
 [System.Serializable]
 public class GameDataSerialized
 {
+    // This script is for converting GameData into a format whih can be placed within JSON format
     public List<SerializableGameObject> initialObject;
     public List<SerializableKeyValuePair<SerializableVector2, SerializableGameObject>> RoomDictionary0;
     public List<SerializableKeyValuePair<SerializableVector2, float>> AngleDictionary0;
     public List<SerializableKeyValuePair<SerializableVector2, SerializableGameObject>> RoomDictionary1;
     public List<SerializableKeyValuePair<SerializableVector2, float>> AngleDictionary1;
 
+    // Converting Dictionary which are deserializable into List which are serializable, with serializable version of GameObject and Vector2 within them
     public GameDataSerialized(GameData gameData)
     {
         initialObject = new List<SerializableGameObject>();
@@ -51,6 +53,7 @@ public class GameDataSerialized
         }
     }
 
+    // Converting List to dictonaries, and converting DeserializableGameObject and DesrializableVector2 to normal GameObject and Vector2
     public GameData ToGameData()
     {
         GameData gameData = new GameData();

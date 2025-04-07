@@ -2,6 +2,7 @@
 
 public class GameLanguageManager : MonoBehaviour, IDataPersistence
 {
+    // This script is for determining which language is being used for the game
     public static string gameLanguage = "English";
 
     public void ToggleLanguage(string optionLanguage)
@@ -10,6 +11,7 @@ public class GameLanguageManager : MonoBehaviour, IDataPersistence
         DataPersistenceManager.instance.SaveOption();
     }
 
+    // Sets the game language to the given type
     public void SwitchLanguage(int optionLanguage)
     {
         switch (optionLanguage)

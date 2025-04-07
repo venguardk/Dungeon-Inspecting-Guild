@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
+    // For saving and loading Game levels
     public Dictionary<Vector2, GameObject> RoomDictionary0;
     public Dictionary<Vector2, float> AngleDictionary0;
     public Dictionary<Vector2, GameObject> RoomDictionary1;

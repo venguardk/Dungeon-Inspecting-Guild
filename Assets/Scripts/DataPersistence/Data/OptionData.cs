@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class OptionData
 {
+    // For saving and loading options
     public bool ColorOption;
     public string LangOption;
     public bool NewGame;

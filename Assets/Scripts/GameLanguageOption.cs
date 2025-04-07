@@ -7,6 +7,7 @@ using TMPro;
 [ExecuteAlways]
 public class GameLanguageOption : MonoBehaviour
 {
+    // This scripts is for swapping and replacing texts depending on their languages
     public static string gameLanguage = "English";
     public Translation[] translations = new Translation[] { new Translation(gameLanguage) };
     TextMeshProUGUI textObject;

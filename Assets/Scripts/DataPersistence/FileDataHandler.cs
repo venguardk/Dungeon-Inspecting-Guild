@@ -8,6 +8,7 @@ using UnityEditor;
 
 public class FileDataHandler
 {
+    // This script is for handling save and load on files with the name dataFIleName and dataDirPath
     private string dataDirPath = "";
 
     private string dataFileName = "";
