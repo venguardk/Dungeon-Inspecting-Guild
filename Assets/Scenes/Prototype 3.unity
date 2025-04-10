@@ -10430,7 +10430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0564bdbbdabd4dddac4cd1d8c4ad311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOneHandMode: 1
+  isOneHandMode: 0
   fontEng: {fileID: 0}
   fontJap: {fileID: 0}
 --- !u!4 &1406183671
