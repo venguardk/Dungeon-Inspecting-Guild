@@ -6,10 +6,19 @@ public class PlayerManager : MonoBehaviour
 {
     //This script handles the player movement and stats
     //Other scripts this script interacts with: GameManager, UIManager, PlayerControlsOption
+    //The State Machine used here was inspired by Code Class - Build your own State Machines!: https://www.youtube.com/watch?v=-jkT4oFi1vk
     public static PlayerManager instance;
+
+    //PLAYER STATE MACHINE VARIABLES
+    enum PlayerState { LevelEditor, Idle, Walking, Attacking } //Player states
+    private PlayerState currentState; //Current state of the player
+    private bool currentStateCompleted; //Boolean value to determine when to start new state
+
     private PlayerActions playerInput;    //input system declaration
     Vector2 aimVect;
     private Vector2 movementInput, movementVelocity, playerDirection, inputVect;
+
+    //PLAYER VARIABLES
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     [SerializeField] private float moveSpeed = 1f;
@@ -22,20 +31,13 @@ public class PlayerManager : MonoBehaviour
     private bool isAttacking, isInvincible, isHurt;
     private int keyCount = 0;
     private Animator animator;  // animation component
-
     public string deviceType;
 
     private void Awake()
     {
-
         instance = this;
-        //playerInput = GetComponent<playerInput>();
-        //playerInput.SwitchCurrentActionMap();
 
         playerInput = new PlayerActions();    // input system instance, not sure if needed
-        //playerInput.QuestMode.Movement.performed += MovementPerformed;
-        //playerInput.QuestMode.Attack.performed += OnAttack;
-        //playerInput.QuestMode.Aim.performed += OnAim;
     }
 
     private void OnEnable()
@@ -59,132 +61,158 @@ public class PlayerManager : MonoBehaviour
         isInvincible = false;
         animator = GetComponent<Animator>();    // establishing animator
         aimVect = Vector2.zero;
+        currentStateCompleted = true; //Set to true so that the state machine can start
     }
 
     private void Update()
     {
-        if (health <= 0) //If health is less than or equal to 0, go back to level editor
+        if (GameManager.instance.IsLevelEditorMode() == false) //If not in level editor mode...
         {
-            playerDirection = Vector2.zero;
-            rb.linearVelocity = Vector2.zero;
-            movementInput = Vector2.zero;
-            keyCount = 0;
-            FullHeal();
-            keyCount = 0;
-            UIManager.instance.SwitchToLevelEditor();
-            UIManager.instance.ShowLossScreen();
-        }
-
-        if (GameManager.instance.IsLevelEditorMode()) //Preventing player from moving whilst in level editor mode
-        {
-            playerInput.QuestMode.Disable();
-            playerInput.EditMode.Enable();
-            return;
-        }
-
-        if (isAttacking)
-        {
-            movementInput = Vector2.zero; //Stops player from moving while attacking
-            return;
-        }
-
-        if (PlayerControlsOption.instance.isOneHandMode)
-        {
-            // One hand mode: use right-click is down for movement
-            if (Input.GetMouseButton(1))
+            if (PlayerControlsOption.instance.isOneHandMode) //If Limited Dexterity Mode is active...
             {
-                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                mousePosition.z = 0; // Set z to 0 to ignore depth
-                playerDirection = (mousePosition - transform.position).normalized;
-                movementInput = playerDirection;
+                if (Input.GetButton("Fire2")) //If right mouse button is down
+                {
+                    //Calculate the direction to the mouse position and move player towards it
+                    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    mousePosition.z = 0; // Set z to 0 to ignore depth
+                    Vector3 direction = mousePosition - transform.position;
+
+                    if (direction.magnitude > 0.5f) //Deadzone: If player is within 0.5f of mouse, do not move; This prevents jittering
+                    {
+                        playerDirection = direction.normalized;
+                        movementInput = playerDirection;
+                    }
+                    else
+                    {
+                        movementInput = Vector2.zero;
+                    }
+                }
+                else
+                {
+                    movementInput = Vector2.zero;
+                }
             }
             else
             {
-                movementInput = Vector2.zero;
+                movementInput = inputVect.normalized; //Get the movement input from the player
             }
         }
-        else
+
+        if (currentStateCompleted == true) //If the current state is completed, determine the next state
         {
-            // Normal mode: use WASD or arrow keys for movement
-            movementInput = inputVect;
+            DetermineNewState();
         }
-
-        if (movementInput != Vector2.zero) //Animator
-        {
-            animator.SetBool("isWalking", true);    // sets to walking
-            playerDirection = movementInput;
-            animator.SetFloat("lastInputX", movementInput.x);   // grabs last input
-            animator.SetFloat("lastInputY", movementInput.y);
-
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);    // sets to idle
-
-        }
-
-        animator.SetFloat("inputX", movementInput.x); // conditionals for blend state
-        animator.SetFloat("inputY", movementInput.y);
+        UpdateState(); //Call to respective state's update function
     }
 
-    private void FixedUpdate() //Additional checks whilst in play mode
+    //STATE MACHINE FUNCTIONS
+    private void DetermineNewState() //Determine state that player should access
     {
+        currentStateCompleted = false;
         if (GameManager.instance.IsLevelEditorMode())
         {
-            return;
+            currentState = PlayerState.LevelEditor;
+            StartLevelEditorState();
         }
-        if (isAttacking)
+        else if (isAttacking)
         {
-            rb.linearVelocity = Vector2.zero;
+            currentState = PlayerState.Attacking;
+            StartAttackingState();
+        }
+        else if (movementInput != Vector2.zero)
+        {
+            currentState = PlayerState.Walking;
+            StartWalkingState();
         }
         else
         {
-            movementVelocity = movementInput * moveSpeed;
-            rb.linearVelocity = movementVelocity;
+            currentState = PlayerState.Idle;
+            StartIdleState();
         }
     }
 
-    // Keven's Additions ===========================================================
-
-    // Quest mode -----------------------------------------------
-    // input movement
-
-    public void OnMovement(InputAction.CallbackContext context)
+    private void UpdateState() //Update player based on current state by calling its respective function
     {
-        //Debug.Log("Moving" + context.ReadValue<Vector2>());
-        inputVect = context.ReadValue<Vector2>();
-        deviceType = context.control.name;
-        //Debug.Log("Device: " + deviceType);
-    }
-
-    public void OnAttack(InputAction.CallbackContext context)
-    {
-        if (context.performed && GameManager.instance.IsLevelEditorMode() == false && isAttacking == false)
+        switch (currentState)
         {
-            //playerAnimationBehaviour.PlayAttackAnimation();
-            Attack(aimVect);
-            // Debug.Log("Attacking" + aimVect);
+            case PlayerState.LevelEditor:
+                UpdateLevelEditorState();
+                break;
+            case PlayerState.Idle:
+                UpdateIdleState();
+                break;
+            case PlayerState.Walking:
+                UpdateWalkingState();
+                break;
+            case PlayerState.Attacking:
+                UpdateAttackingState();
+                break;
         }
     }
 
-
-    public void OnAim(InputAction.CallbackContext context)
+    //INDIVIDUAL STATE FUNCTIONS
+    private void StartLevelEditorState()
     {
-        if (context.performed)
-        {
-            aimVect = context.ReadValue<Vector2>();
-            deviceType = context.control.name;  // name of action
-
-            // Debug.Log("Pos:" + aimVect);
-            // Debug.Log("device: " + deviceType);
-        }
-
+        rb.linearVelocity = Vector2.zero;
+        //<Reset player sprite to default HERE>
     }
 
-    // Edit Mode -------------------------------------------------
+    private void UpdateLevelEditorState()
+    {
+        if (GameManager.instance.IsLevelEditorMode() == false)
+        {
+            currentStateCompleted = true;
+        }
+    }
 
-    // End of Additions ===========================================================
+    private void StartIdleState()
+    {
+        //<Play idle animation of current direction>
+        rb.linearVelocity = Vector2.zero;
+    }
 
+    private void UpdateIdleState()
+    {
+        if (movementInput != Vector2.zero || isAttacking || GameManager.instance.IsLevelEditorMode())
+        {
+            currentStateCompleted = true;
+        }
+    }
+
+    private void StartWalkingState()
+    {
+        //<Play walking animation of current direction>
+    }
+
+    private void UpdateWalkingState()
+    {
+        if (movementInput == Vector2.zero || isAttacking || GameManager.instance.IsLevelEditorMode())
+        {
+            rb.linearVelocity = Vector2.zero;
+            currentStateCompleted = true;
+            return;
+        }
+        playerDirection = movementInput;
+        movementVelocity = movementInput * moveSpeed;
+        rb.linearVelocity = movementVelocity;
+        //<Update animation based on direction>
+    }
+
+    private void StartAttackingState()
+    {
+        rb.linearVelocity = Vector2.zero;
+        //<Play attack animation of mouse direction>
+    }
+
+    private void UpdateAttackingState()
+    {
+        if (isAttacking == false || GameManager.instance.IsLevelEditorMode())
+        {
+            currentStateCompleted = true;
+        }
+    }
+
+    //PLAYER FUNCTIONS
     private void Attack(Vector2 aimVect) //Player attack
     {
         isAttacking = true;
@@ -193,11 +221,7 @@ public class PlayerManager : MonoBehaviour
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(aimVect); // using old input system
 
-            //Vector3 mousePosition = aimVect;
             mousePosition.z = 0;
-
-            // Debug.Log("Mouse Pos: " + mousePosition);
-            // Debug.Log("Aiming" + aimVect);
 
             direction = (mousePosition - transform.position).normalized;
         }
@@ -235,6 +259,14 @@ public class PlayerManager : MonoBehaviour
             }
             health -= damage;
             UIManager.instance.UpdatePlayerStats();
+
+            if (health <= 0) //If health is less than or equal to 0, go back to level editor
+            {
+                FullHeal();
+                keyCount = 0;
+                UIManager.instance.SwitchToLevelEditor();
+                UIManager.instance.ShowLossScreen();
+            }
         }
     }
 
@@ -296,4 +328,45 @@ public class PlayerManager : MonoBehaviour
     {
         Destroy(this);
     }
+
+    // Keven's Additions ===========================================================
+
+    // Quest mode -----------------------------------------------
+    // input movement
+
+    public void OnMovement(InputAction.CallbackContext context)
+    {
+        //Debug.Log("Moving" + context.ReadValue<Vector2>());
+        inputVect = context.ReadValue<Vector2>();
+        deviceType = context.control.name;
+        //Debug.Log("Device: " + deviceType);
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed && GameManager.instance.IsLevelEditorMode() == false && isAttacking == false)
+        {
+            //playerAnimationBehaviour.PlayAttackAnimation();
+            Attack(aimVect);
+            // Debug.Log("Attacking" + aimVect);
+        }
+    }
+
+
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            aimVect = context.ReadValue<Vector2>();
+            deviceType = context.control.name;  // name of action
+
+            // Debug.Log("Pos:" + aimVect);
+            // Debug.Log("device: " + deviceType);
+        }
+
+    }
+
+    // Edit Mode -------------------------------------------------
+
+    // End of Additions ===========================================================
 }
