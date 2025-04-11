@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -1694855804946264519}
   - component: {fileID: 8561564714307108140}
   m_Layer: 7
-  m_Name: Enemy_Melee
+  m_Name: Slime_Basic
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
