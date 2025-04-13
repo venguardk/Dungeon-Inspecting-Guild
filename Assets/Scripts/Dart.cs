@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class Dart : MonoBehaviour
 {
+    private string[] possibleTypes =
+{
+    "fire",
+    "none",
+    "electric",
+    "ice"
+    };
+    private string currentType = "none";
+    //type projectile (make it elemental in some cases)
     // This script is used on the Dart prefab and its interactions with the player and other objects
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -16,6 +25,25 @@ public class Dart : MonoBehaviour
         {
             this.gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
             this.gameObject.SetActive(false);
+        }
+    }
+    public void typeChange(string type)
+    {
+        bool inType = false;
+        for (int i = 0; i < possibleTypes.Length; i++)
+        {
+            if (type == possibleTypes[i])
+            {
+                inType = true;
+            }
+        }
+        if (!inType)
+        {
+            return;
+        }
+        else
+        {
+            currentType = type;
         }
     }
 }

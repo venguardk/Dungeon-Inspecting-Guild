@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Runtime.Versioning;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +14,14 @@ public class EnemyMelee : MonoBehaviour
     private Transform player;
     private Rigidbody2D rb;
     private bool isAttacking = false;
-
+    private string[] possibleTypes =
+{
+    "fire",
+    "none",
+    "electric",
+    "ice"
+    };
+    private string currentType = "none";
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object in the scene
@@ -49,6 +58,8 @@ public class EnemyMelee : MonoBehaviour
 
     }
 
+
+
     void ChasePlayer()
     {
         Vector2 directionToPlayer = (player.position - transform.position).normalized;
@@ -59,6 +70,25 @@ public class EnemyMelee : MonoBehaviour
     {
         rb.linearVelocity = Vector2.zero;
     }
+
+    public void typeChange(string type)
+    {
+        bool inType = false;
+        for (int i = 0; i < possibleTypes.Length; i++){
+           if(type == possibleTypes[i])
+              {
+               inType = true;
+              }
+            }
+            if (!inType)
+            {
+            return;
+            }
+        else
+        {
+            currentType = type;
+        }
+    } 
 
     void AttackPlayer()
     {
@@ -85,3 +115,4 @@ public class EnemyMelee : MonoBehaviour
         isAttacking = false;
     }
 }
+

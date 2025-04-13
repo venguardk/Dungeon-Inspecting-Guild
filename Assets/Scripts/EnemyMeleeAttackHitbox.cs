@@ -10,5 +10,6 @@ public class EnemyMeleeAttackHitbox : MonoBehaviour
         {
             other.GetComponent<PlayerManager>().TakeDamage(2);
         }
+        
     }
 }

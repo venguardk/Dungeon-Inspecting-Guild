@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Fireball : MonoBehaviour
@@ -6,10 +7,30 @@ public class Fireball : MonoBehaviour
     [SerializeField] private float maxDistance = 5f;
     private Vector3 startPosition;
     private float distanceTravelled;
-
+    private string currentType = "fire";
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        UnityEngine.Debug.Log(collision.gameObject.name);
         // If the fireball hits the player, deal 1 damage and deactivate the fireball
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            UnityEngine.Debug.Log("firefire");
+            EnemyMelee enemyMelee = collision.gameObject.GetComponent<EnemyMelee>();
+            if (enemyMelee != null)
+            {
+                enemyMelee.typeChange(currentType);
+                UnityEngine.Debug.Log("firechu");
+            }
+        }
+        else if (collision.gameObject.CompareTag("Projectile"))
+        {
+            Dart dart = collision.gameObject.GetComponent<Dart>();
+            if (dart != null)
+            {
+                dart.typeChange(currentType);
+                UnityEngine.Debug.Log("firearrow");
+            }
+        }
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerManager>().TakeDamage(1);
@@ -20,6 +41,7 @@ public class Fireball : MonoBehaviour
             // Fireball disappear when they hit non-player objects such as walls
             DeactivateFireball();
         }
+
     }
 
     public void StartDistanceCount() //When initially fired, the fireball will be 1/3 its normal size
