@@ -16,7 +16,9 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerActions playerInput;    //input system declaration
     Vector2 aimVect;
-    private Vector2 movementInput, movementVelocity, playerDirection, inputVect;
+    private Vector2 movementInput, movementVelocity, inputVect;
+    public Vector2 playerDirection;
+    public Vector2 initialSpawn;
 
     //PLAYER VARIABLES
     private Rigidbody2D rb;
@@ -32,6 +34,7 @@ public class PlayerManager : MonoBehaviour
     private int keyCount = 0;
     private Animator animator;  // animation component
     public string deviceType;
+    //public int initialSpawnX, initialSpawnY;
 
     private void Awake()
     {
@@ -62,6 +65,8 @@ public class PlayerManager : MonoBehaviour
         animator = GetComponent<Animator>();    // establishing animator
         aimVect = Vector2.zero;
         currentStateCompleted = true; //Set to true so that the state machine can start
+        initialSpawn = transform.position;
+
     }
 
     private void Update()
