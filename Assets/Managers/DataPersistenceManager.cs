@@ -17,6 +17,7 @@ public class DataPersistenceManager : MonoBehaviour
     private FileDataHandler dataHandler;
     private FileDataHandler saveHandler;
     private FileDataHandler optionHandler;
+    private string selectedProfileID = "0";
     public static DataPersistenceManager instance { get; private set; }
 
     //Main Save/Load systems based on How to make a Save & Load System in Unity - https://youtu.be/aUi9aijvpgs?si=GLtBO4zP_VGItJr-
@@ -62,8 +63,10 @@ public class DataPersistenceManager : MonoBehaviour
     // Resets the components with GameData and save it
     public void ResetGame()
     {
+        string levelName = this.gameData.levelName;
         this.gameData = new GameData();
-        saveHandler.Save(this.gameData);
+        this.gameData.levelName = levelName;
+        saveHandler.Save(this.gameData, selectedProfileID);
         
         Debug.Log("ResetGame");
     }
@@ -71,7 +74,7 @@ public class DataPersistenceManager : MonoBehaviour
     // Take an JSON file and load it in to GameData
     public void ImportGame()
     {
-        this.gameData = dataHandler.Load();
+        this.gameData = dataHandler.Load(selectedProfileID);
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
             dataPersistenceObj.LoadData(gameData);
@@ -93,14 +96,14 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.SaveData(ref gameData);
         }
-        dataHandler.Save(gameData);
+        dataHandler.Save(gameData, selectedProfileID);
         Debug.Log("ExportGame");
     }
 
     // Take the current GameData and use the variables within it to run LoadData script within each scripts with IDataPersistence
     public void LoadGame()
     {
-        this.gameData = saveHandler.Load();
+        this.gameData = saveHandler.Load(selectedProfileID);
         if (this.gameData == null)
         {
             Debug.Log("No game data");
@@ -129,7 +132,7 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.SaveData(ref gameData);
         }
-        saveHandler.Save(gameData);
+        saveHandler.Save(gameData, selectedProfileID);
         Debug.Log("SaveGame");
     }
 
@@ -169,6 +172,12 @@ public class DataPersistenceManager : MonoBehaviour
         Debug.Log("SaveOption");
     }
 
+    public void ChangeSelectedProfile(string profileID)
+    {
+        this.selectedProfileID = profileID;
+        LoadGame();
+    }
+
     // Load the data saved from the previous scene
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -190,5 +199,10 @@ public class DataPersistenceManager : MonoBehaviour
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjects);
+    }
+
+    public Dictionary<string, GameData> GetAllProfilesGameData()
+    {
+        return saveHandler.LoadAllProfiles();
     }
 }

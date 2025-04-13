@@ -26,7 +26,7 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
     {
         sceneMovement = SceneManager.GetActiveScene().name;
         NewGame = false;
-        SceneManager.LoadScene("Prototype 3");
+        SceneManager.LoadScene("SaveSlotsScene");
     }
 
     public void ContinueLevel() //Go to main level and continue from where the player left off
@@ -43,7 +43,7 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
             NewGame = false;
         }
 
-        SceneManager.LoadScene("Prototype 3");
+        SceneManager.LoadScene("SaveSlotsScene");
     }
 
     public void LoadInstructions() //Go to instructions page

@@ -19,9 +19,9 @@ public class FileDataHandler
         this.dataFileName = dataFileName;
     }
 
-    public GameData Load()
+    public GameData Load(string profileID)
     {
-        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
         GameDataSerialized loadedDataSerialized = null;
         GameData loadedData = null;
         if (File.Exists(fullPath))
@@ -49,12 +49,12 @@ public class FileDataHandler
         return loadedData;
     }
 
-    public void Save(GameData data)
+    public void Save(GameData data, string profileID)
     {
-        string fullPath = Path.Combine(dataDirPath, dataFileName);
+        string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
         try
         {
-            Directory.CreateDirectory(dataDirPath);
+            Directory.CreateDirectory(Path.Combine(dataDirPath, profileID));
             GameDataSerialized dataSerialized = new GameDataSerialized(data);
             string dataToStore = JsonUtility.ToJson(dataSerialized, true);
 
@@ -121,5 +121,34 @@ public class FileDataHandler
         {
             Debug.Log("Error saving data to file: " + fullPath + "\n" + e);
         }
+    }
+
+    public Dictionary<string, GameData> LoadAllProfiles()
+    {
+        Dictionary<string, GameData> profileDictionary = new Dictionary<string, GameData>();
+
+        IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories();
+
+        foreach (DirectoryInfo dirInfo in dirInfos)
+        {
+            string profileID = dirInfo.Name;
+            string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
+            if (!File.Exists(fullPath))
+            {
+                continue;
+            }
+
+            GameData profileData = Load(profileID);
+            if (profileData != null)
+            {
+                profileDictionary.Add(profileID, profileData);
+            }
+            else
+            {
+                Debug.Log("Null Data Loading. Profile ID: " + profileID);
+            }
+        }
+
+        return profileDictionary;
     }
 }

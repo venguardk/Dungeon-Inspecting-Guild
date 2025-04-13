@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameData
 {
     // For saving and loading Game levels
+    public string levelName;
     public Dictionary<Vector2, GameObject> RoomDictionary0;
     public Dictionary<Vector2, float> AngleDictionary0;
     public Dictionary<Vector2, GameObject> RoomDictionary1;
@@ -14,6 +15,7 @@ public class GameData
 
     public GameData()
     {
+        this.levelName = "Dungeon";
         this.initialObject = new List<GameObject>();
         this.RoomDictionary0 = new Dictionary<Vector2, GameObject>();
         this.AngleDictionary0 = new Dictionary<Vector2, float>();

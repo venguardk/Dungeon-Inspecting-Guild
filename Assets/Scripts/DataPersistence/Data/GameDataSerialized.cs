@@ -7,6 +7,7 @@ using System.IO;
 public class GameDataSerialized
 {
     // This script is for converting GameData into a format whih can be placed within JSON format
+    public string levelName;
     public List<SerializableGameObject> initialObject;
     public List<SerializableKeyValuePair<SerializableVector2, SerializableGameObject>> RoomDictionary0;
     public List<SerializableKeyValuePair<SerializableVector2, float>> AngleDictionary0;
@@ -16,6 +17,7 @@ public class GameDataSerialized
     // Converting Dictionary which are deserializable into List which are serializable, with serializable version of GameObject and Vector2 within them
     public GameDataSerialized(GameData gameData)
     {
+        levelName = gameData.levelName;
         initialObject = new List<SerializableGameObject>();
         foreach (GameObject obj in gameData.initialObject)
         {
@@ -57,6 +59,8 @@ public class GameDataSerialized
     public GameData ToGameData()
     {
         GameData gameData = new GameData();
+
+        gameData.levelName = levelName;
 
         gameData.initialObject = new List<GameObject>();
         foreach (var item in initialObject)
