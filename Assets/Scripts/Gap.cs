@@ -15,38 +15,37 @@ public class Gap : MonoBehaviour
     // if a monster wanders into the gap
     // - it dies
 
-    public bool isFalling = false;
+    public bool playerIsFalling = false;
     PlayerManager player;
-    private Vector3 temPos;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player enter gap");
-            FallIntoPit(other);
+            player = other.GetComponent<PlayerManager>();
+            PlayerFallIntoPit(other);
+        }
+        else if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("Enemy enter gap");
+            EnemyFallIntoPit(other);
         }
     }
 
-    private void FallIntoPit(Collider2D other)
+    private void PlayerFallIntoPit(Collider2D other)
     {
-        if (!isFalling)
+        if (!playerIsFalling)
         {
-            isFalling = true;
-            player = other.GetComponent<PlayerManager>();
-
+            playerIsFalling = true;
+           
             //Prevent the player from moving after stepping into the gap
             DisableMovement();
 
             //Visually show the player falling
             Debug.Log("Show player falling");
             //Move game object to the center of the gap and shrink
-            Vector3 fromPos = other.transform.position;
-            Vector3 toPos = transform.position;
-
-            Vector3 from = other.transform.localScale;
-            Vector3 to = new Vector3(0f, 0f, 0f);
-            StartCoroutine(SmoothScale(other,fromPos, toPos, from, to, 1.5f));
+            FallEffect(other);
 
             //Player takes 1 heart damage after falling into gap
             other.GetComponent<PlayerManager>().TakeDamage(2);
@@ -56,6 +55,30 @@ public class Gap : MonoBehaviour
 
             Invoke("ResetFallFlag", 1f);
         }
+    }
+
+    private void EnemyFallIntoPit(Collider2D other)
+    {
+        FallEffect(other);
+
+        StartCoroutine(RemoveEnemy(other)); //Used to let the fall animation play out before killing off the enemy
+    }
+
+    IEnumerator RemoveEnemy(Collider2D other)
+    {
+        //Wait 2 seconds before killing the enemy
+        yield return new WaitForSeconds(2f);
+        other.GetComponent<EnemyManager>().die();
+    }
+
+    private void FallEffect(Collider2D other)
+    {
+        Vector3 fromPos = other.transform.position;
+        Vector3 toPos = transform.position;
+
+        Vector3 from = other.transform.localScale;
+        Vector3 to = new Vector3(0f, 0f, 0f);
+        StartCoroutine(SmoothScale(other, fromPos, toPos, from, to, 1.5f));
     }
 
     //Respawns the player back to the safe zone
@@ -101,6 +124,6 @@ public class Gap : MonoBehaviour
 
     private void ResetFallFlag()
     {
-        isFalling = false;
+        playerIsFalling = false;
     }
 }
