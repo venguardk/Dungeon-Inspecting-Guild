@@ -18,7 +18,6 @@ public class PlayerManager : MonoBehaviour
     Vector2 aimVect;
     private Vector2 movementInput, movementVelocity, inputVect;
     public Vector2 playerDirection;
-    public Vector2 initialSpawn;
 
     //PLAYER VARIABLES
     private Rigidbody2D rb;
@@ -34,7 +33,8 @@ public class PlayerManager : MonoBehaviour
     private int keyCount = 0;
     private Animator animator;  // animation component
     public string deviceType;
-    //public int initialSpawnX, initialSpawnY;
+    public Vector2 initialSpawn;
+    public bool canMove = true;
 
     private void Awake()
     {
@@ -66,7 +66,6 @@ public class PlayerManager : MonoBehaviour
         aimVect = Vector2.zero;
         currentStateCompleted = true; //Set to true so that the state machine can start
         initialSpawn = transform.position;
-
     }
 
     private void Update()
@@ -100,6 +99,12 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 movementInput = inputVect.normalized; //Get the movement input from the player
+            }
+
+            //Disable player movement. This is for when the player falls into a gap
+            if (!canMove)
+            {
+                movementInput = Vector2.zero;
             }
         }
 

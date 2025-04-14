@@ -210,6 +210,8 @@ MonoBehaviour:
   playerAudioSource: {fileID: 8902557832130691057}
   attackAudioClip: {fileID: 8300000, guid: d70c9126231f34c519b18cb710747307, type: 3}
   deviceType: 
+  initialSpawn: {x: 0, y: 0}
+  canMove: 1
 --- !u!114 &-925508852802605198
 MonoBehaviour:
   m_ObjectHideFlags: 0
