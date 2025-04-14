@@ -38,11 +38,6 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
-        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "" || SceneLoadManager.sceneMovement == "MainMenu")
-        {
-            DataPersistenceManager.instance.ResetGame();
-        }
-
         if (instance == null)
         {
             instance = this;
@@ -51,17 +46,24 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         {
             Destroy(this);
         }
+
+        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "MainMenu")
+        {
+
+            DataPersistenceManager.instance.ResetGame();
+        }
     }
 
     void Start()
     {
+        
         StartCoroutine(RunAfterStart());
     }
 
     private IEnumerator RunAfterStart()
     {
         yield return new WaitForEndOfFrame();
-        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "" || SceneLoadManager.sceneMovement == "MainMenu")
+        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "MainMenu")
         {
             LevelSave();
         }

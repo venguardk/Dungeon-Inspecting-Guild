@@ -64,6 +64,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void ResetGame()
     {
         string levelName = this.gameData.levelName;
+
         this.gameData = new GameData();
         this.gameData.levelName = levelName;
         saveHandler.Save(this.gameData, selectedProfileID);
