@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CreativeMenu.unity
     guid: 9ef8ab0fc8224491fbbf6e3056eae950
   - enabled: 1
+    path: Assets/Scenes/Creative_LevelLayout1.unity
+    guid: a637a220310a845fb8b65b51e1bd180d
+  - enabled: 1
     path: Assets/Scenes/Prototype 3.unity
     guid: c9b8662c6e8c8414e99c7d3e599ee568
   - enabled: 1

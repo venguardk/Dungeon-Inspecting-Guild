@@ -26,7 +26,6 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
     {
         sceneMovement = SceneManager.GetActiveScene().name;
         NewGame = false;
-        SceneManager.LoadScene("SaveSlotsScene");
     }
 
     public void ContinueLevel() //Go to main level and continue from where the player left off
@@ -95,6 +94,27 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
     public void LoadOption(OptionData optionData)
     {
         this.NewGame = optionData.NewGame;
+    }
+
+    public void LoadSaveSlotMenu()
+    {
+        //Goes to SaveSlotScene
+        sceneMovement = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene("SaveSlotsScene");
+    }
+
+    public void LoadCreativeMenu()
+    {
+        //Goes to CreativeMenu
+        sceneMovement = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene("CreativeMenu");
+    }
+
+    public void LoadCreativeLevel(string sceneName)
+    {
+        //Goes to a specific CreativeLevel
+        sceneMovement = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
     }
 
     public void ExitGame() //Close game

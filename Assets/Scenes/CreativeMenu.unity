@@ -3810,14 +3810,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1933441968}
         m_TargetAssemblyTypeName: SceneLoadManager, Assembly-CSharp
-        m_MethodName: PlayLevel
-        m_Mode: 1
+        m_MethodName: LoadCreativeLevel
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Creative_LevelLayout1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1918914649
@@ -3840,7 +3840,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 2537852187660512945, guid: 2be8b7f5fa26649748dfd71f263d7a27, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
