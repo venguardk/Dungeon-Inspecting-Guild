@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
-public class SceneLoadManager : MonoBehaviour, IDataPersistence
+public class SceneLoadManager : MonoBehaviour
 {
     //This script handles the transition between scenes and the saving/loading of data
     public static SceneLoadManager instance;
@@ -76,6 +76,7 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
         //Goes to CreativeMenu
         //sceneMovement = SceneManager.GetActiveScene().name;
         //SceneManager.LoadScene("CreativeMenu");
+        nextScene = "";
         SceneManager.LoadScene("CreativeSaveSlotsScene");
     }
 
@@ -90,25 +91,5 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
     public void ExitGame() //Close game
     {
         Application.Quit();
-    }
-
-    public void LoadData(GameData data)
-    {
-        nextScene = data.sceneName;
-    }
-
-    public void SaveData(ref GameData data)
-    {
-        data.sceneName = nextScene;
-    }
-
-    public void LoadOption(OptionData data)
-    {
-        return;
-    }
-
-    public void SaveOption(ref OptionData data)
-    {
-        return;
     }
 }

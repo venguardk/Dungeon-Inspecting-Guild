@@ -21,10 +21,11 @@ public class SaveSlot : MonoBehaviour
 
     public void SetData(GameData data)
     {
-        if (data == null)
+        if (data == null || data.sceneName == "")
         {
             noDataContnet.SetActive(true);
             hasDataContnet.SetActive(false);
+            DataPersistenceManager.instance.DeleteProfileData(profileID);
         }
         else
         {

@@ -133,6 +133,7 @@ public class SaveSlotsManager : MonoBehaviour, IDataPersistence
         yield return new WaitUntil(() => !textFocus);
         levelName = dungeonName.text;
         dungeonName.gameObject.SetActive(false);
+        sceneName = SceneLoadManager.nextScene;
 
         SceneManager.LoadScene("CreativeMenu");
     }

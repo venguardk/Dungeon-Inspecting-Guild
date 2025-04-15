@@ -151,4 +151,30 @@ public class FileDataHandler
 
         return profileDictionary;
     }
+
+    public void Delete(string profileID)
+    {
+        if(profileID == null)
+        {
+            return;
+        }
+
+        string fullPath = Path.Combine(dataDirPath, profileID, dataFileName);
+        try
+        {
+            if (File.Exists(fullPath))
+            {
+                Debug.Log("Deleted");
+                Directory.Delete(Path.GetDirectoryName(fullPath), true);
+            }
+            else
+            {
+                Debug.Log("Error saving data to file, data not found at path: " + fullPath);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Error deleting data from profileID: " + profileID + " at path:" + fullPath + "\n" + e);
+        }
+    }
 }

@@ -183,6 +183,12 @@ public class DataPersistenceManager : MonoBehaviour
         LoadGame();
     }
 
+    public void DeleteProfileData(string profileID)
+    {
+        saveHandler.Delete(profileID);
+        LoadGame();
+    }
+
     // Load the data saved from the previous scene
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
