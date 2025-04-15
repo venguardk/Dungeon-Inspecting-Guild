@@ -16,8 +16,7 @@ public class PlayerManager : MonoBehaviour
 
     private PlayerActions playerInput;    //input system declaration
     Vector2 aimVect;
-    private Vector2 movementInput, movementVelocity, inputVect;
-    public Vector2 playerDirection;
+    private Vector2 movementInput, movementVelocity, inputVect, playerDirection;
 
     //PLAYER VARIABLES
     private Rigidbody2D rb;

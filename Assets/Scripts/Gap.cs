@@ -11,6 +11,7 @@ public class Gap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        //Checks the type of game object that's interacting with the gaps
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player enter gap");
@@ -41,9 +42,10 @@ public class Gap : MonoBehaviour
             //Player takes 1 heart damage after falling into gap
             other.GetComponent<PlayerManager>().TakeDamage(2);
 
-            // player spawns back to a safe spot after entering a gap
+            //Player spawns back to a safe spot after entering a gap
             StartCoroutine(Respawn(other));
 
+            //Cooldown to prevent multiple triggers from interacting with the gaps
             Invoke("ResetFallFlag", 1f);
         }
     }
@@ -64,12 +66,12 @@ public class Gap : MonoBehaviour
 
     private void FallEffect(Collider2D other)
     {
-        Vector3 fromPos = other.transform.position;
-        Vector3 toPos = transform.position;
+        Vector3 fromPos = other.transform.position; //The game object that interacted with the gap
+        Vector3 toPos = transform.position;         //The gap's position
 
-        Vector3 from = other.transform.localScale;
-        Vector3 to = new Vector3(0f, 0f, 0f);
-        StartCoroutine(SmoothScale(other, fromPos, toPos, from, to, 1.5f));
+        Vector3 from = other.transform.localScale;  //The current scale of the game object
+        Vector3 to = new Vector3(0f, 0f, 0f);       //The desire scale size when we want to scale the game object to
+        StartCoroutine(SmoothFall(other, fromPos, toPos, from, to, 1.5f));
     }
 
     //Respawns the player back to the safe zone
@@ -95,15 +97,15 @@ public class Gap : MonoBehaviour
     //To create the smooth animation of the player falling deeper into the gap.
     //It smoothly scales down the player to 0
     //Using Lerp to create the smooth transition
-    IEnumerator SmoothScale(Collider2D other, Vector3 startPos, Vector3 endPos, Vector3 startScale, Vector3 endScale, float duration)
+    IEnumerator SmoothFall(Collider2D other, Vector3 startPos, Vector3 endPos, Vector3 startScale, Vector3 endScale, float duration)
     {
         float time = 0f;
         
-        //Slowly change the scale of the game object
+        //Slowly overtime scales down the game object
         while (time < duration)
         {
-            other.transform.localScale = Vector3.Lerp(startScale, endScale, time / duration);
-            other.transform.position = Vector3.Lerp(startPos, endPos, time / duration);
+            other.transform.localScale = Vector3.Lerp(startScale, endScale, time / duration);   //slowly scales down the object
+            other.transform.position = Vector3.Lerp(startPos, endPos, time / duration);         //slowly positions the object to the center of the gap
             time += Time.deltaTime;
                
             yield return null; // Wait one frame
