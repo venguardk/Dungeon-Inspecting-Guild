@@ -8,7 +8,7 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
     public static SceneLoadManager instance;
     public static string previousScene = "";
     public static string sceneMovement = "";
-    private bool NewGame = true;
+    public static string nextScene = "";
 
     private void Awake()
     {
@@ -25,23 +25,11 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
     public void PlayLevel() //Go to main level
     {
         sceneMovement = SceneManager.GetActiveScene().name;
-        NewGame = false;
     }
 
     public void ContinueLevel() //Go to main level and continue from where the player left off
 
     {
-        if (NewGame == false)
-        {
-            sceneMovement = "ContinueLevel";
-            Debug.Log("Continue");
-        }
-        else
-        {
-            sceneMovement = SceneManager.GetActiveScene().name;
-            NewGame = false;
-        }
-
         SceneManager.LoadScene("SaveSlotsScene");
     }
 
@@ -76,26 +64,6 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void SaveData(ref GameData data)
-    {
-        return;
-    }
-
-    public void LoadData(GameData data)
-    {
-        return;
-    }
-    public void SaveOption(ref OptionData optionData)
-    {
-
-        optionData.NewGame = this.NewGame;
-    }
-
-    public void LoadOption(OptionData optionData)
-    {
-        this.NewGame = optionData.NewGame;
-    }
-
     public void LoadSaveSlotMenu()
     {
         //Goes to SaveSlotScene
@@ -106,19 +74,41 @@ public class SceneLoadManager : MonoBehaviour, IDataPersistence
     public void LoadCreativeMenu()
     {
         //Goes to CreativeMenu
-        sceneMovement = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene("CreativeMenu");
+        //sceneMovement = SceneManager.GetActiveScene().name;
+        //SceneManager.LoadScene("CreativeMenu");
+        SceneManager.LoadScene("CreativeSaveSlotsScene");
     }
 
     public void LoadCreativeLevel(string sceneName)
     {
         //Goes to a specific CreativeLevel
-        sceneMovement = SceneManager.GetActiveScene().name;
+        //sceneMovement = SceneManager.GetActiveScene().name;
+        nextScene = sceneName;
         SceneManager.LoadScene(sceneName);
     }
 
     public void ExitGame() //Close game
     {
         Application.Quit();
+    }
+
+    public void LoadData(GameData data)
+    {
+        nextScene = data.sceneName;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.sceneName = nextScene;
+    }
+
+    public void LoadOption(OptionData data)
+    {
+        return;
+    }
+
+    public void SaveOption(ref OptionData data)
+    {
+        return;
     }
 }

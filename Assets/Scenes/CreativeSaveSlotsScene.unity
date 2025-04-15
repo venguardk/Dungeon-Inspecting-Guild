@@ -659,7 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7bda35843a60b4096bd433faf5e167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profileID: 5
+  profileID: 1
   noDataContnet: {fileID: 1966456859}
   hasDataContnet: {fileID: 1023916377}
   namedText: {fileID: 984304493}
@@ -709,7 +709,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 231595644}
         m_TargetAssemblyTypeName: SaveSlotsManager, Assembly-CSharp
-        m_MethodName: OnSaveSlotClickedCommunity
+        m_MethodName: OnSaveSlotClickedCreative
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 363144654}
@@ -3396,7 +3396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7bda35843a60b4096bd433faf5e167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profileID: 4
+  profileID: 0
   noDataContnet: {fileID: 1732596117}
   hasDataContnet: {fileID: 231051588}
   namedText: {fileID: 1237339574}
@@ -3446,7 +3446,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 231595644}
         m_TargetAssemblyTypeName: SaveSlotsManager, Assembly-CSharp
-        m_MethodName: OnSaveSlotClickedCommunity
+        m_MethodName: OnSaveSlotClickedCreative
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 748889373}
@@ -5105,7 +5105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7bda35843a60b4096bd433faf5e167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profileID: 7
+  profileID: 3
   noDataContnet: {fileID: 1813082116}
   hasDataContnet: {fileID: 1940972960}
   namedText: {fileID: 1749716175}
@@ -5155,7 +5155,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 231595644}
         m_TargetAssemblyTypeName: SaveSlotsManager, Assembly-CSharp
-        m_MethodName: OnSaveSlotClickedCommunity
+        m_MethodName: OnSaveSlotClickedCreative
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1342287272}
@@ -6231,7 +6231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7bda35843a60b4096bd433faf5e167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profileID: 6
+  profileID: 2
   noDataContnet: {fileID: 250312040}
   hasDataContnet: {fileID: 883706361}
   namedText: {fileID: 619237350}
@@ -6281,7 +6281,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 231595644}
         m_TargetAssemblyTypeName: SaveSlotsManager, Assembly-CSharp
-        m_MethodName: OnSaveSlotClickedCommunity
+        m_MethodName: OnSaveSlotClickedCreative
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1822307459}

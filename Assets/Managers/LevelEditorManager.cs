@@ -47,7 +47,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
             Destroy(this);
         }
 
-        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "MainMenu")
+        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "" || SceneLoadManager.sceneMovement == "MainMenu")
         {
 
             DataPersistenceManager.instance.ResetGame();
@@ -63,7 +63,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     private IEnumerator RunAfterStart()
     {
         yield return new WaitForEndOfFrame();
-        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "MainMenu")
+        if (SceneLoadManager.sceneMovement == SceneManager.GetActiveScene().name || SceneLoadManager.sceneMovement == "" || SceneLoadManager.sceneMovement == "MainMenu")
         {
             LevelSave();
         }
@@ -370,6 +370,10 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
+        if (data.sceneName != SceneManager.GetActiveScene().name)
+        {
+            //SceneManager.LoadScene(data.sceneName);
+        }
         ResetCurrentThreatAssetsCount(); //Resetting the current threat assets count
         this.initialObject.Clear();
         foreach (GameObject items in data.initialObject)
@@ -395,6 +399,7 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData data)
     {
+        data.sceneName = SceneManager.GetActiveScene().name;
         data.initialObject.Clear();
         foreach (GameObject items in this.initialObject)
         {
@@ -455,6 +460,10 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
 
     private bool CoordinateChecker(Vector2 coordinate, Tilemap tilemap)
     {
+        if(tilemap == null)
+        {
+            return false;
+        }
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(coordinate);
 
         if (screenPosition.x >= 0 && screenPosition.x <= Screen.width && screenPosition.y >= 0 && screenPosition.y <= Screen.height)

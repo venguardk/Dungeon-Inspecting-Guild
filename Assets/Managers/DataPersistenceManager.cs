@@ -17,7 +17,7 @@ public class DataPersistenceManager : MonoBehaviour
     private FileDataHandler dataHandler;
     private FileDataHandler saveHandler;
     private FileDataHandler optionHandler;
-    private string selectedProfileID = "0";
+    private string selectedProfileID = "";
     public static DataPersistenceManager instance { get; private set; }
 
     //Main Save/Load systems based on How to make a Save & Load System in Unity - https://youtu.be/aUi9aijvpgs?si=GLtBO4zP_VGItJr-
@@ -63,6 +63,11 @@ public class DataPersistenceManager : MonoBehaviour
     // Resets the components with GameData and save it
     public void ResetGame()
     {
+        if(this.gameData == null)
+        {
+            this.dataPersistenceObjects = FindAllPersistenceObjects();
+            LoadGame();
+        }
         string levelName = this.gameData.levelName;
 
         this.gameData = new GameData();
@@ -115,7 +120,6 @@ public class DataPersistenceManager : MonoBehaviour
         {
             dataPersistenceObj.LoadData(gameData);
         }
-
         Debug.Log("LoadGame");
     }
 

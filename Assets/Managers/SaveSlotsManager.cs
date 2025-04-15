@@ -10,12 +10,18 @@ public class SaveSlotsManager : MonoBehaviour, IDataPersistence
     public static SaveSlotsManager instance;
     private SaveSlot[] saveSlots;
 
+    [SerializeField] private Button switchButton1;
+    [SerializeField] private Button switchButton2;
     [SerializeField] private Button backButton;
     [SerializeField] TMP_InputField dungeonName;
+
+    private bool ContNew = true;
 
     private bool textFocus;
 
     private string levelName;
+
+    private string sceneName;
 
     private void Awake()
     {
@@ -56,7 +62,7 @@ public class SaveSlotsManager : MonoBehaviour, IDataPersistence
             GameData profileData = null;
             profilesGameData.TryGetValue(saveSlot.GetProfileID(), out profileData);
             saveSlot.SetData(profileData);
-            if(profileData == null && SceneLoadManager.sceneMovement == "ContinueLevel")
+            if(profileData == null && ContNew == false)
             {
                 saveSlot.SetInteractable(false);
             }
@@ -67,36 +73,77 @@ public class SaveSlotsManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void OnSaveSlotClicked(SaveSlot saveSlot)
+
+    public void OnModeSwitched()
     {
-        DisableMenuButtons();
-        DataPersistenceManager.instance.ChangeSelectedProfile(saveSlot.GetProfileID());
-        if (SceneLoadManager.sceneMovement != "ContinueLevel")
+        if (ContNew == true)
         {
-            DataPersistenceManager.instance.NewGame();
-            
-            dungeonName.gameObject.SetActive(true);
-            //dungeonName.gameObject.transform.position = saveSlot.gameObject.transform.position;
-
-            StartCoroutine(InputHalt());
-            
-
-            
+            ContNew = false;
         }
         else
         {
-            SceneManager.LoadScene("Prototype 3");
+            ContNew = true;
+        }
+        ActivateMenu();
+    }
+
+    public void OnSaveSlotClickedCreative(SaveSlot saveSlot)
+    {
+        DisableMenuButtons();
+        DataPersistenceManager.instance.ChangeSelectedProfile(saveSlot.GetProfileID());
+
+        if (ContNew == true)
+        {
+            DataPersistenceManager.instance.ResetGame();
+            
+            dungeonName.gameObject.SetActive(true);
+
+            StartCoroutine(InputHalt());
+        }
+        else
+        {
+            SceneLoadManager.sceneMovement = "Continue";
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+
+    public void OnSaveSlotClickedCommunity(SaveSlot saveSlot)
+    {
+        DisableMenuButtons();
+        DataPersistenceManager.instance.ChangeSelectedProfile(saveSlot.GetProfileID());
+
+        if (ContNew == true)
+        {
+            DataPersistenceManager.instance.ResetGame();
+
+            dungeonName.gameObject.SetActive(true);
+
+            StartCoroutine(InputHaltCommunity());
+        }
+        else
+        {
+            SceneLoadManager.sceneMovement = "Continue";
+            SceneManager.LoadScene(sceneName);
         }
     }
 
     IEnumerator InputHalt()
     {
-        Debug.Log(textFocus);
         yield return new WaitUntil(() => textFocus);
-        Debug.Log(textFocus);
         yield return new WaitUntil(() => !textFocus);
         levelName = dungeonName.text;
         dungeonName.gameObject.SetActive(false);
+
+        SceneManager.LoadScene("CreativeMenu");
+    }
+
+    IEnumerator InputHaltCommunity()
+    {
+        yield return new WaitUntil(() => textFocus);
+        yield return new WaitUntil(() => !textFocus);
+        levelName = dungeonName.text;
+        dungeonName.gameObject.SetActive(false);
+
         SceneManager.LoadScene("Prototype 3");
     }
 
@@ -106,17 +153,21 @@ public class SaveSlotsManager : MonoBehaviour, IDataPersistence
         {
             saveSlot.SetInteractable(false);
         }
+        switchButton1.interactable = false;
+        switchButton2.interactable = false;
         backButton.interactable = false;
     }
 
     public void LoadData(GameData data)
     {
-        return;
+        this.levelName = data.levelName;
+        this.sceneName = data.sceneName;
     }
 
     public void SaveData(ref GameData data)
     {
         data.levelName = this.levelName;
+        data.sceneName = this.sceneName;
     }
 
     public void LoadOption(OptionData data)
