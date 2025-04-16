@@ -27,7 +27,8 @@ public class UIManager : MonoBehaviour
         "Restores the inspector back to full health when picked up.",
         "A box that the inspector can push.",
         "A shield that grants the inspector immunity for a few seconds.",
-        "A bridge that the inspector can use to cross gaps."
+        "A bridge that the inspector can use to cross gaps.",
+        "Emits electrical zaps every few seconds."
     };
     private string[] assetNames = new string[] //Array of asset descriptions
     {
@@ -40,7 +41,8 @@ public class UIManager : MonoBehaviour
         "Potion",
         "Box",
         "Shield",
-        "Bridge"
+        "Bridge",
+        "Electrical Plate"
     };
     public TMP_FontAsset fontEng;
     public TMP_FontAsset fontJap;
