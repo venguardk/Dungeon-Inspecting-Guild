@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using System.Collections;
 using UnityEngine;
 using System.Threading;
+using UnityEngine.Rendering;
 
 
 public class Gap : MonoBehaviour
@@ -22,6 +23,11 @@ public class Gap : MonoBehaviour
         {
             Debug.Log("Enemy enter gap");
             EnemyFallIntoPit(other);
+        }
+        else if (other.name == "Pushable_Box(Clone)")
+        {
+            Debug.Log("Box enter gap");
+            BoxToBridge(other);
         }
     }
 
@@ -57,6 +63,11 @@ public class Gap : MonoBehaviour
         StartCoroutine(RemoveEnemy(other)); //Used to let the fall animation play out before killing off the enemy
     }
 
+    private void BoxToBridge(Collider2D other)
+    {
+        StartCoroutine(ShiftBoxToPos(other));
+    }
+
     IEnumerator RemoveEnemy(Collider2D other)
     {
         //Wait 2 seconds before killing the enemy
@@ -72,6 +83,25 @@ public class Gap : MonoBehaviour
         Vector3 from = other.transform.localScale;  //The current scale of the game object
         Vector3 to = new Vector3(0f, 0f, 0f);       //The desire scale size when we want to scale the game object to
         StartCoroutine(SmoothFall(other, fromPos, toPos, from, to, 1.5f));
+    }
+
+    IEnumerator ShiftBoxToPos(Collider2D other)
+    {
+        Vector3 fromPos = other.transform.position;
+        Vector3 toPos = transform.position;
+
+        float time = 0f;
+        float duration = 1.5f;
+
+        while (time < duration)
+        {
+            other.transform.position = Vector3.Lerp(fromPos, toPos, time / duration);
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        other.transform.position = toPos;
     }
 
     //Respawns the player back to the safe zone
