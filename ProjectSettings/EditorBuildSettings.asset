@@ -35,6 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CreativeSaveSlotsScene.unity
     guid: 116b81acabde0314b9ae22684cd95386
+  - enabled: 1
+    path: Assets/Scenes/Prototype 5.unity
+    guid: 3eca97dd570ef20429ed6e5899857fb4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
