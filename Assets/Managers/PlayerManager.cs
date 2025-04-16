@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private AudioSource playerAudioSource;
     [SerializeField] private AudioClip attackAudioClip;
-    private bool isAttacking, isInvincible, isHurt;
+    private bool isAttacking, isInvincible, isHurt, isStunned;
     private int keyCount = 0;
     private Animator animator;  // animation component
     public string deviceType;
@@ -59,6 +60,7 @@ public class PlayerManager : MonoBehaviour
         health = 10;
         keyCount = 0;
         isInvincible = false;
+        isStunned = false;
         animator = GetComponent<Animator>();    // establishing animator
         aimVect = Vector2.zero;
         currentStateCompleted = true; //Set to true so that the state machine can start
@@ -66,6 +68,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        if (isStunned) return; // Stop all player action if stunned
+
         if (GameManager.instance.IsLevelEditorMode() == false) //If not in level editor mode...
         {
             if (PlayerControlsOption.instance.isOneHandMode) //If Limited Dexterity Mode is active...
@@ -270,6 +274,22 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void GetStunned(int duration)
+    {
+        if (!isStunned)
+        {
+            StartCoroutine(StunCoroutine(duration));
+        }
+    }
+
+    private IEnumerator StunCoroutine(int duration)
+    {
+        isStunned = true;                    
+        rb.linearVelocity = Vector2.zero;   
+        yield return new WaitForSeconds(duration); // pause for duration
+        isStunned = false; // start again
+    }
+
     private void EndDamageFlash()
     {
         playerSprite.color = Color.white;
@@ -344,7 +364,7 @@ public class PlayerManager : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && GameManager.instance.IsLevelEditorMode() == false && isAttacking == false)
+        if (context.performed && GameManager.instance.IsLevelEditorMode() == false && isStunned == false && isAttacking == false)
         {
             //playerAnimationBehaviour.PlayAttackAnimation();
             Attack(aimVect);

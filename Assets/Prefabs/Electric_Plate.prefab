@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 6418945877300415525}
   - component: {fileID: 2756201455298343807}
   - component: {fileID: 2088012961166698791}
-  - component: {fileID: 7913521838768431073}
+  - component: {fileID: 1331068835142950846}
   m_Layer: 6
   m_Name: Zaps
   m_TagString: Untagged
@@ -490,7 +490,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.28, y: 0.28}
   m_EdgeRadius: 0
---- !u!114 &7913521838768431073
+--- !u!114 &1331068835142950846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -499,6 +499,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7308909588420819118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91370156d54ea4a959c8ff4fa1661278, type: 3}
+  m_Script: {fileID: 11500000, guid: 840437cbe8986194bba3ed9313d83894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

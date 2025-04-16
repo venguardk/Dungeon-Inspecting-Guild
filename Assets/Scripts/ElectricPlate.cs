@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ElectricPlate : MonoBehaviour
 {
-    // This script is attached to the ElectricPLate prefab; The script controls the spikes that are activated and deactivated
+    // This script is attached to the ElectricPLate prefab; The script controls the zaps that are activated and deactivated
     [SerializeField] private GameObject zapComponent;
     [SerializeField] private float timeIntervals = 2f;
     [SerializeField] private AudioSource audioSrc;
@@ -24,7 +24,7 @@ public class ElectricPlate : MonoBehaviour
     {
         if (GameManager.instance.IsLevelEditorMode() == false)
         {
-            // If in play mode, start the spikes
+            // If in play mode, start the zaps
             if (isZapping == false)
             {
                 zapCollider.enabled = false;
@@ -34,10 +34,10 @@ public class ElectricPlate : MonoBehaviour
         }
         else
         {
-            // If in level editor mode, stop the spikes
+            // If in level editor mode, stop the zaps
             isZapping = false;
             StopAllCoroutines();
-            if (active) //If the spikes were active when swapping back to level editor, deactivate them
+            if (active) //If the zaps were active when swapping back to level editor, deactivate them
             {
                 zapCollider.enabled = true;
                 zapComponent.SetActive(false);
@@ -50,18 +50,18 @@ public class ElectricPlate : MonoBehaviour
     {
         while (true)
         {
-            // Activate and deactivate the spikes at regular intervals
+            // Activate and deactivate the zaps at regular intervals
             yield return new WaitForSeconds(timeIntervals);
             if (active)
             {
-                // If the spikes are active, deactivate them
+                // If the zaps are active, deactivate them
                 zapCollider.enabled = false;
                 zapComponent.SetActive(false);
                 active = false;
             }
             else
             {
-                // If the spikes are inactive, activate them
+                // If the zaps are inactive, activate them
                 zapCollider.enabled = true;
                 zapComponent.SetActive(true);
                 audioSrc.Play();
