@@ -38,6 +38,9 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
     private Dictionary<string, RoomData> rooms = new();
     private RoomData currentRoom => rooms.GetActiveRoom(activeRoomName); //Need to check the extension code
     private string[] tagList = { "AddedItem", "Enemy", "Collectible", "Player", "Gap" };
+    private string previousRoomName;
+    private bool hasPreviousRoom = false;
+
 
     private void Awake()
     {
@@ -101,6 +104,15 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         { //If the right mouse button is clicked, cancel addition
             assetButtons[currentButtonPressed].clicked = false;
             Destroy(GameObject.FindGameObjectWithTag("AssetImage"));
+        }
+
+        if (Input.GetKeyDown(KeyCode.U)) CreateRoom("testRoom");
+        if (Input.GetKeyDown(KeyCode.I)) SwitchRoom("testRoom");
+        if (Input.GetKeyDown(KeyCode.O)) PrintRoomSummary();
+        if (Input.GetKeyDown(KeyCode.P)) ValidateAllRooms();
+        if (Input.GetKeyDown(KeyCode.B)) // B for "Back"
+        {
+            SwitchToPreviousRoom();
         }
     }
 
@@ -598,17 +610,46 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         LevelLoad();
     }
 
+    public void SwitchToPreviousRoom()
+    {
+        if (hasPreviousRoom)
+        {
+            // Store current room before switching
+            string currentBeforeSwitch = activeRoomName;
+
+            // Switch to previous room
+            SwitchRoom(previousRoomName);
+
+            // Update previous room to be the one we just left
+            previousRoomName = currentBeforeSwitch;
+
+            Debug.Log($"Returned to previous room: {activeRoomName}");
+        }
+        else
+        {
+            Debug.LogWarning("No previous room available");
+        }
+    }
+
+    // Modified SwitchRoom to track history
     public void SwitchRoom(string roomName)
     {
         if (rooms.ContainsKey(roomName))
         {
+            // Only store history if we're actually changing rooms
+            if (roomName != activeRoomName)
+            {
+                previousRoomName = activeRoomName;
+                hasPreviousRoom = true;
+            }
+
             activeRoomName = roomName;
-            Debug.Log($"Switched to room {roomName}");
+            Debug.Log($"Switched to room: {roomName}");
             LevelLoad();
         }
         else
         {
-            Debug.LogWarning($"Room {roomName} does not exist.");
+            Debug.LogError($"Room '{roomName}' not found.");
         }
     }
 
