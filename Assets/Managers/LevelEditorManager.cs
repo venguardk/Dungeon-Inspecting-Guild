@@ -581,4 +581,66 @@ public class LevelEditorManager : MonoBehaviour, IDataPersistence
         && currentEnemies >= requiredEnemies;
     }
 
+    #region Multi-Room Support
+
+    public void CreateRoom(string roomName)
+    {
+        if (!rooms.ContainsKey(roomName))
+        {
+            rooms[roomName] = new RoomData();
+            Debug.Log($"Created new room: {roomName}");
+        }
+        else
+        {
+            Debug.LogWarning($"Room {roomName} already exists.");
+        }
+        activeRoomName = roomName;
+        LevelLoad();
+    }
+
+    public void SwitchRoom(string roomName)
+    {
+        if (rooms.ContainsKey(roomName))
+        {
+            activeRoomName = roomName;
+            Debug.Log($"Switched to room {roomName}");
+            LevelLoad();
+        }
+        else
+        {
+            Debug.LogWarning($"Room {roomName} does not exist.");
+        }
+    }
+
+    // Validate rooms and print result
+    public bool ValidateAllRooms()
+    {
+        foreach (var kv in rooms)
+        {
+            var room = kv.Value;
+            if (room == null ||
+                room.RoomDictionary0 == null || room.AngleDictionary0 == null ||
+                room.RoomDictionary1 == null || room.AngleDictionary1 == null)
+            {
+                Debug.LogError($"Room '{kv.Key}' is invalid.");
+                return false;
+            }
+        }
+        Debug.Log("All rooms are valid.");
+        return true;
+    }
+
+    // Log contents of all rooms
+    public void PrintRoomSummary()
+    {
+        foreach (var kv in rooms)
+        {
+            Debug.Log($"Room: {kv.Key} | Obj0: {kv.Value.RoomDictionary0.Count}, Obj1: {kv.Value.RoomDictionary1.Count}");
+        }
+    }
+
+    public string GetActiveRoomName() => activeRoomName;
+
+    #endregion
+
 }
