@@ -8,7 +8,8 @@ public class PlayerAttackbox : MonoBehaviour
         // If an enemy collides with the attack hitbox, deal damage to the enemy
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyManager>().TakeDamage(1);
+            Vector2 knockbackDirection = (other.transform.position - PlayerManager.instance.transform.position).normalized;
+            other.GetComponent<EnemyManager>().TakeDamage(1, knockbackDirection);
         }
     }
 }
