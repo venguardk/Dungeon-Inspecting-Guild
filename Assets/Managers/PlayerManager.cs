@@ -32,6 +32,7 @@ public class PlayerManager : MonoBehaviour
     private bool isAttacking, isInvincible, isHurt, isStunned;
     private int keyCount = 0;
     private Animator animator;  // animation component
+    private string currentDirection, lastDirection; // The current and previous direction of the player sprite; To be used as an argument for animator variable
     public string deviceType;
 
     private void Awake()
@@ -56,6 +57,8 @@ public class PlayerManager : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
         playerDirection = Vector2.down;
+        currentDirection = "down";
+        lastDirection = "down"; //Initial direction of player is down
         attackHitBox.SetActive(false);
         health = 10;
         keyCount = 0;
@@ -158,7 +161,9 @@ public class PlayerManager : MonoBehaviour
     private void StartLevelEditorState()
     {
         rb.linearVelocity = Vector2.zero;
-        //<Reset player sprite to default HERE>
+        currentDirection = "down"; // Reset direction to down
+        lastDirection = "down"; // Reset last direction to empty
+        PlayAnimation("idle", "down"); // TODO: Replace "idle", if necessary
     }
 
     private void UpdateLevelEditorState()
@@ -171,8 +176,8 @@ public class PlayerManager : MonoBehaviour
 
     private void StartIdleState()
     {
-        //<Play idle animation of current direction>
         rb.linearVelocity = Vector2.zero;
+        PlayAnimation("idle", currentDirection);
     }
 
     private void UpdateIdleState()
@@ -185,7 +190,8 @@ public class PlayerManager : MonoBehaviour
 
     private void StartWalkingState()
     {
-        //<Play walking animation of current direction>
+        lastDirection = ""; // Reset last direction to prevent animation from playing when idle
+        UpdateWalkAnimation(); // Play walking animation based on current direction
     }
 
     private void UpdateWalkingState()
@@ -194,18 +200,20 @@ public class PlayerManager : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
             currentStateCompleted = true;
+            lastDirection = ""; // Reset last direction to prevent animation from playing when idle
             return;
         }
         playerDirection = movementInput;
         movementVelocity = movementInput * moveSpeed;
         rb.linearVelocity = movementVelocity;
-        //<Update animation based on direction>
+
+        UpdateWalkAnimation();
     }
 
     private void StartAttackingState()
     {
         rb.linearVelocity = Vector2.zero;
-        //<Play attack animation of mouse direction>
+        PlayAnimation("idle", currentDirection); // TODO: Replace "idle", if necessary (such as with attack)
     }
 
     private void UpdateAttackingState()
@@ -284,8 +292,8 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator StunCoroutine(int duration)
     {
-        isStunned = true;                    
-        rb.linearVelocity = Vector2.zero;   
+        isStunned = true;
+        rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(duration); // pause for duration
         isStunned = false; // start again
     }
@@ -332,6 +340,45 @@ public class PlayerManager : MonoBehaviour
         isInvincible = false;
     }
 
+    // HELPER FUNCTIONS
+    private void UpdateCurrentDirection(Vector2 movementInput) //Update the currentDirection variable based on movement input
+    {
+        if (Mathf.Abs(movementInput.x) > Mathf.Abs(movementInput.y))
+        {
+            currentDirection = movementInput.x > 0 ? "right" : "left";
+        }
+        else
+        {
+            currentDirection = movementInput.y > 0 ? "up" : "down";
+        }
+    }
+
+    private void UpdateWalkAnimation() //Update the walking animation based on current direction
+    {
+        UpdateCurrentDirection(movementInput);
+
+        if (currentDirection != lastDirection)
+        {
+            PlayAnimation("idle", currentDirection); // TODO: Update "idle" to the correct walk animation name
+            lastDirection = currentDirection;
+        }
+    }
+
+    private void PlayAnimation(string action, string direction)
+    {
+        if (string.IsNullOrEmpty(direction)) //If direction is empty, use lastDirection
+        {
+            direction = lastDirection;
+        }
+        string animationToPlay = "player_" + action + "_" + direction; //Animation clip names should follow "player_<action>_<direction>" format
+
+        if (animationToPlay != animator.GetCurrentAnimatorClipInfo(0)[0].clip.name) //Avoid replaying current clip
+        {
+            //Debug.Log(animationToPlay); //For debugging; Delete in future
+            //animator.Play(animationToPlay);
+        }
+    }
+
     //FOR UI MANAGER
     public int GetPlayerHealth()
     {
@@ -366,9 +413,12 @@ public class PlayerManager : MonoBehaviour
     {
         if (context.performed && GameManager.instance.IsLevelEditorMode() == false && isStunned == false && isAttacking == false)
         {
-            //playerAnimationBehaviour.PlayAttackAnimation();
             Attack(aimVect);
-            // Debug.Log("Attacking" + aimVect);
+
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(aimVect); // using old input system
+            mousePosition.z = 0;
+            Vector3 aimDirection = (mousePosition - transform.position).normalized;
+            UpdateCurrentDirection(aimDirection); // Update the current direction based on aim vector for animation
         }
     }
 
