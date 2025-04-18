@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+  knockbackForce: 5
 --- !u!114 &4388433796444447554
 MonoBehaviour:
   m_ObjectHideFlags: 0
