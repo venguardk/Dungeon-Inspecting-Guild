@@ -177,7 +177,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLAY
+  m_text: 'CAMPAIGN
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -272,7 +274,9 @@ MonoBehaviour:
   - name: English
     language: English
     font: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-    text: PLAY
+    text: 'CAMPAIGN
+
+'
   - name: "\u65E5\u672C\u8A9E"
     language: "\u65E5\u672C\u8A9E"
     font: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
@@ -404,7 +408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Load
+  m_text: Community
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -499,7 +503,7 @@ MonoBehaviour:
   - name: English
     language: English
     font: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-    text: Load
+    text: Community
   - name: "\u65E5\u672C\u8A9E"
     language: "\u65E5\u672C\u8A9E"
     font: {fileID: 11400000, guid: edcff0f00b634c743a8e9f962a382d85, type: 2}
@@ -4223,7 +4227,7 @@ GameObject:
   - component: {fileID: 1655093415}
   - component: {fileID: 1655093414}
   m_Layer: 5
-  m_Name: PlayButton
+  m_Name: CampaignButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4534,7 +4538,7 @@ GameObject:
   - component: {fileID: 1898988761}
   - component: {fileID: 1898988760}
   m_Layer: 5
-  m_Name: LoadButton
+  m_Name: CommunityButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4567,7 +4571,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1898988758}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
